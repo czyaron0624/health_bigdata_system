@@ -1,0 +1,16 @@
+# 忽略 Python 虚拟环境
+venv/
+.venv/
+
+# 忽略 Docker 的数据库文件
+mysql_data/
+
+# 忽略 Python 缓存
+__pycache__/
+*.py[cod]
+
+# 忽略配置文件中的敏感信息（如果以后有密钥的话）
+.env
+
+# 忽略 VS Code 的本地设置
+.vscode/

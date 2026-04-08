@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>健康大数据统计分析决策系统</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 40px; }
+        .dashboard { display: flex; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex: 1; border-top: 4px solid #4CAF50; }
+        h1 { color: #333; }
+        .count { font-size: 2em; font-weight: bold; color: #2c3e50; }
+    </style>
+</head>
+<body>
+    <h1>🏥 健康大数据系统 - 概览</h1>
+    <hr>
+    <div class="dashboard">
+        <div class="card">
+            <h3>医疗机构总数</h3>
+            <div class="count">{{ inst_count }}</div>
+        </div>
+        <div class="card">
+            <h3>人口统计条目</h3>
+            <div class="count">{{ pop_count }}</div>
+        </div>
+        <div class="card">
+            <h3>系统状态</h3>
+            <div class="count" style="color: green;">运行中</div>
+        </div>
+    </div>
+</body>
+</html>

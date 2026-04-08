@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # 1. 数据库：存储健康大数据
+  db:
+    image: mysql:8.0
+    container_name: health_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: health_db
+      MYSQL_ROOT_PASSWORD: rootpassword 
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  # 2. 缓存：提升统计查询效率
+  redis:
+    image: redis:6.2-alpine
+    container_name: health_redis
+    restart: always
+    ports:
+      - "6379:6379"
