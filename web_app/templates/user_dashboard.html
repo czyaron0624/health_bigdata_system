@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+    <title>用户控制台 - 健康大数据应用创新研发中心统计分析决策系统</title>
+    <style>
+        :root {
+            --bg: #f5fbf8;
+            --surface: #ffffff;
+            --deep: #0f2f2d;
+            --soft: #4d706e;
+            --line: #d3e8e4;
+            --pri: #0f766e;
+            --pri-light: #14b8a6;
+            --warm: #d97706;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            color: var(--deep);
+            background:
+                radial-gradient(520px 260px at 0% 0%, rgba(20, 184, 166, 0.14), transparent 70%),
+                radial-gradient(520px 260px at 100% 0%, rgba(217, 119, 6, 0.1), transparent 72%),
+                var(--bg);
+            font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", sans-serif;
+        }
+
+        .topbar {
+            background: linear-gradient(90deg, #0b4f4a, #0f766e);
+            color: #effffc;
+            padding: 16px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: clamp(18px, 2.1vw, 26px);
+        }
+
+        .top-tools {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .badge {
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 999px;
+            padding: 5px 10px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .logout {
+            text-decoration: none;
+            background: #ffffff;
+            color: #0d514b;
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .container {
+            max-width: 1220px;
+            margin: 20px auto;
+            padding: 0 18px 20px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: 1.2fr 0.8fr;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 10px 18px rgba(8, 54, 48, 0.06);
+            animation: fadeUp 0.45s ease both;
+        }
+
+        .section-title {
+            margin: 0 0 12px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mini-btn {
+            border: 1px solid #b8ddd6;
+            background: #f4fffc;
+            border-radius: 8px;
+            color: #1f6661;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
+        .profile-box {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--pri), var(--pri-light));
+        }
+
+        .meta p {
+            margin: 4px 0;
+            color: var(--soft);
+            font-size: 13px;
+        }
+
+        .tips {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .tips li {
+            background: #f6fffd;
+            border: 1px solid #cce7e0;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 14px;
+            color: #2a5a57;
+        }
+
+        .chart-wrap {
+            border: 1px dashed #b7ddd3;
+            border-radius: 12px;
+            padding: 10px;
+            background: #f7fffc;
+        }
+
+        canvas {
+            width: 100%;
+            height: 230px;
+            display: block;
+        }
+
+        .stats {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .stat-item {
+            border-radius: 10px;
+            border: 1px solid #cde6df;
+            background: #ffffff;
+            padding: 9px;
+        }
+
+        .stat-item strong {
+            display: block;
+            font-size: 18px;
+            color: #0f635d;
+        }
+
+        .timeline {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .timeline li {
+            position: relative;
+            padding: 10px 10px 10px 14px;
+            border-left: 3px solid #14b8a6;
+            border-radius: 8px;
+            background: #f7fffd;
+            border-top: 1px solid #d8ebe6;
+            border-right: 1px solid #d8ebe6;
+            border-bottom: 1px solid #d8ebe6;
+        }
+
+        .timeline time {
+            display: block;
+            font-size: 12px;
+            color: #6a8d8a;
+            margin-bottom: 2px;
+        }
+
+        .api-json {
+            margin-top: 10px;
+            border: 1px solid #d3e8e4;
+            border-radius: 10px;
+            background: #f7fffd;
+            padding: 10px;
+            max-height: 180px;
+            overflow: auto;
+            white-space: pre-wrap;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12px;
+            color: #21524f;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1020px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <h1>🏥 健康大数据应用创新研发中心统计分析决策系统 · 用户控制台</h1>
+        <div class="top-tools">
+            <span class="badge">普通用户</span>
+            <span class="badge">个人数据中心</span>
+            <a class="logout" href="/logout">退出登录</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="grid">
+            <article class="card">
+                <h2 class="section-title">
+                    我的健康画像
+                    <button id="refreshProfile" class="mini-btn">刷新</button>
+                </h2>
+                <div class="profile-box">
+                    <div class="avatar" id="avatarText">U</div>
+                    <div class="meta">
+                        <strong id="usernameLine">用户账号: --</strong>
+                        <p id="syncedAt">最近同步: --</p>
+                        <p id="healthAdvice">健康指数: --</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 16px;">
+                    近7日健康趋势
+                    <button id="refreshTrend" class="mini-btn">刷新</button>
+                </h2>
+                <div class="chart-wrap">
+                    <canvas id="trendChart" width="800" height="260"></canvas>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item"><strong id="scoreVal">--</strong>综合健康分</div>
+                    <div class="stat-item"><strong id="integrityVal">--</strong>数据完整率</div>
+                    <div class="stat-item"><strong id="reportVal">--</strong>本周报告数</div>
+                </div>
+            </article>
+
+            <aside class="card">
+                <h2 class="section-title">
+                    智能建议
+                    <button id="refreshTips" class="mini-btn">刷新</button>
+                </h2>
+                <ul id="tipsList" class="tips"></ul>
+
+                <h2 class="section-title" style="margin-top: 16px;">
+                    近期提醒
+                    <button id="refreshReminders" class="mini-btn">刷新</button>
+                </h2>
+                <ul id="reminderList" class="timeline"></ul>
+
+                <h2 class="section-title" style="margin-top: 16px;">
+                    公共统计快照
+                    <button id="refreshApi" class="mini-btn">刷新</button>
+                </h2>
+                <div id="apiData" class="api-json">正在加载...</div>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+        function drawTrendChart(data, labels) {
+            const canvas = document.getElementById('trendChart');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = '#f7fffd';
+            ctx.fillRect(0, 0, w, h);
+
+            const left = 50;
+            const right = w - 20;
+            const top = 20;
+            const bottom = h - 35;
+            const chartW = right - left;
+            const chartH = bottom - top;
+
+            ctx.strokeStyle = '#d5eae4';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const y = top + (chartH / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(left, y);
+                ctx.lineTo(right, y);
+                ctx.stroke();
+            }
+
+            const min = Math.min(...data) - 5;
+            const max = Math.max(...data) + 5;
+            const stepX = chartW / (data.length - 1 || 1);
+
+            ctx.beginPath();
+            data.forEach((val, idx) => {
+                const x = left + idx * stepX;
+                const y = bottom - ((val - min) / (max - min || 1)) * chartH;
+                if (idx === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+
+            ctx.strokeStyle = '#0f766e';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            data.forEach((val, idx) => {
+                const x = left + idx * stepX;
+                const y = bottom - ((val - min) / (max - min || 1)) * chartH;
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#14b8a6';
+                ctx.fill();
+
+                ctx.fillStyle = '#2f605d';
+                ctx.font = '12px sans-serif';
+                const label = labels[idx] || String(idx + 1);
+                ctx.fillText(label, x - 4, bottom + 18);
+            });
+        }
+
+        async function loadProfile() {
+            const resp = await fetch('/user/api/profile');
+            const data = await resp.json();
+            if (!resp.ok) {
+                return;
+            }
+
+            const username = data.username || 'user';
+            document.getElementById('avatarText').textContent = username.charAt(0).toUpperCase();
+            document.getElementById('usernameLine').textContent = `用户账号: ${username}`;
+            document.getElementById('syncedAt').textContent = `最近同步: ${data.synced_at || '--'}`;
+            document.getElementById('healthAdvice').textContent = `健康指数: ${data.health_index || '--'}（${data.advice || '暂无建议'}）`;
+            document.getElementById('scoreVal').textContent = data.score ?? '--';
+            document.getElementById('integrityVal').textContent = data.integrity ?? '--';
+            document.getElementById('reportVal').textContent = data.report_count ?? '--';
+        }
+
+        async function loadTips() {
+            const listEl = document.getElementById('tipsList');
+            const resp = await fetch('/user/api/tips');
+            const data = await resp.json();
+            if (!resp.ok) {
+                listEl.innerHTML = '<li>暂无法加载智能建议</li>';
+                return;
+            }
+
+            listEl.innerHTML = (data.items || []).map(item => `<li>${item}</li>`).join('');
+        }
+
+        async function loadReminders() {
+            const listEl = document.getElementById('reminderList');
+            const resp = await fetch('/user/api/reminders');
+            const data = await resp.json();
+            if (!resp.ok) {
+                listEl.innerHTML = '<li><time>--</time>暂无法加载提醒</li>';
+                return;
+            }
+
+            listEl.innerHTML = (data.items || []).map(item => {
+                return `<li><time>${item.time || '--'}</time>${item.content || ''}</li>`;
+            }).join('');
+        }
+
+        async function loadTrend() {
+            const resp = await fetch('/user/api/trend');
+            const data = await resp.json();
+            if (!resp.ok) {
+                drawTrendChart([70, 71, 72, 73, 72, 71, 70], ['一', '二', '三', '四', '五', '六', '日']);
+                return;
+            }
+            drawTrendChart(data.values || [70], data.labels || ['一']);
+        }
+
+        async function loadHealthStats() {
+            const panel = document.getElementById('apiData');
+            try {
+                const resp = await fetch('/api/health-stats');
+                const data = await resp.json();
+                panel.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                panel.textContent = '无法获取统计数据，请检查后端接口或 Redis 服务。';
+            }
+        }
+
+        document.getElementById('refreshProfile').addEventListener('click', loadProfile);
+        document.getElementById('refreshTrend').addEventListener('click', loadTrend);
+        document.getElementById('refreshTips').addEventListener('click', loadTips);
+        document.getElementById('refreshReminders').addEventListener('click', loadReminders);
+        document.getElementById('refreshApi').addEventListener('click', loadHealthStats);
+
+        loadProfile();
+        loadTips();
+        loadReminders();
+        loadTrend();
+        loadHealthStats();
+    </script>
+</body>
+</html>

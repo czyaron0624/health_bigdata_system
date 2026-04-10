@@ -1,0 +1,7426 @@
+[
+  {
+    "news_id": 3,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2026年2月份医疗服务信息发布指标表",
+    "publish_date": "2026-04-08",
+    "year": 2026,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.3,
+        "raw": "7.30"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 382666.0,
+        "raw": "382666"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 69.9,
+        "raw": "0699"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6009.54,
+        "raw": "6009.54"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 908436.0,
+        "raw": "908436"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 124021.0,
+        "raw": "124021"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 190163.0,
+        "raw": "190163"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 219.99,
+        "raw": "219.99"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 17908610.0,
+        "raw": "17908610"
+      }
+    }
+  },
+  {
+    "news_id": 4,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2026年1月份医疗服务信息发布指标表",
+    "publish_date": "2026-03-31",
+    "year": 2026,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 383966.0,
+        "raw": "383966"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.7,
+        "raw": "74.70"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6394.93,
+        "raw": "6394.93"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1013886.0,
+        "raw": "1013886"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 124735.0,
+        "raw": "124735"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 190808.0,
+        "raw": "190808"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 219.81,
+        "raw": "219.81"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19973664.0,
+        "raw": "19973664"
+      }
+    }
+  },
+  {
+    "news_id": 5,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "历年广西每千人口床位数",
+    "publish_date": "2025-12-31",
+    "year": 2025,
+    "month": 12,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": null,
+        "raw": null
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": null,
+        "raw": null
+      }
+    }
+  },
+  {
+    "news_id": 6,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "历年广西每千人口执业医师和执业助理医师数",
+    "publish_date": "2025-12-31",
+    "year": 2025,
+    "month": 12,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": null,
+        "raw": null
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": null,
+        "raw": null
+      }
+    }
+  },
+  {
+    "news_id": 7,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "历年广西每千人口注册护士数",
+    "publish_date": "2025-12-31",
+    "year": 2025,
+    "month": 12,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": null,
+        "raw": null
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": null,
+        "raw": null
+      }
+    }
+  },
+  {
+    "news_id": 8,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "历年广西每万人口全科医生数",
+    "publish_date": "2025-12-31",
+    "year": 2025,
+    "month": 12,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": null,
+        "raw": null
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": null,
+        "raw": null
+      }
+    }
+  },
+  {
+    "news_id": 9,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年11月份医疗服务信息发布指标表",
+    "publish_date": "2025-12-26",
+    "year": 2025,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.8,
+        "raw": "7.80"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 382568.0,
+        "raw": "382568"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 77.1,
+        "raw": "77.10"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6231.81,
+        "raw": "6231.81"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1055103.0,
+        "raw": "1055103"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 123337.0,
+        "raw": "123337"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 191336.0,
+        "raw": "191336"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 218.99,
+        "raw": "218.99"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21503106.0,
+        "raw": "21503106"
+      }
+    }
+  },
+  {
+    "news_id": 10,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年10月份医疗服务信息发布指标表",
+    "publish_date": "2025-11-28",
+    "year": 2025,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.2,
+        "raw": "7.20"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 381264.0,
+        "raw": "381264"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.3,
+        "raw": "74.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6147.56,
+        "raw": "6147.56"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1041533.0,
+        "raw": "1041533"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 122982.0,
+        "raw": "122982"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 191276.0,
+        "raw": "191276"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 222.02,
+        "raw": "222.02"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20545801.0,
+        "raw": "20545801"
+      }
+    }
+  },
+  {
+    "news_id": 11,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年9月份医疗服务信息发布指标表",
+    "publish_date": "2025-10-27",
+    "year": 2025,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 8.0,
+        "raw": "8.00"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 380948.0,
+        "raw": "380948"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 73.9,
+        "raw": "73.90"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6357.35,
+        "raw": "6357.35"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1027227.0,
+        "raw": "1027227"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 122518.0,
+        "raw": "122518"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 191193.0,
+        "raw": "191193"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 219.36,
+        "raw": "219.36"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20621252.0,
+        "raw": "20621252"
+      }
+    }
+  },
+  {
+    "news_id": 12,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年8月份医疗服务信息发布指标表",
+    "publish_date": "2025-09-30",
+    "year": 2025,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 381476.0,
+        "raw": "381476"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 75.5,
+        "raw": "75.50"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6156.42,
+        "raw": "6156.42"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1074425.0,
+        "raw": "1074425"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 122326.0,
+        "raw": "122326"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 191054.0,
+        "raw": "191054"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 229.02,
+        "raw": "229.02"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20210785.0,
+        "raw": "20210785"
+      }
+    }
+  },
+  {
+    "news_id": 13,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年7月份医疗服务信息发布指标表",
+    "publish_date": "2025-08-29",
+    "year": 2025,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.2,
+        "raw": "7.20"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 381196.0,
+        "raw": "381196"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 78.3,
+        "raw": "78.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6226.35,
+        "raw": "6226.35"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1141155.0,
+        "raw": "1141155"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 121049.0,
+        "raw": "121049"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 189750.0,
+        "raw": "189750"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 228.89,
+        "raw": "228.89"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20650356.0,
+        "raw": "20650356"
+      }
+    }
+  },
+  {
+    "news_id": 14,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年6月份医疗服务信息发布指标表",
+    "publish_date": "2025-07-30",
+    "year": 2025,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 380615.0,
+        "raw": "380615"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 77.7,
+        "raw": "77.70"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6101.42,
+        "raw": "6101.42"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1086733.0,
+        "raw": "1086733"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 120320.0,
+        "raw": "120320"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 188568.0,
+        "raw": "188568"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 215.98,
+        "raw": "215.98"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20876438.0,
+        "raw": "20876438"
+      }
+    }
+  },
+  {
+    "news_id": 15,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年5月份医疗服务信息发布指标表",
+    "publish_date": "2025-06-27",
+    "year": 2025,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": null,
+        "raw": null
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.5,
+        "raw": "76.50"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6052.8,
+        "raw": "6052.80"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1116975.0,
+        "raw": "1116975"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 120306.0,
+        "raw": "120306"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 188258.0,
+        "raw": "188258"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 214.14,
+        "raw": "214.14"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21248637.0,
+        "raw": "21248637"
+      }
+    }
+  },
+  {
+    "news_id": 16,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年4月份医疗服务信息发布指标表",
+    "publish_date": "2025-05-27",
+    "year": 2025,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 380047.0,
+        "raw": "380047"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 78.2,
+        "raw": "78.20"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6221.88,
+        "raw": "6221.88"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1108106.0,
+        "raw": "1108106"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 120453.0,
+        "raw": "120453"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 188525.0,
+        "raw": "188525"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 216.55,
+        "raw": "216.55"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21436584.0,
+        "raw": "21436584"
+      }
+    }
+  },
+  {
+    "news_id": 17,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年3月份医疗服务信息发布指标表",
+    "publish_date": "2025-05-09",
+    "year": 2025,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 378398.0,
+        "raw": "378398"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 6.0,
+        "raw": "006"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6088.43,
+        "raw": "6088.43"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1178744.0,
+        "raw": "1178744"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 120408.0,
+        "raw": "120408"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 188418.0,
+        "raw": "188418"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 215.23,
+        "raw": "215.23"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21694411.0,
+        "raw": "21694411"
+      }
+    }
+  },
+  {
+    "news_id": 18,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年2月份医疗服务信息发布指标表",
+    "publish_date": "2025-03-20",
+    "year": 2025,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.6,
+        "raw": "6.60"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 60696.0,
+        "raw": "60696"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.2,
+        "raw": "74.20"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6448.73,
+        "raw": "6448.73"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 959928.0,
+        "raw": "959928"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 121118.0,
+        "raw": "121118"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 188507.0,
+        "raw": "188507"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 220.23,
+        "raw": "220.23"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19045471.0,
+        "raw": "19045471"
+      }
+    }
+  },
+  {
+    "news_id": 19,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2025年1月份医疗服务信息发布指标表",
+    "publish_date": "2025-02-19",
+    "year": 2025,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.9,
+        "raw": "6.90"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 376136.0,
+        "raw": "376136"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 68.8,
+        "raw": "68.80"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5925.98,
+        "raw": "5925.98"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1077978.0,
+        "raw": "1077978"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 121586.0,
+        "raw": "121586"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 188379.0,
+        "raw": "188379"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 212.29,
+        "raw": "212.29"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19953823.0,
+        "raw": "19953823"
+      }
+    }
+  },
+  {
+    "news_id": 20,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年广西各地区每千人口各类卫生人员数",
+    "publish_date": "2025-01-09",
+    "year": 2023,
+    "month": null,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": null,
+        "raw": null
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": null,
+        "raw": null
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": null,
+        "raw": null
+      }
+    }
+  },
+  {
+    "news_id": 21,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年11月份医疗服务信息发布指标表",
+    "publish_date": "2024-12-27",
+    "year": 2024,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 374845.0,
+        "raw": "374845"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 75.8,
+        "raw": "75.80"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6438.88,
+        "raw": "6438.88"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1055164.0,
+        "raw": "1055164"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 119198.0,
+        "raw": "119198"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 187923.0,
+        "raw": "187923"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 224.91,
+        "raw": "224.91"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20572698.0,
+        "raw": "20572698"
+      }
+    }
+  },
+  {
+    "news_id": 22,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年10月份医疗服务信息发布指标表",
+    "publish_date": "2024-11-27",
+    "year": 2024,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.1,
+        "raw": "7.10"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 375068.0,
+        "raw": "375068"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.3,
+        "raw": "74.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6409.2,
+        "raw": "6409.20"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1042135.0,
+        "raw": "1042135"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 118860.0,
+        "raw": "118860"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 187645.0,
+        "raw": "187645"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 222.41,
+        "raw": "222.41"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20427764.0,
+        "raw": "20427764"
+      }
+    }
+  },
+  {
+    "news_id": 23,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年9月份医疗服务信息发布指标表",
+    "publish_date": "2024-11-06",
+    "year": 2024,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.8,
+        "raw": "7.80"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 374279.0,
+        "raw": "374279"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 73.3,
+        "raw": "73.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6473.0,
+        "raw": "6473"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1038076.0,
+        "raw": "1038076"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 118446.0,
+        "raw": "118446"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 186593.0,
+        "raw": "186593"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 220.58,
+        "raw": "220.58"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19890647.0,
+        "raw": "19890647"
+      }
+    }
+  },
+  {
+    "news_id": 24,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年8月份医疗服务信息发布指标表",
+    "publish_date": "2024-09-27",
+    "year": 2024,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 372307.0,
+        "raw": "372307"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.6,
+        "raw": "76.60"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6485.78,
+        "raw": "6485.78"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1118726.0,
+        "raw": "1118726"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 117913.0,
+        "raw": "117913"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 186069.0,
+        "raw": "186069"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 228.77,
+        "raw": "228.77"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20301830.0,
+        "raw": "20301830"
+      }
+    }
+  },
+  {
+    "news_id": 25,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年7月份医疗服务信息发布指标表",
+    "publish_date": "2024-08-27",
+    "year": 2024,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7.00"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 371212.0,
+        "raw": "371212"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.3,
+        "raw": "82.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6343.83,
+        "raw": "6343.83"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1222963.0,
+        "raw": "1222963"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 116919.0,
+        "raw": "116919"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 185478.0,
+        "raw": "185478"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 227.9,
+        "raw": "227.90"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21117415.0,
+        "raw": "21117415"
+      }
+    }
+  },
+  {
+    "news_id": 26,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年6月份医疗服务信息发布指标表",
+    "publish_date": "2024-07-26",
+    "year": 2024,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 370392.0,
+        "raw": "370392"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.9,
+        "raw": "81.90"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6234.0,
+        "raw": "6234"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1169050.0,
+        "raw": "1169050"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 116170.0,
+        "raw": "116170"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 183874.0,
+        "raw": "183874"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 217.08,
+        "raw": "217.08"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20900544.0,
+        "raw": "20900544"
+      }
+    }
+  },
+  {
+    "news_id": 27,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年5月份医疗服务信息发布指标表",
+    "publish_date": "2024-06-28",
+    "year": 2024,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.1,
+        "raw": "7.10"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 368931.0,
+        "raw": "368931"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.2,
+        "raw": "83.20"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6318.45,
+        "raw": "6318.45"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1227275.0,
+        "raw": "1227275"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 116234.0,
+        "raw": "116234"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 183498.0,
+        "raw": "183498"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 211.95,
+        "raw": "211.95"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21385886.0,
+        "raw": "21385886"
+      }
+    }
+  },
+  {
+    "news_id": 28,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年4月份医疗服务信息主要指标表",
+    "publish_date": "2024-05-29",
+    "year": 2024,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.9,
+        "raw": "6.90"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 367977.0,
+        "raw": "367977"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.0,
+        "raw": "82.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6398.35,
+        "raw": "6398.35"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1188380.0,
+        "raw": "1188380"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 116092.0,
+        "raw": "116092"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 183436.0,
+        "raw": "183436"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 213.64,
+        "raw": "213.64"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20734288.0,
+        "raw": "20734288"
+      }
+    }
+  },
+  {
+    "news_id": 29,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年3月份医疗服务信息发布指标表",
+    "publish_date": "2024-04-30",
+    "year": 2024,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.3,
+        "raw": "7.30"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 366858.0,
+        "raw": "366858"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 84.6,
+        "raw": "84.60"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6492.05,
+        "raw": "6492.05"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1251988.0,
+        "raw": "1251988"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 116044.0,
+        "raw": "116044"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 183468.0,
+        "raw": "183468"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 214.09,
+        "raw": "214.09"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21775128.0,
+        "raw": "21775128"
+      }
+    }
+  },
+  {
+    "news_id": 30,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年2月份医疗服务信息发布指标表",
+    "publish_date": "2024-03-29",
+    "year": 2024,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.6,
+        "raw": "6.60"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 365306.0,
+        "raw": "365306"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 71.5,
+        "raw": "71.50"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6166.0,
+        "raw": "6166"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1052191.0,
+        "raw": "1052191"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 115975.0,
+        "raw": "115975"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 183205.0,
+        "raw": "183205"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 212.89,
+        "raw": "212.89"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18456434.0,
+        "raw": "18456434"
+      }
+    }
+  },
+  {
+    "news_id": 31,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2024年1月份医疗服务信息发布指标表",
+    "publish_date": "2024-03-14",
+    "year": 2024,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 0.0,
+        "raw": "0"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 364727.0,
+        "raw": "364727"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.2,
+        "raw": "83.20"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6229.05,
+        "raw": "6229.05"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1222466.0,
+        "raw": "1222466"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 115693.0,
+        "raw": "115693"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 182722.0,
+        "raw": "182722"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 208.6,
+        "raw": "208.60"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20866774.0,
+        "raw": "20866774"
+      }
+    }
+  },
+  {
+    "news_id": 32,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年11月份医疗服务信息发布指标表",
+    "publish_date": "2023-12-26",
+    "year": 2023,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.2,
+        "raw": "7.20"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 358853.0,
+        "raw": "358853"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.0,
+        "raw": "81.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6479.62,
+        "raw": "6479.62"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1115503.0,
+        "raw": "1115503"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 114544.0,
+        "raw": "114544"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 181544.0,
+        "raw": "181544"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 218.66,
+        "raw": "218.66"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21061278.0,
+        "raw": "21061278"
+      }
+    }
+  },
+  {
+    "news_id": 219,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年10月份医疗服务信息发布指标表",
+    "publish_date": "2023-12-04",
+    "year": 2023,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7.00"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 357125.0,
+        "raw": "357125"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 78.0,
+        "raw": "78.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6502.45,
+        "raw": "6502.45"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1072628.0,
+        "raw": "1072628"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 113806.0,
+        "raw": "113806"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 181160.0,
+        "raw": "181160"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 217.55,
+        "raw": "217.55"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20329122.0,
+        "raw": "20329122"
+      }
+    }
+  },
+  {
+    "news_id": 220,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年9月份医疗服务信息发布指标表",
+    "publish_date": "2023-10-31",
+    "year": 2023,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 354728.0,
+        "raw": "354728"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.8,
+        "raw": "76.80"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6423.9,
+        "raw": "6423.90"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1071159.0,
+        "raw": "1071159"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 112840.0,
+        "raw": "112840"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 179787.0,
+        "raw": "179787"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 208.14,
+        "raw": "208.14"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20623113.0,
+        "raw": "20623113"
+      }
+    }
+  },
+  {
+    "news_id": 221,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年8月份医疗服务信息发布指标表",
+    "publish_date": "2023-10-09",
+    "year": 2023,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 354548.0,
+        "raw": "354548"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.0,
+        "raw": "76"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6922.4,
+        "raw": "6922.40"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1067647.0,
+        "raw": "1067647"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 112318.0,
+        "raw": "112318"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 178967.0,
+        "raw": "178967"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 231.88,
+        "raw": "231.88"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19536025.0,
+        "raw": "19536025"
+      }
+    }
+  },
+  {
+    "news_id": 222,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年7月份医疗服务信息发布指标表",
+    "publish_date": "2023-08-31",
+    "year": 2023,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 353349.0,
+        "raw": "353349"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.0,
+        "raw": "80.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6869.0,
+        "raw": "6869"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1111183.0,
+        "raw": "1111183"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 111710.0,
+        "raw": "111710"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 177966.0,
+        "raw": "177966"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 235.42,
+        "raw": "235.42"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18989410.0,
+        "raw": "18989410"
+      }
+    }
+  },
+  {
+    "news_id": 223,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年6月份医疗服务信息发布指标表",
+    "publish_date": "2023-07-31",
+    "year": 2023,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 351644.0,
+        "raw": "351644"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.1,
+        "raw": "81.10"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6717.6,
+        "raw": "6717.60"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1114931.0,
+        "raw": "1114931"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 110924.0,
+        "raw": "110924"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 176197.0,
+        "raw": "176197"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 221.45,
+        "raw": "221.45"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19151123.0,
+        "raw": "19151123"
+      }
+    }
+  },
+  {
+    "news_id": 224,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年5月份医疗服务信息发布指标表",
+    "publish_date": "2023-07-03",
+    "year": 2023,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7.00"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 351143.0,
+        "raw": "351143"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 84.4,
+        "raw": "84.40"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6560.0,
+        "raw": "6560"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1194954.0,
+        "raw": "1194954"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 111001.0,
+        "raw": "111001"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 175903.0,
+        "raw": "175903"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 210.21,
+        "raw": "210.21"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20980717.0,
+        "raw": "20980717"
+      }
+    }
+  },
+  {
+    "news_id": 225,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年4月份医疗服务信息发布指标表",
+    "publish_date": "2023-06-02",
+    "year": 2023,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 9.0,
+        "raw": "9"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 347926.0,
+        "raw": "347926"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.1,
+        "raw": "83.10"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6205.0,
+        "raw": "6205"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1184986.0,
+        "raw": "1184986"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 110778.0,
+        "raw": "110778"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 175373.0,
+        "raw": "175373"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 204.45,
+        "raw": "204.45"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20704166.0,
+        "raw": "20704166"
+      }
+    }
+  },
+  {
+    "news_id": 226,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年3月份医疗服务信息发布指标表",
+    "publish_date": "2023-05-08",
+    "year": 2023,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 344743.0,
+        "raw": "344743"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.9,
+        "raw": "76.90"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7279.0,
+        "raw": "7279.00"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1032987.0,
+        "raw": "1032987"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 110574.0,
+        "raw": "110574"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 175199.0,
+        "raw": "175199"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 229.5,
+        "raw": "229.50"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19358146.0,
+        "raw": "19358146"
+      }
+    }
+  },
+  {
+    "news_id": 227,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年2月份医疗服务信息发布指标表",
+    "publish_date": "2023-04-07",
+    "year": 2023,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 342966.0,
+        "raw": "342966"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 71.0,
+        "raw": "71"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7954.34,
+        "raw": "7954.34"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 820059.0,
+        "raw": "820059"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 110221.0,
+        "raw": "110221"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 174761.0,
+        "raw": "174761"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 242.48,
+        "raw": "242.48"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 15662575.0,
+        "raw": "15662575"
+      }
+    }
+  },
+  {
+    "news_id": 228,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2023年1月份医疗服务信息发布指标表",
+    "publish_date": "2023-03-23",
+    "year": 2023,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7.00"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 341773.0,
+        "raw": "341773"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 71.0,
+        "raw": "71.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6778.25,
+        "raw": "6778.25"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 973968.0,
+        "raw": "973968"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 109851.0,
+        "raw": "109851"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 174280.0,
+        "raw": "174280"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 228.26,
+        "raw": "228.26"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 15436335.0,
+        "raw": "15436335"
+      }
+    }
+  },
+  {
+    "news_id": 229,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年11月份医疗服务信息发布指标表",
+    "publish_date": "2022-12-29",
+    "year": 2022,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 333531.0,
+        "raw": "333531"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.3,
+        "raw": "74.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7127.93,
+        "raw": "7127.93"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 916447.0,
+        "raw": "916447"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 109220.0,
+        "raw": "109220"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 172282.0,
+        "raw": "172282"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 219.38,
+        "raw": "219.38"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18812488.0,
+        "raw": "18812488"
+      }
+    }
+  },
+  {
+    "news_id": 230,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年10月份医疗服务信息发布指标表",
+    "publish_date": "2022-12-02",
+    "year": 2022,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.1,
+        "raw": "7.10"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 331853.0,
+        "raw": "331853"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 73.2,
+        "raw": "73.20"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6982.36,
+        "raw": "6982.36"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 296606.0,
+        "raw": "296606"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 108737.0,
+        "raw": "108737"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 171221.0,
+        "raw": "171221"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 213.62,
+        "raw": "213.62"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19134435.0,
+        "raw": "19134435"
+      }
+    }
+  },
+  {
+    "news_id": 231,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年9月份医疗服务信息发布指标表",
+    "publish_date": "2022-10-28",
+    "year": 2022,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 2.0,
+        "raw": "2"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 329466.0,
+        "raw": "329466"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 71.8,
+        "raw": "71.80"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7147.03,
+        "raw": "7147.03"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 890340.0,
+        "raw": "890340"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 107601.0,
+        "raw": "107601"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 169192.0,
+        "raw": "169192"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 212.47,
+        "raw": "212.47"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18715150.0,
+        "raw": "18715150"
+      }
+    }
+  },
+  {
+    "news_id": 232,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年8月份医疗服务信息发布指标表",
+    "publish_date": "2022-09-26",
+    "year": 2022,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.6,
+        "raw": "7.60"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 329121.0,
+        "raw": "329121"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.4,
+        "raw": "74.40"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7329.96,
+        "raw": "7329.96"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 932264.0,
+        "raw": "932264"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 106782.0,
+        "raw": "106782"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 168651.0,
+        "raw": "168651"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 220.09,
+        "raw": "220.09"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19399760.0,
+        "raw": "19399760"
+      }
+    }
+  },
+  {
+    "news_id": 233,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年7月份医疗服务信息发布指标表",
+    "publish_date": "2022-08-31",
+    "year": 2022,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.1,
+        "raw": "7.10"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 328932.0,
+        "raw": "328932"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.3,
+        "raw": "81.30"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6872.99,
+        "raw": "6872.99"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1060013.0,
+        "raw": "1060013"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 105552.0,
+        "raw": "105552"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 167707.0,
+        "raw": "167707"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 207.56,
+        "raw": "207.56"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19937068.0,
+        "raw": "19937068"
+      }
+    }
+  },
+  {
+    "news_id": 234,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年6月份医疗服务信息发布指标表",
+    "publish_date": "2022-08-31",
+    "year": 2022,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.3,
+        "raw": "7.30"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 327417.0,
+        "raw": "327417"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 84.6,
+        "raw": "84.60"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6674.93,
+        "raw": "6674.93"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 1076782.0,
+        "raw": "1076782"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 105686.0,
+        "raw": "105686"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 166833.0,
+        "raw": "166833"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 191.26,
+        "raw": "191.26"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 22048602.0,
+        "raw": "22048602"
+      }
+    }
+  },
+  {
+    "news_id": 235,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年5月份医疗服务信息发布指标表",
+    "publish_date": "2022-06-28",
+    "year": 2022,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 324513.0,
+        "raw": "324513"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 78.4,
+        "raw": "78.40"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7118.46,
+        "raw": "7118.46"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 964468.0,
+        "raw": "964468"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 105481.0,
+        "raw": "105481"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 166293.0,
+        "raw": "166293"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 199.47,
+        "raw": "199.47"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20556422.0,
+        "raw": "20556422"
+      }
+    }
+  },
+  {
+    "news_id": 236,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年4月份医疗服务信息发布指标表",
+    "publish_date": "2022-06-28",
+    "year": 2022,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 321496.0,
+        "raw": "321496"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.0,
+        "raw": "74.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7280.0,
+        "raw": "7280"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 866255.0,
+        "raw": "866255"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 105222.0,
+        "raw": "105222"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 166062.0,
+        "raw": "166062"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 197.99,
+        "raw": "197.99"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19169314.0,
+        "raw": "19169314"
+      }
+    }
+  },
+  {
+    "news_id": 237,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年3月份医疗服务信息发布指标表",
+    "publish_date": "2022-06-28",
+    "year": 2022,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 320717.0,
+        "raw": "320717"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 77.1,
+        "raw": "77.10"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7401.46,
+        "raw": "7401.46"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 946010.0,
+        "raw": "946010"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 105187.0,
+        "raw": "105187"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 165854.0,
+        "raw": "165854"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 203.85,
+        "raw": "203.85"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20104402.0,
+        "raw": "20104402"
+      }
+    }
+  },
+  {
+    "news_id": 238,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年2月份医疗服务信息发布指标表",
+    "publish_date": "2022-06-28",
+    "year": 2022,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.1,
+        "raw": "7.10"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 319163.0,
+        "raw": "319163"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 62.4,
+        "raw": "62.40"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7978.36,
+        "raw": "7978.36"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 611773.0,
+        "raw": "611773"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 105116.0,
+        "raw": "105116"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 165590.0,
+        "raw": "165590"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 192.23,
+        "raw": "192.23"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16006564.0,
+        "raw": "16006564"
+      }
+    }
+  },
+  {
+    "news_id": 239,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2022年1月份医疗服务信息发布指标表",
+    "publish_date": "2022-06-28",
+    "year": 2022,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7.00"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 318053.0,
+        "raw": "318053"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 69.8,
+        "raw": "69.80"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6786.86,
+        "raw": "6786.86"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 991616.0,
+        "raw": "991616"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 104480.0,
+        "raw": "104480"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 164247.0,
+        "raw": "164247"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 199.58,
+        "raw": "199.58"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19358564.0,
+        "raw": "19358564"
+      }
+    }
+  },
+  {
+    "news_id": 240,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年11月份医疗服务信息发布指标表",
+    "publish_date": "2021-12-28",
+    "year": 2021,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 8.07,
+        "raw": "8.07"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 311048.0,
+        "raw": "311048"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.94,
+        "raw": "74.94"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7006.0,
+        "raw": "7006"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 889482.0,
+        "raw": "889482"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 102411.0,
+        "raw": "102411"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 161969.0,
+        "raw": "161969"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 185.85,
+        "raw": "185.85"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21425648.0,
+        "raw": "21425648"
+      }
+    }
+  },
+  {
+    "news_id": 241,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年10月份医疗服务信息发布指标表",
+    "publish_date": "2021-11-26",
+    "year": 2021,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.31,
+        "raw": "7.31"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 308322.0,
+        "raw": "308322"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7134.27,
+        "raw": "7134.27"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 847141.0,
+        "raw": "847141"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 101942.0,
+        "raw": "101942"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 160932.0,
+        "raw": "160932"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 182.92,
+        "raw": "182.92"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19952130.0,
+        "raw": "19952130"
+      }
+    }
+  },
+  {
+    "news_id": 242,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年9月医疗服务信息发布指标表",
+    "publish_date": "2021-10-29",
+    "year": 2021,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 8.36,
+        "raw": "8.36"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 307927.0,
+        "raw": "307927"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 72.99,
+        "raw": "72.99"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7179.4,
+        "raw": "7179.40"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 858761.0,
+        "raw": "858761"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 101711.0,
+        "raw": "101711"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 160194.0,
+        "raw": "160194"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 186.86,
+        "raw": "186.86"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20017238.0,
+        "raw": "20017238"
+      }
+    }
+  },
+  {
+    "news_id": 243,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年8月医疗服务信息发布指标表",
+    "publish_date": "2021-09-26",
+    "year": 2021,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.46,
+        "raw": "7.46"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 307004.0,
+        "raw": "307004"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.43,
+        "raw": "76.43"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7139.49,
+        "raw": "7139.49"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 908578.0,
+        "raw": "908578"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 101516.0,
+        "raw": "101516"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 159719.0,
+        "raw": "159719"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 187.85,
+        "raw": "187.85"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21033555.0,
+        "raw": "21033555"
+      }
+    }
+  },
+  {
+    "news_id": 244,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年7月医疗服务信息发布指标表",
+    "publish_date": "2021-08-25",
+    "year": 2021,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.37,
+        "raw": "7.37"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 306389.0,
+        "raw": "306389"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.9,
+        "raw": "80.90"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7015.59,
+        "raw": "7015.59"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 963577.0,
+        "raw": "963577"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 100694.0,
+        "raw": "100694"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 158117.0,
+        "raw": "158117"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 191.65,
+        "raw": "191.65"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20363788.0,
+        "raw": "20363788"
+      }
+    }
+  },
+  {
+    "news_id": 245,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年6月医疗服务信息发布指标表",
+    "publish_date": "2021-07-27",
+    "year": 2021,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 8.86,
+        "raw": "8.86"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 304149.0,
+        "raw": "304149"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 79.35,
+        "raw": "79.35"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6989.89,
+        "raw": "6989.89"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 917126.0,
+        "raw": "917126"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 99888.0,
+        "raw": "99888"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 155927.0,
+        "raw": "155927"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 182.46,
+        "raw": "182.46"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20036188.0,
+        "raw": "20036188"
+      }
+    }
+  },
+  {
+    "news_id": 246,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年5月医疗服务信息发布指标表",
+    "publish_date": "2021-06-23",
+    "year": 2021,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.26,
+        "raw": "7.26"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 301872.0,
+        "raw": "301872"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.56,
+        "raw": "80.56"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6826.02,
+        "raw": "6826.02"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 98466.0,
+        "raw": "98466"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 155317.0,
+        "raw": "155317"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 184.85,
+        "raw": "184.85"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19718649.0,
+        "raw": "19718649"
+      }
+    }
+  },
+  {
+    "news_id": 247,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年4月医疗服务信息发布指标表",
+    "publish_date": "2021-05-25",
+    "year": 2021,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.45,
+        "raw": "7.45"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 299738.0,
+        "raw": "299738"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.69,
+        "raw": "76.69"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7121.48,
+        "raw": "7121.48"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 872570.0,
+        "raw": "872570"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 99692.0,
+        "raw": "99692"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 154756.0,
+        "raw": "154756"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 192.88,
+        "raw": "192.88"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18256152.0,
+        "raw": "18256152"
+      }
+    }
+  },
+  {
+    "news_id": 248,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年3月医疗服务信息发布指标表",
+    "publish_date": "2021-04-23",
+    "year": 2021,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 64.0,
+        "raw": "64"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 297924.0,
+        "raw": "297924"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 76.0,
+        "raw": "76"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7549.66,
+        "raw": "7549.66"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 867132.0,
+        "raw": "867132"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 99412.0,
+        "raw": "99412"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 153898.0,
+        "raw": "153898"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 196.96,
+        "raw": "196.96"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18780160.0,
+        "raw": "18780160"
+      }
+    }
+  },
+  {
+    "news_id": 249,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年2月医疗服务信息发布指标表",
+    "publish_date": "2021-03-24",
+    "year": 2021,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.78,
+        "raw": "6.78"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 296716.0,
+        "raw": "296716"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 63.28,
+        "raw": "63.28"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6892.0,
+        "raw": "6892"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 708034.0,
+        "raw": "708034"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 99542.0,
+        "raw": "99542"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 153332.0,
+        "raw": "153332"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 182.15,
+        "raw": "182.15"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16260917.0,
+        "raw": "16260917"
+      }
+    }
+  },
+  {
+    "news_id": 250,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2021年1月医疗服务信息发布指标表",
+    "publish_date": "2021-03-08",
+    "year": 2021,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.07,
+        "raw": "7.07"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 296635.0,
+        "raw": "296635"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.28,
+        "raw": "74.28"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7186.57,
+        "raw": "7186.57"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 797255.0,
+        "raw": "797255"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 99758.0,
+        "raw": "99758"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 152610.0,
+        "raw": "152610"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 181.75,
+        "raw": "181.75"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18245090.0,
+        "raw": "18245090"
+      }
+    }
+  },
+  {
+    "news_id": 251,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年11月医疗服务信息发布指标表",
+    "publish_date": "2020-12-23",
+    "year": 2020,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.6,
+        "raw": "7.60"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 292112.0,
+        "raw": "292112"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.62,
+        "raw": "82.62"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7226.62,
+        "raw": "7226.62"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 902468.0,
+        "raw": "902468"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 96921.0,
+        "raw": "96921"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 149560.0,
+        "raw": "149560"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 187.44,
+        "raw": "187.44"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19210178.0,
+        "raw": "19210178"
+      }
+    }
+  },
+  {
+    "news_id": 252,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年10月医疗服务信息发布指标表",
+    "publish_date": "2020-11-23",
+    "year": 2020,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.18,
+        "raw": "7.18"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 292102.0,
+        "raw": "292102"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.04,
+        "raw": "80.04"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7015.72,
+        "raw": "7015.72"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 886452.0,
+        "raw": "886452"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 95803.0,
+        "raw": "95803"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 148420.0,
+        "raw": "148420"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 181.0,
+        "raw": "181"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18834295.0,
+        "raw": "18834295"
+      }
+    }
+  },
+  {
+    "news_id": 253,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年9月医疗服务信息发布指标表",
+    "publish_date": "2020-10-29",
+    "year": 2020,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 164.0,
+        "raw": "164"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 290412.0,
+        "raw": "290412"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.6,
+        "raw": "81.60"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7276.8,
+        "raw": "7276.80"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 905552.0,
+        "raw": "905552"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 94901.0,
+        "raw": "94901"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 146550.0,
+        "raw": "146550"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 187.31,
+        "raw": "187.31"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18773951.0,
+        "raw": "18773951"
+      }
+    }
+  },
+  {
+    "news_id": 254,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年8月医疗服务信息发布指标表",
+    "publish_date": "2020-09-27",
+    "year": 2020,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.65,
+        "raw": "7.65"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 288368.0,
+        "raw": "288368"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.01,
+        "raw": "83.01"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7340.59,
+        "raw": "7340.59"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 912448.0,
+        "raw": "912448"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 145352.0,
+        "raw": "145352"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 194.4,
+        "raw": "194.40"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18485242.0,
+        "raw": "18485242"
+      }
+    }
+  },
+  {
+    "news_id": 255,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年7月医疗服务信息发布指标表",
+    "publish_date": "2020-08-21",
+    "year": 2020,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.71,
+        "raw": "7.71"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 286162.0,
+        "raw": "286162"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.87,
+        "raw": "80.87"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7453.17,
+        "raw": "7453.17"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 865471.0,
+        "raw": "865471"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 91355.0,
+        "raw": "91355"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 143424.0,
+        "raw": "143424"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 197.05,
+        "raw": "197.05"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 17880956.0,
+        "raw": "17880956"
+      }
+    }
+  },
+  {
+    "news_id": 256,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年6月医疗服务信息发布指标表",
+    "publish_date": "2020-07-23",
+    "year": 2020,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.95,
+        "raw": "7.95"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 283114.0,
+        "raw": "283114"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.59,
+        "raw": "81.59"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7513.87,
+        "raw": "7513.87"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 860011.0,
+        "raw": "860011"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 90266.0,
+        "raw": "90266"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 141307.0,
+        "raw": "141307"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 189.23,
+        "raw": "189.23"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 17162753.0,
+        "raw": "17162753"
+      }
+    }
+  },
+  {
+    "news_id": 257,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年5月医疗服务信息发布指标表",
+    "publish_date": "2020-06-24",
+    "year": 2020,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.51,
+        "raw": "7.51"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 283112.0,
+        "raw": "283112"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.16,
+        "raw": "80.16"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7575.41,
+        "raw": "7575.41"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 829669.0,
+        "raw": "829669"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 8006.0,
+        "raw": "8006"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 141007.0,
+        "raw": "141007"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 188.53,
+        "raw": "188.53"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16801126.0,
+        "raw": "16801126"
+      }
+    }
+  },
+  {
+    "news_id": 258,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年4月医疗服务信息发布指标表",
+    "publish_date": "2020-05-25",
+    "year": 2020,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.66,
+        "raw": "7.66"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 281721.0,
+        "raw": "281721"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 75.07,
+        "raw": "75.07"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7855.29,
+        "raw": "7855.29"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 758652.0,
+        "raw": "758652"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 89890.0,
+        "raw": "89890"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 140361.0,
+        "raw": "140361"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 196.85,
+        "raw": "196.85"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 14947140.0,
+        "raw": "14947140"
+      }
+    }
+  },
+  {
+    "news_id": 259,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年3月医疗服务信息发布指标表",
+    "publish_date": "2020-04-23",
+    "year": 2020,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.92,
+        "raw": "7.92"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 277094.0,
+        "raw": "277094"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 71.73,
+        "raw": "71.73"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7560.53,
+        "raw": "7560.53"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 730160.0,
+        "raw": "730160"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 89765.0,
+        "raw": "89765"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 139906.0,
+        "raw": "139906"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 196.0,
+        "raw": "196"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 13093171.0,
+        "raw": "13093171"
+      }
+    }
+  },
+  {
+    "news_id": 260,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年2月医疗服务信息发布指标表",
+    "publish_date": "2020-03-30",
+    "year": 2020,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.85,
+        "raw": "6.85"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 275440.0,
+        "raw": "275440"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 56.98,
+        "raw": "56.98"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6503.43,
+        "raw": "6503.43"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 538293.0,
+        "raw": "538293"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 89864.0,
+        "raw": "89864"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 140011.0,
+        "raw": "140011"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 175.83,
+        "raw": "175.83"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 9139715.0,
+        "raw": "9139715"
+      }
+    }
+  },
+  {
+    "news_id": 261,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2020年1月医疗服务信息发布指标表",
+    "publish_date": "2020-03-04",
+    "year": 2020,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.95,
+        "raw": "6.95"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 275742.0,
+        "raw": "275742"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 69.09,
+        "raw": "69.09"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6267.18,
+        "raw": "6267.18"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 783063.0,
+        "raw": "783063"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 89850.0,
+        "raw": "89850"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 139990.0,
+        "raw": "139990"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 168.89,
+        "raw": "168.89"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16649805.0,
+        "raw": "16649805"
+      }
+    }
+  },
+  {
+    "news_id": 262,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年11月医疗服务信息发布指标表",
+    "publish_date": "2019-12-25",
+    "year": 2019,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 270861.0,
+        "raw": "270861"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.53,
+        "raw": "81.53"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7138.03,
+        "raw": "7138.03"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 826716.0,
+        "raw": "826716"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 86258.0,
+        "raw": "86258"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 135783.0,
+        "raw": "135783"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 179.64,
+        "raw": "179.64"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18908016.0,
+        "raw": "18908016"
+      }
+    }
+  },
+  {
+    "news_id": 263,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年10月医疗服务信息发布指标表",
+    "publish_date": "2019-11-25",
+    "year": 2019,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.39,
+        "raw": "7.39"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 269111.0,
+        "raw": "269111"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.16,
+        "raw": "81.16"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6999.47,
+        "raw": "6999.47"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 840408.0,
+        "raw": "840408"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 848988.0,
+        "raw": "848988"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 134738.0,
+        "raw": "134738"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 172.91,
+        "raw": "172.91"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19043245.0,
+        "raw": "19043245"
+      }
+    }
+  },
+  {
+    "news_id": 264,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年9月医疗服务信息发布指标表",
+    "publish_date": "2019-10-24",
+    "year": 2019,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.77,
+        "raw": "7.77"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 267880.0,
+        "raw": "267880"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 98.84,
+        "raw": "98.84"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7130.42,
+        "raw": "7130.42"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 811283.0,
+        "raw": "811283"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 85714.0,
+        "raw": "85714"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 134162.0,
+        "raw": "134162"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 175.37,
+        "raw": "175.37"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18709635.0,
+        "raw": "18709635"
+      }
+    }
+  },
+  {
+    "news_id": 265,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年8月医疗服务信息发布指标表",
+    "publish_date": "2019-09-25",
+    "year": 2019,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.55,
+        "raw": "7.55"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 268007.0,
+        "raw": "268007"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.07,
+        "raw": "82.07"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 7091.12,
+        "raw": "7091.12"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 861220.0,
+        "raw": "861220"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 84845.0,
+        "raw": "84845"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 132982.0,
+        "raw": "132982"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 182.0,
+        "raw": "182"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18921941.0,
+        "raw": "18921941"
+      }
+    }
+  },
+  {
+    "news_id": 266,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年7月医疗服务信息发布指标表",
+    "publish_date": "2019-08-26",
+    "year": 2019,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.42,
+        "raw": "7.42"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 265594.0,
+        "raw": "265594"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 88.46,
+        "raw": "88.46"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6823.5,
+        "raw": "6823.50"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 953230.0,
+        "raw": "953230"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 83794.0,
+        "raw": "83794"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 132480.0,
+        "raw": "132480"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 177.69,
+        "raw": "177.69"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19874846.0,
+        "raw": "19874846"
+      }
+    }
+  },
+  {
+    "news_id": 267,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年6月医疗服务信息发布指标表",
+    "publish_date": "2019-07-24",
+    "year": 2019,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.46,
+        "raw": "7.46"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 263973.0,
+        "raw": "263973"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 88.26,
+        "raw": "88.26"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6531.07,
+        "raw": "6531.07"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 912904.0,
+        "raw": "912904"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 83123.0,
+        "raw": "83123"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 131041.0,
+        "raw": "131041"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 166.42,
+        "raw": "166.42"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19326200.0,
+        "raw": "19326200"
+      }
+    }
+  },
+  {
+    "news_id": 268,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年5月医疗服务信息发布指标表",
+    "publish_date": "2019-06-25",
+    "year": 2019,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 9.31,
+        "raw": "9.31"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 263382.0,
+        "raw": "263382"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 89.37,
+        "raw": "89.37"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6660.95,
+        "raw": "6660.95"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 935191.0,
+        "raw": "935191"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 82937.0,
+        "raw": "82937"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 130459.0,
+        "raw": "130459"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 162.82,
+        "raw": "162.82"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20331378.0,
+        "raw": "20331378"
+      }
+    }
+  },
+  {
+    "news_id": 269,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年4月医疗服务信息发布指标表",
+    "publish_date": "2019-05-24",
+    "year": 2019,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.45,
+        "raw": "7.45"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 261253.0,
+        "raw": "261253"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 88.13,
+        "raw": "88.13"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6647.52,
+        "raw": "6647.52"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 669606.0,
+        "raw": "669606"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 82461.0,
+        "raw": "82461"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 129841.0,
+        "raw": "129841"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 165.1,
+        "raw": "165.10"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19238323.0,
+        "raw": "19238323"
+      }
+    }
+  },
+  {
+    "news_id": 270,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年3月医疗服务信息发布指标表",
+    "publish_date": "2019-04-23",
+    "year": 2019,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.58,
+        "raw": "7.58"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 258096.0,
+        "raw": "258096"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 87.76,
+        "raw": "87.76"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6878.48,
+        "raw": "6878.48"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 893299.0,
+        "raw": "893299"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 82194.0,
+        "raw": "82194"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 129300.0,
+        "raw": "129300"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 164.22,
+        "raw": "164.22"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19105969.0,
+        "raw": "19105969"
+      }
+    }
+  },
+  {
+    "news_id": 271,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年2月医疗服务信息发布指标表",
+    "publish_date": "2019-04-01",
+    "year": 2019,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.71,
+        "raw": "6.71"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 255714.0,
+        "raw": "255714"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 74.53,
+        "raw": "74.53"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6670.77,
+        "raw": "6670.77"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 701777.0,
+        "raw": "701777"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 81780.0,
+        "raw": "81780"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 128910.0,
+        "raw": "128910"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 165.0,
+        "raw": "165"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 15753315.0,
+        "raw": "15753315"
+      }
+    }
+  },
+  {
+    "news_id": 272,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2019年1月医疗服务信息发布指标表",
+    "publish_date": "2019-03-12",
+    "year": 2019,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.24,
+        "raw": "7.24"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 256023.0,
+        "raw": "256023"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6658.48,
+        "raw": "6658.48"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 835622.0,
+        "raw": "835622"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 81104.0,
+        "raw": "81104"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 128193.0,
+        "raw": "128193"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 160.44,
+        "raw": "160.44"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19287222.0,
+        "raw": "19287222"
+      }
+    }
+  },
+  {
+    "news_id": 273,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年11月医疗服务信息发布指标表",
+    "publish_date": "2018-12-24",
+    "year": 2018,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 98.0,
+        "raw": "98"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 250754.0,
+        "raw": "250754"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 866.8,
+        "raw": "8668"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6680.69,
+        "raw": "6680.69"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 811746.0,
+        "raw": "811746"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 126257.0,
+        "raw": "126257"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 164.63,
+        "raw": "164.63"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19359221.0,
+        "raw": "19359221"
+      }
+    }
+  },
+  {
+    "news_id": 274,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年10月医疗服务信息发布指标表",
+    "publish_date": "2018-11-23",
+    "year": 2018,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.36,
+        "raw": "7.36"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 249507.0,
+        "raw": "249507"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.59,
+        "raw": "80.59"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6517.25,
+        "raw": "6517.25"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 90694.0,
+        "raw": "090694"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 79609.0,
+        "raw": "79609"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 125864.0,
+        "raw": "125864"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 160.52,
+        "raw": "160.52"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18665843.0,
+        "raw": "18665843"
+      }
+    }
+  },
+  {
+    "news_id": 275,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年9月医疗服务信息发布指标表",
+    "publish_date": "2018-10-26",
+    "year": 2018,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 8.64,
+        "raw": "8.64"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 247994.0,
+        "raw": "247994"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 188.4,
+        "raw": "1884"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6651.83,
+        "raw": "6651.83"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 751652.0,
+        "raw": "751652"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 79280.0,
+        "raw": "79280"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 124561.0,
+        "raw": "124561"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 162.0,
+        "raw": "162"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18399968.0,
+        "raw": "18399968"
+      }
+    }
+  },
+  {
+    "news_id": 276,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年8月医疗服务信息发布指标表",
+    "publish_date": "2018-09-25",
+    "year": 2018,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.63,
+        "raw": "7.63"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 247269.0,
+        "raw": "247269"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.6,
+        "raw": "80.60"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6725.88,
+        "raw": "6725.88"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 776647.0,
+        "raw": "776647"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 78797.0,
+        "raw": "78797"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 123586.0,
+        "raw": "123586"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 167.67,
+        "raw": "167.67"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19057144.0,
+        "raw": "19057144"
+      }
+    }
+  },
+  {
+    "news_id": 277,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年7月医疗服务信息发布指标表",
+    "publish_date": "2018-08-24",
+    "year": 2018,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.56,
+        "raw": "7.56"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 246245.0,
+        "raw": "246245"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.26,
+        "raw": "83.26"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6493.93,
+        "raw": "6493.93"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 802512.0,
+        "raw": "802512"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": null,
+        "raw": null
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 122623.0,
+        "raw": "122623"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 164.36,
+        "raw": "164.36"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19328240.0,
+        "raw": "19328240"
+      }
+    }
+  },
+  {
+    "news_id": 278,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年6月医疗服务信息发布指标表",
+    "publish_date": "2018-07-24",
+    "year": 2018,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 64.0,
+        "raw": "64"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 244974.0,
+        "raw": "244974"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.6,
+        "raw": "82.60"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6427.49,
+        "raw": "6427.49"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 773551.0,
+        "raw": "773551"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 77601.0,
+        "raw": "77601"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 121709.0,
+        "raw": "121709"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 157.8,
+        "raw": "157.80"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19263848.0,
+        "raw": "19263848"
+      }
+    }
+  },
+  {
+    "news_id": 279,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年5月医疗服务信息发布指标表",
+    "publish_date": "2018-06-22",
+    "year": 2018,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.41,
+        "raw": "7.41"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 244430.0,
+        "raw": "244430"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 85.24,
+        "raw": "85.24"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6389.46,
+        "raw": "6389.46"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 828201.0,
+        "raw": "828201"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 77408.0,
+        "raw": "77408"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 121605.0,
+        "raw": "121605"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 156.0,
+        "raw": "156"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20274119.0,
+        "raw": "20274119"
+      }
+    }
+  },
+  {
+    "news_id": 280,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年4月医疗服务信息发布指标表",
+    "publish_date": "2018-05-23",
+    "year": 2018,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.79,
+        "raw": "7.79"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 243124.0,
+        "raw": "243124"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.63,
+        "raw": "80.63"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6418.58,
+        "raw": "6418.58"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 741840.0,
+        "raw": "741840"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 76952.0,
+        "raw": "76952"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 121349.0,
+        "raw": "121349"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 153.23,
+        "raw": "153.23"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18460765.0,
+        "raw": "18460765"
+      }
+    }
+  },
+  {
+    "news_id": 281,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年3月医疗服务信息发布指标表",
+    "publish_date": "2018-04-27",
+    "year": 2018,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.51,
+        "raw": "7.51"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 242087.0,
+        "raw": "242087"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.01,
+        "raw": "83.01"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6529.02,
+        "raw": "6529.02"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": null,
+        "raw": null
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 10894.0,
+        "raw": "10894"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 120920.0,
+        "raw": "120920"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 156.32,
+        "raw": "156.32"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19451211.0,
+        "raw": "19451211"
+      }
+    }
+  },
+  {
+    "news_id": 282,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年2月份医疗服务信息发布指标表",
+    "publish_date": "2018-03-23",
+    "year": 2018,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.9,
+        "raw": "6.90"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 241137.0,
+        "raw": "241137"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 68.86,
+        "raw": "68.86"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6068.81,
+        "raw": "6068.81"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 625509.0,
+        "raw": "625509"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 76356.0,
+        "raw": "76356"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 122108.0,
+        "raw": "122108"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 152.72,
+        "raw": "152.72"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16043213.0,
+        "raw": "16043213"
+      }
+    }
+  },
+  {
+    "news_id": 283,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2018年1月医疗服务信息发布指标表",
+    "publish_date": "2018-03-02",
+    "year": 2018,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.17,
+        "raw": "7.17"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 240797.0,
+        "raw": "240797"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6266.4,
+        "raw": "6266.40"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 700659.0,
+        "raw": "700659"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 76215.0,
+        "raw": "76215"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 122057.0,
+        "raw": "122057"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 152.8,
+        "raw": "152.80"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18515644.0,
+        "raw": "18515644"
+      }
+    }
+  },
+  {
+    "news_id": 284,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年11月医疗服务信息发布指标表",
+    "publish_date": "2017-12-25",
+    "year": 2017,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.54,
+        "raw": "7.54"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 232805.0,
+        "raw": "232805"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 79.35,
+        "raw": "79.35"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6458.75,
+        "raw": "6458.75"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 699411.0,
+        "raw": "699411"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 75592.0,
+        "raw": "75592"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 118217.0,
+        "raw": "118217"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 151.0,
+        "raw": "151"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18818968.0,
+        "raw": "18818968"
+      }
+    }
+  },
+  {
+    "news_id": 285,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年10月医疗服务信息发布指标表",
+    "publish_date": "2017-11-24",
+    "year": 2017,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.06,
+        "raw": "7.06"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 232545.0,
+        "raw": "232545"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 77.53,
+        "raw": "77.53"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5927.76,
+        "raw": "5927.76"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 724552.0,
+        "raw": "724552"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 75180.0,
+        "raw": "75180"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 117439.0,
+        "raw": "117439"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 148.11,
+        "raw": "148.11"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19730068.0,
+        "raw": "19730068"
+      }
+    }
+  },
+  {
+    "news_id": 286,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年9月医疗服务信息发布指标表",
+    "publish_date": "2017-10-26",
+    "year": 2017,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.64,
+        "raw": "7.64"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 231692.0,
+        "raw": "231692"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 79.46,
+        "raw": "79.46"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6062.59,
+        "raw": "6062.59"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 725305.0,
+        "raw": "725305"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 74889.0,
+        "raw": "74889"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 116919.0,
+        "raw": "116919"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 148.0,
+        "raw": "148"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19183630.0,
+        "raw": "19183630"
+      }
+    }
+  },
+  {
+    "news_id": 287,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年8月医疗服务信息发布指标表",
+    "publish_date": "2017-09-25",
+    "year": 2017,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.4,
+        "raw": "7.40"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 230219.0,
+        "raw": "230219"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.35,
+        "raw": "82.35"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 6077.04,
+        "raw": "6077.04"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 765165.0,
+        "raw": "765165"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 74707.0,
+        "raw": "74707"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 116631.0,
+        "raw": "116631"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 162.62,
+        "raw": "162.62"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18954898.0,
+        "raw": "18954898"
+      }
+    }
+  },
+  {
+    "news_id": 288,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年7月医疗服务信息发布指标表",
+    "publish_date": "2017-08-25",
+    "year": 2017,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.1,
+        "raw": "7.10"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 230245.0,
+        "raw": "230245"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 88.13,
+        "raw": "88.13"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5580.56,
+        "raw": "5580.56"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 818045.0,
+        "raw": "818045"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 74587.0,
+        "raw": "74587"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 114529.0,
+        "raw": "114529"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 141.03,
+        "raw": "141.03"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20939275.0,
+        "raw": "20939275"
+      }
+    }
+  },
+  {
+    "news_id": 289,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年6月医疗服务信息发布指标表",
+    "publish_date": "2017-07-27",
+    "year": 2017,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.45,
+        "raw": "7.45"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 228673.0,
+        "raw": "228673"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": null,
+        "raw": null
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5626.54,
+        "raw": "5626.54"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 831710.0,
+        "raw": "831710"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 74188.0,
+        "raw": "74188"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 113781.0,
+        "raw": "113781"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 139.44,
+        "raw": "139.44"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21079217.0,
+        "raw": "21079217"
+      }
+    }
+  },
+  {
+    "news_id": 290,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年5月医疗服务信息发布指标表",
+    "publish_date": "2017-06-23",
+    "year": 2017,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.23,
+        "raw": "7.23"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 227283.0,
+        "raw": "227283"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 88.06,
+        "raw": "88.06"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5562.56,
+        "raw": "5562.56"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 821630.0,
+        "raw": "821630"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 73957.0,
+        "raw": "73957"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 113551.0,
+        "raw": "113551"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 136.41,
+        "raw": "136.41"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 21412384.0,
+        "raw": "21412384"
+      }
+    }
+  },
+  {
+    "news_id": 291,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年4月医疗服务信息发布指标表",
+    "publish_date": "2017-05-25",
+    "year": 2017,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.23,
+        "raw": "7.23"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 225037.0,
+        "raw": "225037"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 86.94,
+        "raw": "86.94"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5610.91,
+        "raw": "5610.91"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 761810.0,
+        "raw": "761810"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 73481.0,
+        "raw": "73481"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 113269.0,
+        "raw": "113269"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 136.29,
+        "raw": "136.29"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20124803.0,
+        "raw": "20124803"
+      }
+    }
+  },
+  {
+    "news_id": 292,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年3月份医疗服务信息发布指标表",
+    "publish_date": "2017-04-26",
+    "year": 2017,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.49,
+        "raw": "7.49"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 223898.0,
+        "raw": "223898"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 84.26,
+        "raw": "84.26"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5805.09,
+        "raw": "5805.09"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 758512.0,
+        "raw": "758512"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 73335.0,
+        "raw": "73335"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 113139.0,
+        "raw": "113139"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 138.32,
+        "raw": "138.32"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19688824.0,
+        "raw": "19688824"
+      }
+    }
+  },
+  {
+    "news_id": 293,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年2月医疗服务信息发布指标表",
+    "publish_date": "2017-03-22",
+    "year": 2017,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 88.0,
+        "raw": "88"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 223823.0,
+        "raw": "223823"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 668.4,
+        "raw": "6684"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5745.21,
+        "raw": "5745.21"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 622345.0,
+        "raw": "622345"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 73128.0,
+        "raw": "73128"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 112867.0,
+        "raw": "112867"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 144.0,
+        "raw": "144"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 17138002.0,
+        "raw": "17138002"
+      }
+    }
+  },
+  {
+    "news_id": 294,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2017年1月医疗服务信息发布指标表",
+    "publish_date": "2017-02-27",
+    "year": 2017,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.14,
+        "raw": "7.14"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 220664.0,
+        "raw": "220664"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 70.0,
+        "raw": "70.00"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5453.68,
+        "raw": "5453.68"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 643775.0,
+        "raw": "643775"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 72791.0,
+        "raw": "72791"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 112077.0,
+        "raw": "112077"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 138.17,
+        "raw": "138.17"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16516069.0,
+        "raw": "16516069"
+      }
+    }
+  },
+  {
+    "news_id": 295,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年11月医疗服务信息发布指标表",
+    "publish_date": "2016-12-23",
+    "year": 2016,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.33,
+        "raw": "7.33"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 221416.0,
+        "raw": "221416"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.07,
+        "raw": "81.07"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5609.32,
+        "raw": "5609.32"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 711227.0,
+        "raw": "711227"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 71993.0,
+        "raw": "71993"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 110180.0,
+        "raw": "110180"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 139.45,
+        "raw": "139.45"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19146063.0,
+        "raw": "19146063"
+      }
+    }
+  },
+  {
+    "news_id": 296,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年10月医疗服务信息发布指标表",
+    "publish_date": "2016-11-23",
+    "year": 2016,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.12,
+        "raw": "7.12"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 221056.0,
+        "raw": "221056"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.32,
+        "raw": "80.32"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5249.05,
+        "raw": "5249.05"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 722135.0,
+        "raw": "722135"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 71906.0,
+        "raw": "71906"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 109655.0,
+        "raw": "109655"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 135.0,
+        "raw": "135"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19556581.0,
+        "raw": "19556581"
+      }
+    }
+  },
+  {
+    "news_id": 297,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年9月医疗服务信息发布指标表",
+    "publish_date": "2016-10-24",
+    "year": 2016,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.41,
+        "raw": "7.41"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 220259.0,
+        "raw": "220259"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 77.83,
+        "raw": "77.83"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5540.16,
+        "raw": "5540.16"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 681146.0,
+        "raw": "681146"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 71704.0,
+        "raw": "71704"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 108795.0,
+        "raw": "108795"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 135.55,
+        "raw": "135.55"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19230644.0,
+        "raw": "19230644"
+      }
+    }
+  },
+  {
+    "news_id": 298,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年8月医疗服务信息发布指标表",
+    "publish_date": "2016-09-26",
+    "year": 2016,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.42,
+        "raw": "7.42"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 219553.0,
+        "raw": "219553"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 79.25,
+        "raw": "79.25"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5563.87,
+        "raw": "5563.87"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 702471.0,
+        "raw": "702471"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 71364.0,
+        "raw": "71364"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 107773.0,
+        "raw": "107773"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 140.99,
+        "raw": "140.99"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19217428.0,
+        "raw": "19217428"
+      }
+    }
+  },
+  {
+    "news_id": 299,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年7月医疗服务信息发布指标表",
+    "publish_date": "2016-09-07",
+    "year": 2016,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.35,
+        "raw": "7.35"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 219383.0,
+        "raw": "219383"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 82.02,
+        "raw": "82.02"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5340.1,
+        "raw": "5340.10"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 722008.0,
+        "raw": "722008"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 71353.0,
+        "raw": "71353"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 107284.0,
+        "raw": "107284"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 137.87,
+        "raw": "137.87"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19142479.0,
+        "raw": "19142479"
+      }
+    }
+  },
+  {
+    "news_id": 300,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年6月医疗服务信息发布指标表",
+    "publish_date": "2016-07-29",
+    "year": 2016,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.34,
+        "raw": "7.34"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 218448.0,
+        "raw": "218448"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 83.49,
+        "raw": "83.49"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5282.74,
+        "raw": "5282.74"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 730071.0,
+        "raw": "730071"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 70123.0,
+        "raw": "70123"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 105734.0,
+        "raw": "105734"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 132.89,
+        "raw": "132.89"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19150633.0,
+        "raw": "19150633"
+      }
+    }
+  },
+  {
+    "news_id": 301,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年5月份医疗服务信息发布指标",
+    "publish_date": "2016-07-06",
+    "year": 2016,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.19,
+        "raw": "7.19"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 217789.0,
+        "raw": "217789"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 86.84,
+        "raw": "86.84"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5182.04,
+        "raw": "5182.04"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 776933.0,
+        "raw": "776933"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 69952.0,
+        "raw": "69952"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 105635.0,
+        "raw": "105635"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 129.12,
+        "raw": "129.12"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20455323.0,
+        "raw": "20455323"
+      }
+    }
+  },
+  {
+    "news_id": 302,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年4月份医疗服务信息发布指标表",
+    "publish_date": "2016-06-12",
+    "year": 2016,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.06,
+        "raw": "7.06"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 216617.0,
+        "raw": "216617"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 86.57,
+        "raw": "86.57"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5127.47,
+        "raw": "5127.47"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 753968.0,
+        "raw": "753968"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 69839.0,
+        "raw": "69839"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 105607.0,
+        "raw": "105607"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 129.01,
+        "raw": "129.01"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19865222.0,
+        "raw": "19865222"
+      }
+    }
+  },
+  {
+    "news_id": 303,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年3月份医疗服务信息发布指标表",
+    "publish_date": "2016-05-10",
+    "year": 2016,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.3,
+        "raw": "7.30"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 215003.0,
+        "raw": "215003"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 85.63,
+        "raw": "85.63"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5379.61,
+        "raw": "5379.61"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 741855.0,
+        "raw": "741855"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 69597.0,
+        "raw": "69597"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 105087.0,
+        "raw": "105087"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 131.48,
+        "raw": "131.48"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20145791.0,
+        "raw": "20145791"
+      }
+    }
+  },
+  {
+    "news_id": 304,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年2月份医疗服务信息发布指标",
+    "publish_date": "2016-03-29",
+    "year": 2016,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 6.74,
+        "raw": "6.74"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 214462.0,
+        "raw": "214462"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 70.35,
+        "raw": "70.35"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5085.46,
+        "raw": "5085.46"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 603246.0,
+        "raw": "603246"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 69487.0,
+        "raw": "69487"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 104862.0,
+        "raw": "104862"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 131.21,
+        "raw": "131.21"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 16528231.0,
+        "raw": "16528231"
+      }
+    }
+  },
+  {
+    "news_id": 305,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2016年1月份医疗服务信息发布指标表",
+    "publish_date": "2016-03-08",
+    "year": 2016,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.31,
+        "raw": "7.31"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 214005.0,
+        "raw": "214005"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 77.62,
+        "raw": "77.62"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5252.6,
+        "raw": "5252.60"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 634711.0,
+        "raw": "634711"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 69611.0,
+        "raw": "69611"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 105038.0,
+        "raw": "105038"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 132.9,
+        "raw": "132.90"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 17151659.0,
+        "raw": "17151659"
+      }
+    }
+  },
+  {
+    "news_id": 306,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年11月份医疗服务信息发布指标表",
+    "publish_date": "2015-12-31",
+    "year": 2015,
+    "month": 11,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.36,
+        "raw": "7.36"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 210583.0,
+        "raw": "210583"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 81.99,
+        "raw": "81.99"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5121.09,
+        "raw": "5121.09"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 677573.0,
+        "raw": "677573"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 66604.0,
+        "raw": "66604"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 100233.0,
+        "raw": "100233"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 132.64,
+        "raw": "132.64"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 13301467.0,
+        "raw": "13301467"
+      }
+    }
+  },
+  {
+    "news_id": 307,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年10月份医疗服务信息发布指标表",
+    "publish_date": "2015-12-16",
+    "year": 2015,
+    "month": 10,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": null,
+        "raw": null
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 208704.0,
+        "raw": "208704"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 84.0,
+        "raw": "84"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5013.48,
+        "raw": "5013.48"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 668909.0,
+        "raw": "668909"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 66089.0,
+        "raw": "66089"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 98778.0,
+        "raw": "98778"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 128.12,
+        "raw": "128.12"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 190.0,
+        "raw": "190"
+      }
+    }
+  },
+  {
+    "news_id": 308,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年9月份医疗服务信息发布指标表",
+    "publish_date": "2015-10-27",
+    "year": 2015,
+    "month": 9,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.47,
+        "raw": "7.47"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 208247.0,
+        "raw": "208247"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 79.11,
+        "raw": "79.11"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5064.81,
+        "raw": "5064.81"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 652166.0,
+        "raw": "652166"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 65873.0,
+        "raw": "65873"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 98276.0,
+        "raw": "98276"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 132.0,
+        "raw": "132"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19312667.0,
+        "raw": "19312667"
+      }
+    }
+  },
+  {
+    "news_id": 309,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年8月份医疗服务信息发布指标表",
+    "publish_date": "2015-10-27",
+    "year": 2015,
+    "month": 8,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.5,
+        "raw": "7.50"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 207887.0,
+        "raw": "207887"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 79.26,
+        "raw": "79.26"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5104.0,
+        "raw": "5104"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 660911.0,
+        "raw": "660911"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 65447.0,
+        "raw": "65447"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 97317.0,
+        "raw": "97317"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 134.43,
+        "raw": "134.43"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19056400.0,
+        "raw": "19056400"
+      }
+    }
+  },
+  {
+    "news_id": 310,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年7月份医疗服务信息发布指标表",
+    "publish_date": "2015-09-08",
+    "year": 2015,
+    "month": 7,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 209163.0,
+        "raw": "209163"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 86.43,
+        "raw": "86.43"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 4954.88,
+        "raw": "4954.88"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 753772.0,
+        "raw": "753772"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 86679.0,
+        "raw": "86679"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 20323561.0,
+        "raw": "20323561"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 129.98,
+        "raw": "129.98"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20323561.0,
+        "raw": "20323561"
+      }
+    }
+  },
+  {
+    "news_id": 311,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年6月份医疗服务信息发布指标表",
+    "publish_date": "2015-07-31",
+    "year": 2015,
+    "month": 6,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.18,
+        "raw": "7.18"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 209078.0,
+        "raw": "209078"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 90.35,
+        "raw": "90.35"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 4687.09,
+        "raw": "4687.09"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 783220.0,
+        "raw": "783220"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 64591.0,
+        "raw": "64591"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 96660.0,
+        "raw": "96660"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 116.0,
+        "raw": "116"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 22743340.0,
+        "raw": "22743340"
+      }
+    }
+  },
+  {
+    "news_id": 312,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年5月份医疗服务信息发布指标表",
+    "publish_date": "2015-06-30",
+    "year": 2015,
+    "month": 5,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.47,
+        "raw": "7.47"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 206161.0,
+        "raw": "206161"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 87.86,
+        "raw": "87.86"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 4814.0,
+        "raw": "4814"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 723809.0,
+        "raw": "723809"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 64161.0,
+        "raw": "64161"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 96281.0,
+        "raw": "96281"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 122.0,
+        "raw": "122"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 20620329.0,
+        "raw": "20620329"
+      }
+    }
+  },
+  {
+    "news_id": 313,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年4月份医疗服务信息发布指标表",
+    "publish_date": "2015-06-08",
+    "year": 2015,
+    "month": 4,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.25,
+        "raw": "7.25"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 204707.0,
+        "raw": "204707"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 86.0,
+        "raw": "86"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 4797.62,
+        "raw": "4797.62"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 706836.0,
+        "raw": "706836"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 64080.0,
+        "raw": "64080"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 96206.0,
+        "raw": "96206"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 123.96,
+        "raw": "123.96"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 19005257.0,
+        "raw": "19005257"
+      }
+    }
+  },
+  {
+    "news_id": 314,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年3月份医疗服务信息发布指标表",
+    "publish_date": "2015-06-08",
+    "year": 2015,
+    "month": 3,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.0,
+        "raw": "7"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 203527.0,
+        "raw": "203527"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 696.8,
+        "raw": "6968"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 5063.0,
+        "raw": "5063"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 680113.0,
+        "raw": "680113"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 64054.0,
+        "raw": "64054"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 96112.0,
+        "raw": "96112"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 128.42,
+        "raw": "128.42"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 18404411.0,
+        "raw": "18404411"
+      }
+    }
+  },
+  {
+    "news_id": 315,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年2月份医疗服务信息发布指标表",
+    "publish_date": "2015-03-26",
+    "year": 2015,
+    "month": 2,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.15,
+        "raw": "7.15"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 201112.0,
+        "raw": "201112"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 660.4,
+        "raw": "6604"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 4862.43,
+        "raw": "4862.43"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 571028.0,
+        "raw": "571028"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 63994.0,
+        "raw": "63994"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 95676.0,
+        "raw": "95676"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 125.0,
+        "raw": "125"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 15202876.0,
+        "raw": "15202876"
+      }
+    }
+  },
+  {
+    "news_id": 316,
+    "source_table": "guangxi_news",
+    "source_name": "省级卫健委",
+    "province_code": "GX",
+    "province_name": "广西",
+    "title": "2015年1月份医疗服务信息发布指标表",
+    "publish_date": "2015-03-26",
+    "year": 2015,
+    "month": 1,
+    "metrics": {
+      "avg_stay_days": {
+        "metric_name": "出院者平均住院日",
+        "value": 7.34,
+        "raw": "7.34"
+      },
+      "bed_count": {
+        "metric_name": "实有床位数",
+        "value": 194697.0,
+        "raw": "194697"
+      },
+      "bed_usage_rate": {
+        "metric_name": "病床使用率",
+        "value": 80.92,
+        "raw": "80.92"
+      },
+      "discharge_cost": {
+        "metric_name": "出院病人人均医药费用",
+        "value": 4966.0,
+        "raw": "4966"
+      },
+      "discharge_count": {
+        "metric_name": "出院人数",
+        "value": 581870.0,
+        "raw": "581870"
+      },
+      "doctor_count": {
+        "metric_name": "执业(助理)医师数",
+        "value": 61346.0,
+        "raw": "61346"
+      },
+      "nurse_count": {
+        "metric_name": "注册护士数",
+        "value": 91495.0,
+        "raw": "91495"
+      },
+      "outpatient_cost": {
+        "metric_name": "门诊病人次均医药费用",
+        "value": 123.0,
+        "raw": "123"
+      },
+      "outpatient_visits": {
+        "metric_name": "总诊疗人次数",
+        "value": 15921771.0,
+        "raw": "15921771"
+      }
+    }
+  }
+]

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+    <title>健康大数据应用创新研发中心统计分析决策系统</title>
+    <style>
+        :root {
+            --bg: #f1f7fd;
+            --surface: #ffffff;
+            --text: #123247;
+            --line: #d3e3f0;
+            --accent: #0284c7;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(460px 200px at 0% 0%, rgba(2, 132, 199, 0.13), transparent 70%),
+                radial-gradient(460px 200px at 100% 100%, rgba(14, 116, 144, 0.12), transparent 72%),
+                var(--bg);
+            padding: 24px;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .hero {
+            grid-column: 1 / -1;
+            background: linear-gradient(120deg, #0b4c69, #0f6d8f);
+            color: #f4fcff;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(22px, 2.8vw, 32px);
+            line-height: 1.35;
+        }
+
+        .hero p {
+            margin: 10px 0 0;
+            max-width: 900px;
+            color: #d7f2ff;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 8px 16px rgba(8, 45, 66, 0.06);
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #4b6b82;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .count {
+            margin-top: 10px;
+            font-size: 34px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .status {
+            color: #16a34a;
+        }
+
+        @media (max-width: 900px) {
+            .wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="hero">
+            <h1>🏥 健康大数据应用创新研发中心统计分析决策系统</h1>
+            <p>汇聚医疗机构、人口与公共卫生指标，形成可追溯、可分析、可决策的区域健康治理数据底座。</p>
+        </section>
+
+        <article class="card">
+            <h3>医疗机构总数</h3>
+            <div class="count">{{ inst_count }}</div>
+        </article>
+
+        <article class="card">
+            <h3>人口统计条目</h3>
+            <div class="count">{{ pop_count }}</div>
+        </article>
+
+        <article class="card">
+            <h3>系统状态</h3>
+            <div class="count status">运行中</div>
+        </article>
+    </main>
+</body>
+</html>
