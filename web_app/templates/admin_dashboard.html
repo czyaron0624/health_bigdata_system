@@ -887,22 +887,22 @@
             <article class="card">
                 <h3>平台机构数</h3>
                 <div class="kpi-value" id="kpiInst">--</div>
-                <div class="kpi-note">较上周 +6</div>
+                <div class="kpi-note">医疗卫生机构总数</div>
             </article>
             <article class="card">
-                <h3>数据更新批次</h3>
+                <h3>指标总数</h3>
                 <div class="kpi-value" id="kpiBatch">--</div>
-                <div class="kpi-note">今日已同步 5 批</div>
+                <div class="kpi-note">已采集健康指标条目</div>
             </article>
             <article class="card">
                 <h3>重点风险事件</h3>
                 <div class="kpi-value" id="kpiRisk">--</div>
-                <div class="kpi-note">自动同步接口数据</div>
+                <div class="kpi-note">数据质量异常告警</div>
             </article>
-            <article class="card">
-                <h3>在线用户</h3>
-                <div class="kpi-value" id="kpiOnline">--</div>
-                <div class="kpi-note">峰值时段 10:20</div>
+            <article class="card" style="opacity: 0.7;">
+                <h3>📊 数据来源分布</h3>
+                <div class="kpi-value" id="kpiSource">--</div>
+                <div class="kpi-note">广西 + 国家卫健委</div>
             </article>
         </section>
 
@@ -1764,19 +1764,22 @@
 
                 const inst = data.institution_count ?? data.inst_count ?? '--';
                 const batch = data.metric_count ?? '--';
-                const risk = data.risk_events ?? data.risk_count ?? 3;
-                const online = data.online_users ?? data.active_users ?? 67;
+                const risk = data.risk_events ?? data.risk_count ?? '--';
+                
+                // 计算数据来源分布
+                const guangxi = data.news_count ?? 0;
+                const source_label = analysisState.scope === 'all' ? `${data.news_count || 0} 条` : `${analysisState.scope === 'guangxi' ? '广西' : '国家'}`;
 
                 document.getElementById('kpiInst').textContent = inst;
                 document.getElementById('kpiBatch').textContent = batch;
                 document.getElementById('kpiRisk').textContent = risk;
-                document.getElementById('kpiOnline').textContent = online;
+                document.getElementById('kpiSource').textContent = data.scope_label?.replace('（', '\n(') || '多源';
             } catch (err) {
                 panel.textContent = '无法获取统计数据，请检查后端接口或 Redis 服务。';
-                document.getElementById('kpiInst').textContent = 128;
-                document.getElementById('kpiBatch').textContent = 0;
-                document.getElementById('kpiRisk').textContent = 3;
-                document.getElementById('kpiOnline').textContent = 67;
+                document.getElementById('kpiInst').textContent = '--';
+                document.getElementById('kpiBatch').textContent = '--';
+                document.getElementById('kpiRisk').textContent = '--';
+                document.getElementById('kpiSource').textContent = '离线';
                 renderHealthStatus(false);
                 return;
             }

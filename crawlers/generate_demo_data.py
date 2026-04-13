@@ -26,6 +26,92 @@ class DemoDataGenerator:
             logger.error(f"数据库连接失败: {err}")
             raise
 
+    def generate_demo_institutions(self):
+        """生成演示的医疗卫生机构数据"""
+        
+        logger.info("=" * 60)
+        logger.info("正在生成医疗机构演示数据...")
+        logger.info("=" * 60)
+        
+        # 演示医疗机构数据
+        demo_institutions = [
+            # 综合医院
+            ("广西医科大学第一附属医院", "综合医院", "广西", "三甲"),
+            ("广西医科大学第二附属医院", "综合医院", "广西", "三甲"),
+            ("广西人民医院", "综合医院", "广西", "三甲"),
+            ("南宁市第一人民医院", "综合医院", "南宁", "三级"),
+            ("南宁市第二人民医院", "综合医院", "南宁", "三级"),
+            ("柳州市人民医院", "综合医院", "柳州", "三级"),
+            ("桂林医学院附属医院", "综合医院", "桂林", "三级"),
+            ("梧州市红十字会医院", "综合医院", "梧州", "二级"),
+            ("北海市人民医院", "综合医院", "北海", "二级"),
+            ("钦州市第一人民医院", "综合医院", "钦州", "二级"),
+            
+            # 专科医院
+            ("广西肿瘤医院", "肿瘤专科", "广西", "三级"),
+            ("广西精神卫生中心", "精神专科", "广西", "三级"),
+            ("广西妇幼保健院", "妇幼专科", "广西", "三级"),
+            ("广西传染病防治研究所", "传染病防治", "广西", "二级"),
+            ("南宁市妇幼保健院", "妇幼专科", "南宁", "二级"),
+            
+            # 卫生院/卫生所
+            ("南宁青秀区卫生院", "卫生院", "南宁", "一级"),
+            ("南宁江南区中医医院", "中医医院", "南宁", "一级"),
+            ("柳州鱼峰区卫生院", "卫生院", "柳州", "一级"),
+            ("桂林象山区中医诊所", "卫生所", "桂林", "一级"),
+            ("梧州岑溪县妇幼卫生院", "卫生院", "梧州", "一级"),
+            ("北海合浦县卫生院", "卫生院", "北海", "一级"),
+            ("钦州浦北县中医院", "中医医院", "钦州", "一级"),
+            ("贵港市卫生学校附属医院", "卫生院", "贵港", "一级"),
+            ("玉林红十字医院", "综合医院", "玉林", "二级"),
+            ("来宾市人民医院", "综合医院", "来宾", "二级"),
+            ("河池市人民医院", "综合医院", "河池", "二级"),
+            ("崇左市卫生计生委医院", "综合医院", "崇左", "二级"),
+            
+            # 防控机构
+            ("广西疾病预防控制中心", "疾控中心", "广西", "二级"),
+            ("南宁市疾病预防控制中心", "疾控中心", "南宁", "一级"),
+            ("柳州市疾病预防控制中心", "疾控中心", "柳州", "一级"),
+        ]
+        
+        conn = None
+        try:
+            conn = self.connect_db()
+            cursor = conn.cursor()
+            
+            # 清空旧的演示机构数据
+            logger.info("清空旧的演示机构数据...")
+            cursor.execute("DELETE FROM medical_institution WHERE region IN ('广西', '南宁', '柳州', '桂林', '梧州', '北海', '钦州', '贵港', '玉林', '来宾', '河池', '崇左')")
+            conn.commit()
+            
+            # 插入演示机构
+            logger.info(f"正在插入 {len(demo_institutions)} 家医疗机构...\n")
+            
+            for name, type_, region, level in demo_institutions:
+                cursor.execute("""
+                    INSERT INTO medical_institution 
+                    (name, type, region, level)
+                    VALUES (%s, %s, %s, %s)
+                """, (name, type_, region, level))
+                logger.info(f"✅ {region:6} | {name:30} | {type_:10} | {level}")
+            
+            conn.commit()
+            
+            # 统计结果
+            cursor.execute("SELECT COUNT(*) as cnt FROM medical_institution")
+            total_count = cursor.fetchone()[0]
+            
+            logger.info("\n" + "=" * 60)
+            logger.info(f"✅ 医疗机构初始化完成")
+            logger.info(f"✅ 系统中现有医疗机构: {total_count} 家")
+            logger.info("=" * 60)
+        
+        except Exception as e:
+            logger.error(f"❌ 生成机构数据失败: {e}")
+        finally:
+            if conn:
+                conn.close()
+
     def generate_demo_metrics(self):
         """生成演示的健康统计指标数据"""
         
@@ -153,6 +239,7 @@ class DemoDataGenerator:
 
     def run(self):
         try:
+            self.generate_demo_institutions()
             self.generate_demo_metrics()
         except Exception as e:
             logger.error(f"❌ 错误: {e}")

@@ -1,0 +1,333 @@
+健康大数据系统数据存储设计书
+
+目录
+1. 引言	1
+1.1 编写目的	1
+1.2 背景	1
+1.3 定义	1
+1.4 参考资料	1
+2. 数据存储架构设计	1
+2.1 数据存储技术选型	1
+2.2 数据存储部署视图	1
+3. 数据存储详细设计	1
+3.1 结构化数据库	2
+3.2 非结构化数据库	4
+3.3 列式数据库	4
+3.4 分布式文件系统存储	4
+4. 结构设计	5
+4.1 结构化数据库	5
+4.2 非结构化数据库	5
+4.3 列式数据库	5
+4.4 分布式文件系统存储	5
+5. 运用设计（可选）	6
+5.1 数据字典设计	6
+5.2 数据字典备注安全保密设计	6
+
+
+1. 引言
+
+1.1 编写目的
+本文档用于指导健康大数据系统的数据存储建设与运维，明确结构化、非结构化、列式分析与分布式文件存储的分层方案，支撑采集、OCR结构化、统计分析、可视化展示与数据导出全流程。
+本文同时作为后续扩容与架构演进依据，确保系统具备可维护性、可扩展性与可审计性。
+
+1.2 背景
+本项目当前已具备以下能力：
+1）基于爬虫采集省级/国家级卫生健康公告与新闻。
+2）对图片型内容做OCR识别并回填结构化指标。
+3）通过Web管理端进行数据上传、预览、入库。
+4）使用缓存提升统计接口响应效率。
+5）支持阶段性导出JSON/CSV结构化结果。
+
+当前工程以MySQL作为主数据库，以Redis作为缓存与轻量状态存储，文件数据落地在本地目录，并预留Spark处理链路。
+
+1.3 定义
+1）结构化数据库：以关系模型组织数据，支持事务、关联查询和索引优化，本文对应MySQL。
+2）非结构化数据库（本项目语境）：用于存放文档、OCR原文、附件等半结构化或非结构化内容的存储层。当前以文件系统 + MySQL大文本字段承载。
+3）列式数据库：面向分析场景、按列存储以提升聚合性能。当前项目尚未正式引入独立列式引擎，采用Spark过渡。
+4）分布式文件系统存储：用于海量文件的分布式落地（如HDFS/对象存储）。当前版本为本地目录模拟，后续可演进。
+
+1.4 参考资料
+1）项目部署编排：docker-compose.yml
+2）项目数据库与缓存配置：config.py
+3）初始关系模型迁移：migrations/versions/d9afdee89705_create_healthcare_tables.py
+4）OCR指标表脚本：migrations/add_health_ocr_metrics.sql
+5）OCR内容字段脚本：migrations/add_ocr_content.sql
+6）爬虫与OCR回填链路：crawlers/guangxi_health_crawler.py、crawlers/backfill_ocr_metrics.py、crawlers/run_stage1_pipeline.py
+7）Web服务与上传入库：web_app/app.py、web_app/document.py
+8）Spark处理链路：spark_job/spark_processor.py
+
+
+2. 数据存储架构设计
+
+2.1 数据存储技术选型
+1）结构化层（主存储）：MySQL 8.0
+用途：业务主数据、新闻元数据、OCR结构化指标、机构与人口等实体数据。
+选型原因：事务能力成熟、SQL生态完善、与现有Python技术栈兼容性高。
+
+2）缓存层：Redis 6.2
+用途：统计结果缓存、在线会话统计、热点接口加速。
+选型原因：读写性能高、部署轻量、适合仪表盘场景。
+
+3）非结构化层：本地文件系统 + MySQL文本字段
+用途：上传文件落地、导出文件落地、OCR原文文本保存。
+当前目录：上传目录与导出目录分别位于web_app/uploads与outputs。
+
+4）列式分析层（演进目标）：ClickHouse或Parquet Lake
+当前状态：Spark本地模式已接入，用于分析加工与结果同步，不是独立列式引擎。
+演进建议：
+1）中期采用Parquet分区文件（year/month/metric_key）作为列式中间层。
+2）后期引入ClickHouse提升高并发聚合能力。
+
+5）分布式文件存储（演进目标）：HDFS或对象存储（MinIO/S3）
+当前状态：本地磁盘目录。
+演进建议：按采集日期与来源分层管理，支持冷热分级存储。
+
+2.2 数据存储部署视图
+1）应用层
+Flask Web、爬虫任务、OCR结构化任务、Spark分析任务。
+
+2）数据层
+1. MySQL容器服务：health_db（3306）
+2. Redis容器服务：health_redis（6379）
+3. 本地持久化目录：mysql_data、web_app/uploads、outputs
+
+3）部署关系
+1. 爬虫写入MySQL原始新闻表。
+2. OCR回填任务读取原始表并写入指标表。
+3. Web API从Redis读缓存，缓存未命中时回源MySQL。
+4. 文档上传先落文件目录，再解析后入MySQL。
+5. Spark从MySQL抽取数据，处理后回写Redis或导出。
+
+4）现状注意事项
+当前代码中存在MySQL端口使用不一致现象（3306与3307并存），部署时应统一为单一端口并在配置文件集中管理。
+
+
+3. 数据存储详细设计
+
+3.1 结构化数据库
+一、数据库实例
+1）库名：health_db
+2）版本：MySQL 8.0
+3）字符集建议：utf8mb4
+
+二、核心表分层
+1）主数据层
+1. medical_institution：医疗机构主档
+2. population_info：人口结构信息
+3. hospital_bed：床位信息（关联medical_institution）
+
+2）原始采集层
+1. guangxi_news：广西新闻/公报原始采集（含ocr_content）
+2. national_news：国家卫健委新闻/公报
+3. report_metrics：深度解析出的报告指标（与national_news关联）
+
+3）指标服务层
+1. health_ocr_metrics：OCR结构化指标事实表
+主键与约束：
+1. id自增主键
+2. 唯一键uk_news_metric(news_id, metric_key)
+3. 索引idx_year_month(year, month)
+4. 索引idx_metric_key(metric_key)
+
+4）演示与测试层
+1. population_data：Spark/演示数据样例表
+
+三、数据流向
+1）采集入库：爬虫 -> guangxi_news/national_news
+2）OCR回填：guangxi_news.ocr_content -> health_ocr_metrics
+3）深度提取：national_news -> report_metrics
+4）上传入库：上传文件解析 -> population_info / medical_institution / health_ocr_metrics
+
+四、事务与一致性
+1）上传确认入库采用事务提交，失败回滚。
+2）OCR指标使用唯一键 + upsert防止重复写入。
+3）采集更新按link去重并支持增量更新。
+
+3.2 非结构化数据库
+一、当前实现
+1）文件存储：上传原始文件、导出文件使用本地目录存储。
+2）文本存储：OCR原文存于guangxi_news.ocr_content（TEXT）。
+
+二、设计要点
+1）文件命名采用安全文件名与随机后缀，避免冲突。
+2）上传后先预览再确认入库，降低脏数据进入主库概率。
+3）OCR原文与结构化指标分离，便于追溯与审计。
+
+三、改进建议
+1）增加文件元数据表（file_id、sha256、mime、size、source、created_at）。
+2）上传目录按年月分区，提高文件管理效率。
+3）建立OCR原文脱敏与分级策略。
+
+3.3 列式数据库
+一、当前状态
+项目尚未部署独立列式数据库；Spark已用于分析预处理与聚合。
+
+二、目标设计
+1）逻辑分层
+1. ODS：MySQL原始明细
+2. DWD：清洗后的指标明细（Parquet）
+3. DWS：按年/月/区域聚合结果
+4. ADS：仪表盘直接消费结果集
+
+2）推荐引擎
+1. 过渡期：Parquet + Spark SQL
+2. 生产期：ClickHouse（按月分区）
+
+3）典型分区键
+1. year
+2. month
+3. source_table
+4. metric_key
+
+3.4 分布式文件系统存储
+一、当前状态
+使用本地文件系统，适合单机开发和小规模试运行。
+
+二、目标架构
+1）接入HDFS或对象存储统一承载：原始文件、OCR中间件产物、结构化导出文件。
+2）路径规范：
+1. raw/source=guangxi/date=YYYY-MM-DD/
+2. raw/source=national/date=YYYY-MM-DD/
+3. ocr/date=YYYY-MM-DD/
+4. export/type=json|csv/date=YYYY-MM-DD/
+
+三、可靠性
+1）文件写入后生成清单（manifest）并记录校验值。
+2）关键导出支持双副本或跨存储桶备份。
+3）建立生命周期策略：热数据90天，冷数据1-3年。
+
+
+4. 结构设计
+
+4.1 结构化数据库
+一、ER关系
+1）medical_institution 1:N hospital_bed
+2）national_news 1:N report_metrics
+3）guangxi_news 1:N health_ocr_metrics（通过news_id映射）
+
+二、关键字段规范
+1）业务时间：publish_date（建议向日期型演进）
+2）技术时间：created_at、updated_at
+3）维度字段：year、month、source_table、metric_key
+4）数值字段：metric_value统一DECIMAL(18,4)
+
+三、索引设计
+1）唯一去重索引：业务幂等写入
+2）时间维度索引：趋势分析加速
+3）指标键索引：多指标查询加速
+
+4.2 非结构化数据库
+一、目录结构
+1）上传目录：web_app/uploads
+2）导出目录：outputs
+3）数据库卷目录：mysql_data
+
+二、元数据建议
+1）文件唯一标识
+2）来源与上传人
+3）哈希与大小
+4）解析状态与目标表
+5）脱敏级别与保留期限
+
+4.3 列式数据库
+一、表模型建议（演进）
+1）fact_health_metric
+维度：year、month、region、source_table、metric_key
+度量：metric_value
+
+2）agg_health_metric_monthly
+维度：year、month、metric_key、source_scope
+度量：sum/avg/max/min/count
+
+二、性能策略
+1）分区按month，排序键按metric_key+date。
+2）控制低基数字段字典编码。
+3）通过物化视图服务高频图表查询。
+
+4.4 分布式文件系统存储
+一、分层
+1）原始层：不可变保存
+2）清洗层：标准化编码与格式
+3）服务层：报表与接口输出
+
+二、治理
+1）命名规范统一
+2）Schema演进版本化
+3）分区与生命周期策略化管理
+
+
+5. 运用设计（可选）
+
+5.1 数据字典设计
+一、公共字典
+1）source_table
+1. guangxi_news：广西来源
+2. national_news：国家来源
+3. uploaded_doc：上传文档来源（建议补充）
+
+2）metric_key（建议统一枚举）
+1. doctor_count
+2. nurse_count
+3. bed_count
+4. bed_usage_rate
+5. outpatient_visits
+6. discharge_count
+7. avg_stay_days
+8. outpatient_cost
+9. discharge_cost
+
+3）role_type
+1. admin
+2. user
+
+二、主表字典（摘要）
+1）health_ocr_metrics
+1. news_id：来源新闻ID
+2. title：来源标题
+3. year/month：时间维度
+4. metric_key/metric_name：指标标识与名称
+5. metric_value/metric_raw：标准值与原始值
+6. source_table：来源表标识
+
+2）medical_institution
+1. name：机构名称
+2. type：机构类型
+3. region：区域
+4. level：等级
+
+3）population_info
+1. region：地区
+2. age_group：年龄段
+3. gender：性别
+4. population_count：人口数
+
+5.2 数据字典备注安全保密设计
+1）数据分级
+1. L1公开统计：聚合指标、公开公报数据。
+2. L2内部业务：上传文件元数据、系统日志。
+3. L3敏感数据：账号信息、潜在个人信息片段。
+
+2）安全控制
+1. 账号最小权限与角色隔离（管理员/普通用户）。
+2. 数据库连接信息不硬编码，改为环境变量或密钥管理。
+3. 对上传文件与OCR文本建立敏感词扫描与脱敏流程。
+4. 重要接口启用访问日志、失败告警与审计追踪。
+
+3）传输与存储
+1. 对外接口启用HTTPS。
+2. 备份文件加密存储。
+3. Redis与MySQL访问限制内网白名单。
+
+4）运维与合规
+1. 每日增量备份、每周全量备份。
+2. 定期恢复演练（至少每季度一次）。
+3. 定期清理超期原始文件，满足最小保留原则。
+
+
+附录A：与项目现状一致性说明
+1）MySQL与Redis容器定义来自docker-compose.yml。
+2）应用数据库与缓存连接配置来自config.py。
+3）Web上传与数据确认入库流程来自web_app/document.py。
+4）OCR指标事实表结构来自migrations/add_health_ocr_metrics.sql与crawlers/backfill_ocr_metrics.py。
+5）原始采集与OCR流程来自crawlers/guangxi_health_crawler.py与crawlers/run_stage1_pipeline.py。
+6）Spark分析预处理与缓存回写来自spark_job/spark_processor.py。
