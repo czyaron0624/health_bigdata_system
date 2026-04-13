@@ -388,7 +388,13 @@
                 return;
             }
 
-            listEl.innerHTML = (data.items || []).map(item => `<li>${item}</li>`).join('');
+            const items = Array.isArray(data.items) ? data.items : [];
+            if (!items.length) {
+                listEl.innerHTML = '<li>当前暂无智能建议</li>';
+                return;
+            }
+
+            listEl.innerHTML = items.map(item => `<li>${item}</li>`).join('');
         }
 
         async function loadReminders() {
@@ -400,7 +406,13 @@
                 return;
             }
 
-            listEl.innerHTML = (data.items || []).map(item => {
+            const items = Array.isArray(data.items) ? data.items : [];
+            if (!items.length) {
+                listEl.innerHTML = '<li><time>--</time>当前暂无提醒</li>';
+                return;
+            }
+
+            listEl.innerHTML = items.map(item => {
                 return `<li><time>${item.time || '--'}</time>${item.content || ''}</li>`;
             }).join('');
         }
