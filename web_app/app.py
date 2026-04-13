@@ -1,5 +1,6 @@
 from datetime import datetime
 import re
+import os
 
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 import json
@@ -7,6 +8,12 @@ import redis
 
 app = Flask(__name__)
 app.secret_key = 'health_bigdata_secret_key_2026'  # 用于session加密
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB max upload size
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'uploads')
+
+# Create upload folder if not exists
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 # 连接 Redis
 r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
@@ -837,6 +844,14 @@ def user_trend():
         return user_forbidden_response()
 
     return jsonify({"labels": TREND_LABELS, "values": TREND_VALUES})
+
+
+# Register document upload blueprint
+try:
+    from .document import document_bp
+except ImportError:
+    from document import document_bp
+app.register_blueprint(document_bp)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-Set-Location -Path $PSScriptRoot
+Set-Location -Path (Split-Path -Parent $PSScriptRoot)
 
 Write-Host "[1/2] Stopping web_app on port 5000..." -ForegroundColor Cyan
 $listeners = Get-NetTCPConnection -LocalPort 5000 -State Listen -ErrorAction SilentlyContinue

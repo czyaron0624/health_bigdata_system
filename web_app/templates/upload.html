@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文档上传解析</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f7fa; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .upload-area { border: 2px dashed #409EFF; border-radius: 8px; padding: 40px; text-align: center; cursor: pointer; margin-bottom: 20px; transition: background 0.3s; }
+        .upload-area:hover { background: #f0f7ff; }
+        .upload-area p { color: #606266; margin-top: 10px; }
+        #fileInput { display: none; }
+        .btn { background: #409EFF; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .btn:hover { background: #66b1ff; }
+        .btn:disabled { background: #a0cfff; cursor: not-allowed; }
+        .preview-area { margin-top: 30px; display: none; }
+        .preview-area h3 { color: #303133; }
+        .preview-wrapper { overflow-x: auto; max-height: 400px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ebeef5; padding: 12px; text-align: left; white-space: nowrap; }
+        th { background: #f5f7fa; color: #909399; font-weight: bold; position: sticky; top: 0; }
+        #progressBarContainer { width: 100%; background: #e4e7ed; border-radius: 4px; margin-top: 15px; display: none; }
+        #progressBar { height: 8px; background: #67c23a; width: 0%; border-radius: 4px; transition: width 0.3s; }
+        .alert { padding: 10px; border-radius: 4px; margin-bottom: 15px; display: none; }
+        .alert-success { background: #f0f9eb; color: #67c23a; border: 1px solid #e1f3d8; }
+        .alert-error { background: #fef0f0; color: #f56c6c; border: 1px solid #fde2e2; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>数据文档上传</h2>
+    <div class="alert" id="alertBox"></div>
+    
+    <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <svg viewBox="0 0 1024 1024" width="48" height="48"><path d="M512 256l144.8 144.8-36.2 36.2-83-83v350h-51.2v-350l-83 83-36.2-36.2L512 256zM853.4 853.4H170.6V170.6h298.6v-51.2H170.6c-28.2 0-51.2 23-51.2 51.2v682.8c0 28.2 23 51.2 51.2 51.2h682.8c28.2 0 51.2-23 51.2-51.2V512h-51.2v341.4z" fill="#409EFF"/></svg>
+        <p>点击或拖拽文件到此处上传</p>
+        <p style="font-size: 12px; color: #909399;">支持 Excel, PDF, Word, TXT 格式</p>
+        <input type="file" id="fileInput" accept=".xlsx,.xls,.pdf,.docx,.txt" onchange="handleFileSelect(event)">
+    </div>
+    
+    <div id="progressBarContainer"><div id="progressBar"></div></div>
+
+    <div class="preview-area" id="previewArea">
+        <h3>解析结果预览 (识别表: <span id="targetTableName"></span>)</h3>
+        <div class="preview-wrapper">
+            <table id="previewTable">
+                <thead><tr></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div style="margin-top: 20px; text-align: right;">
+            <button class="btn" id="confirmBtn" onclick="confirmImport()">确认入库</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentData = null;
+    let currentTargetTable = null;
+
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.background = '#f0f7ff';
+    });
+    dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropZone.style.background = 'transparent';
+    });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.background = 'transparent';
+        if (e.dataTransfer.files.length) {
+            document.getElementById('fileInput').files = e.dataTransfer.files;
+            handleFileSelect({target: document.getElementById('fileInput')});
+        }
+    });
+
+    function showAlert(msg, type) {
+        const box = document.getElementById('alertBox');
+        box.textContent = msg;
+        box.className = 'alert alert-' + type;
+        box.style.display = 'block';
+        setTimeout(() => box.style.display = 'none', 5000);
+    }
+
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const progressContainer = document.getElementById('progressBarContainer');
+        const progressBar = document.getElementById('progressBar');
+        progressContainer.style.display = 'block';
+        progressBar.style.width = '30%';
+
+        document.getElementById('previewArea').style.display = 'none';
+
+        fetch('/upload/preview', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(res => {
+            progressBar.style.width = '100%';
+            setTimeout(() => progressContainer.style.display = 'none', 500);
+            
+            if (res.success) {
+                if (res.data.length === 0) {
+                    showAlert('文件解析成功，但未识别到结构化数据。', 'success');
+                    return;
+                }
+                currentData = res.data;
+                currentTargetTable = res.target_table;
+                renderPreview(res.data, res.target_table);
+                showAlert('文件解析成功！', 'success');
+            } else {
+                showAlert('解析失败: ' + res.message, 'error');
+            }
+        })
+        .catch(err => {
+            progressContainer.style.display = 'none';
+            showAlert('请求失败: ' + err.message, 'error');
+        });
+        
+        // Reset file input so same file can be selected again
+        document.getElementById('fileInput').value = '';
+    }
+
+    function renderPreview(data, table) {
+        const area = document.getElementById('previewArea');
+        const thead = document.querySelector('#previewTable thead tr');
+        const tbody = document.querySelector('#previewTable tbody');
+        
+        document.getElementById('targetTableName').textContent = table;
+        thead.innerHTML = '';
+        tbody.innerHTML = '';
+
+        const keys = Object.keys(data[0]);
+        keys.forEach(k => {
+            const th = document.createElement('th');
+            th.textContent = k;
+            thead.appendChild(th);
+        });
+
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            keys.forEach(k => {
+                const td = document.createElement('td');
+                td.textContent = row[k] !== null ? row[k] : '';
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+
+        area.style.display = 'block';
+    }
+
+    function confirmImport() {
+        if (!currentData || !currentTargetTable) return;
+        
+        const btn = document.getElementById('confirmBtn');
+        btn.disabled = true;
+        btn.textContent = '入库中...';
+
+        fetch('/upload/confirm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                target_table: currentTargetTable,
+                data: currentData
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            btn.disabled = false;
+            btn.textContent = '确认入库';
+            if (res.success) {
+                showAlert(`入库成功！共导入 ${res.inserted_count} 条数据。`, 'success');
+                document.getElementById('previewArea').style.display = 'none';
+            } else {
+                showAlert('入库失败: ' + res.message, 'error');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.textContent = '确认入库';
+            showAlert('请求失败: ' + err.message, 'error');
+        });
+    }
+</script>
+</body>
+</html>

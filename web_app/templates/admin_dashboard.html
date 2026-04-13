@@ -619,6 +619,224 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* 上传模态框样式 */
+        .upload-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 35, 49, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            padding: 16px;
+        }
+
+        .upload-modal.show {
+            display: flex;
+        }
+
+        .upload-modal-card {
+            width: min(700px, 100%);
+            max-height: 80vh;
+            overflow: auto;
+            border-radius: 14px;
+            border: 1px solid #cfe3ef;
+            background: #ffffff;
+            box-shadow: 0 14px 28px rgba(8, 38, 54, 0.2);
+            padding: 20px;
+        }
+
+        .upload-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 10px;
+            border-bottom: 1px solid #dbe8f0;
+            padding-bottom: 12px;
+        }
+
+        .upload-modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #13455d;
+            margin: 0;
+        }
+
+        .upload-close-btn {
+            border: 1px solid #c9dce8;
+            background: #f7fbff;
+            border-radius: 8px;
+            color: #2a5f79;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            min-width: 60px;
+        }
+
+        .upload-close-btn:hover {
+            background: #eff7fc;
+        }
+
+        .upload-area {
+            border: 2px dashed #b8dbe8;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            background: #f8fcff;
+        }
+
+        .upload-area:hover {
+            background: #f0f7ff;
+            border-color: #0e7490;
+        }
+
+        .upload-area svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            color: #606266;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .upload-area .hint {
+            font-size: 12px;
+            color: #909399;
+        }
+
+        #uploadFileInput {
+            display: none;
+        }
+
+        .upload-progress {
+            width: 100%;
+            height: 6px;
+            background: #e4e7ed;
+            border-radius: 4px;
+            margin: 16px 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            background: #67c23a;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .upload-alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 13px;
+        }
+
+        .upload-alert.show {
+            display: block;
+        }
+
+        .upload-alert-success {
+            background: #f0f9eb;
+            color: #67c23a;
+            border: 1px solid #e1f3d8;
+        }
+
+        .upload-alert-error {
+            background: #fef0f0;
+            color: #f56c6c;
+            border: 1px solid #fde2e2;
+        }
+
+        .upload-preview {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .upload-preview-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: #164a62;
+            margin-bottom: 12px;
+        }
+
+        .upload-table-wrapper {
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #dbe8f0;
+            border-radius: 8px;
+        }
+
+        .upload-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            background: #ffffff;
+        }
+
+        .upload-table th,
+        .upload-table td {
+            border-bottom: 1px solid #e7eff5;
+            padding: 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .upload-table th {
+            background: #f5fbff;
+            color: #486575;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .upload-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .upload-btn {
+            border: 1px solid #bdd9e7;
+            background: #f4fbff;
+            border-radius: 8px;
+            color: #1e607d;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .upload-btn:hover {
+            background: #eff8fd;
+        }
+
+        .upload-btn.primary {
+            background: #0e7490;
+            color: #ffffff;
+            border-color: #0e7490;
+        }
+
+        .upload-btn.primary:hover {
+            background: #1b8ba4;
+        }
+
+        .upload-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         @media (max-width: 1024px) {
             .kpi-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -695,7 +913,7 @@
                     <button class="action-btn" data-action="weekly_report">📊 生成周报</button>
                     <button class="action-btn" data-action="configure_alert">⚙️ 配置预警规则</button>
                     <button class="action-btn" data-action="export_stats">📁 导出机构统计</button>
-                    <button class="action-btn" data-action="quality_check">🧪 数据质量巡检</button>
+                    <button class="action-btn" id="openUploadModal" style="cursor:pointer;">📤 文档上传</button>
                 </div>
                 <div id="actionStatus" class="status-box">点击任一操作按钮开始执行任务。</div>
 
@@ -842,6 +1060,45 @@
                 <canvas id="moduleModalChart" width="900" height="320"></canvas>
             </div>
             <div id="moduleModalNote" class="analysis-note"></div>
+        </div>
+    </div>
+
+    <!-- 文档上传模态框 -->
+    <div id="uploadModal" class="upload-modal">
+        <div class="upload-modal-card">
+            <div class="upload-modal-header">
+                <h2 class="upload-modal-title">📤 文档上传</h2>
+                <button id="uploadCloseBtn" class="upload-close-btn">关闭</button>
+            </div>
+            <div id="uploadAlert" class="upload-alert"></div>
+            
+            <div id="uploadArea" class="upload-area" onclick="document.getElementById('uploadFileInput').click()">
+                <svg viewBox="0 0 1024 1024" fill="#0e7490"><path d="M512 256l144.8 144.8-36.2 36.2-83-83v350h-51.2v-350l-83 83-36.2-36.2L512 256zM853.4 853.4H170.6V170.6h298.6v-51.2H170.6c-28.2 0-51.2 23-51.2 51.2v682.8c0 28.2 23 51.2 51.2 51.2h682.8c28.2 0 51.2-23 51.2-51.2V512h-51.2v341.4z"/></svg>
+                <p>点击或拖拽文件到此处上传</p>
+                <p class="hint">支持 Excel, PDF, Word, TXT 格式</p>
+                <input type="file" id="uploadFileInput" accept=".xlsx,.xls,.pdf,.docx,.txt" />
+            </div>
+            
+            <div class="upload-progress">
+                <div class="upload-progress-bar"></div>
+            </div>
+            
+            <div class="upload-preview">
+                <div class="upload-preview-header">
+                    解析结果预览
+                    <span style="font-size: 12px; color: #6f8593;">（识别表: <span id="uploadTargetTable">--</span>）</span>
+                </div>
+                <div class="upload-table-wrapper">
+                    <table id="uploadPreviewTable" class="upload-table">
+                        <thead><tr></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="upload-actions">
+                    <button id="uploadCancelBtn" class="upload-btn">取消</button>
+                    <button id="uploadConfirmBtn" class="upload-btn primary">确认入库</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1810,6 +2067,192 @@
         loadAlerts();
         startAlertsPolling();
         reloadScopedData();
+
+        /* ============ 文档上传模态框逻辑 ============ */
+        let uploadCurrentData = null;
+        let uploadCurrentTable = null;
+
+        const uploadModal = document.getElementById('uploadModal');
+        const uploadFileInput = document.getElementById('uploadFileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadAlert = document.getElementById('uploadAlert');
+        const uploadProgress = uploadModal.querySelector('.upload-progress');
+        const uploadProgressBar = uploadModal.querySelector('.upload-progress-bar');
+
+        // 打开模态框
+        document.getElementById('openUploadModal').addEventListener('click', () => {
+            uploadModal.classList.add('show');
+            resetUploadUI();
+        });
+
+        // 关闭模态框
+        document.getElementById('uploadCloseBtn').addEventListener('click', () => {
+            uploadModal.classList.remove('show');
+        });
+
+        // 点击模态框外部关闭
+        uploadModal.addEventListener('click', (e) => {
+            if (e.target.id === 'uploadModal') {
+                uploadModal.classList.remove('show');
+            }
+        });
+
+        // 拖拽上传
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '#f0f7ff';
+            uploadArea.style.borderColor = '#0e7490';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = '';
+            uploadArea.style.borderColor = '';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '';
+            uploadArea.style.borderColor = '';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                uploadFileInput.files = files;
+                handleUploadFileSelect();
+            }
+        });
+
+        // 文件输入改变
+        uploadFileInput.addEventListener('change', handleUploadFileSelect);
+
+        function handleUploadFileSelect() {
+            const file = uploadFileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            uploadProgress.style.display = 'block';
+            uploadProgressBar.style.width = '30%';
+            hideUploadAlert();
+
+            fetch('/upload/preview', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                uploadProgressBar.style.width = '100%';
+                setTimeout(() => {
+                    uploadProgress.style.display = 'none';
+                }, 300);
+
+                if (data.success) {
+                    uploadCurrentData = data.data || [];
+                    uploadCurrentTable = data.target_table || 'unknown';
+                    renderUploadPreview(data.data || [], data.target_table);
+                    showUploadAlert('文件解析成功！', 'success');
+                } else {
+                    showUploadAlert('解析失败: ' + (data.message || '未知错误'), 'error');
+                }
+            })
+            .catch(err => {
+                uploadProgress.style.display = 'none';
+                showUploadAlert('请求失败: ' + err.message, 'error');
+            });
+
+            uploadFileInput.value = '';
+        }
+
+        function renderUploadPreview(data, table) {
+            const preview = document.querySelector('.upload-preview');
+            const thead = document.querySelector('#uploadPreviewTable thead tr');
+            const tbody = document.querySelector('#uploadPreviewTable tbody');
+
+            document.getElementById('uploadTargetTable').textContent = table;
+            thead.innerHTML = '';
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                preview.style.display = 'none';
+                return;
+            }
+
+            const keys = Object.keys(data[0]);
+            keys.forEach(k => {
+                const th = document.createElement('th');
+                th.textContent = k;
+                thead.appendChild(th);
+            });
+
+            data.slice(0, 10).forEach(row => {
+                const tr = document.createElement('tr');
+                keys.forEach(k => {
+                    const td = document.createElement('td');
+                    td.textContent = row[k] !== null && row[k] !== undefined ? row[k] : '';
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+
+            preview.style.display = 'block';
+        }
+
+        document.getElementById('uploadConfirmBtn').addEventListener('click', confirmUpload);
+        document.getElementById('uploadCancelBtn').addEventListener('click', () => {
+            document.querySelector('.upload-preview').style.display = 'none';
+            resetUploadUI();
+        });
+
+        function confirmUpload() {
+            if (!uploadCurrentData || !uploadCurrentTable) return;
+
+            const btn = document.getElementById('uploadConfirmBtn');
+            btn.disabled = true;
+            btn.textContent = '入库中...';
+
+            fetch('/upload/confirm', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    target_table: uploadCurrentTable,
+                    data: uploadCurrentData
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                btn.disabled = false;
+                btn.textContent = '确认入库';
+                if (data.success) {
+                    showUploadAlert(`入库成功！共导入 ${data.inserted_count} 条数据。`, 'success');
+                    setTimeout(() => {
+                        uploadModal.classList.remove('show');
+                    }, 2000);
+                } else {
+                    showUploadAlert('入库失败: ' + (data.message || '未知错误'), 'error');
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.textContent = '确认入库';
+                showUploadAlert('请求失败: ' + err.message, 'error');
+            });
+        }
+
+        function showUploadAlert(msg, type) {
+            uploadAlert.textContent = msg;
+            uploadAlert.className = 'upload-alert show upload-alert-' + type;
+        }
+
+        function hideUploadAlert() {
+            uploadAlert.className = 'upload-alert';
+        }
+
+        function resetUploadUI() {
+            uploadFileInput.value = '';
+            document.querySelector('.upload-preview').style.display = 'none';
+            uploadProgress.style.display = 'none';
+            hideUploadAlert();
+            uploadProgressBar.style.width = '0%';
+        }
     </script>
 </body>
 </html>

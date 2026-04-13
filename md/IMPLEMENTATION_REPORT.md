@@ -304,7 +304,7 @@ python crawlers/run_stage1_pipeline.py
 ### 新增文件
 - `crawlers/nhc_deep_crawler.py` - 国家卫健委深度爬虫
 - `crawlers/generate_demo_data.py` - 演示数据生成器
-- `test_api.py` - API 集成测试
+- `tools/checks/test_api.py` - API 集成测试
 
 ### 修改文件
 - `web_app/app.py` - 添加 `/api/metrics/summary` 端点
