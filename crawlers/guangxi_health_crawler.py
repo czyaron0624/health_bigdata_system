@@ -5,7 +5,7 @@
 
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 import time
 import mysql.connector
 import logging
@@ -24,8 +24,25 @@ logger = logging.getLogger(__name__)
 
 
 class GuangxiHealthCrawler:
-    def __init__(self):
-        self.base_url = "https://wsjkw.gxzf.gov.cn/xxgk_49493/fdzdgk/tjxx/sjfb/"
+    def __init__(self, sections=None):
+        self.section_configs = {
+            'sjfb': {
+                'name': '数据发布',
+                'base_url': 'https://wsjkw.gxzf.gov.cn/xxgk_49493/fdzdgk/tjxx/sjfb/',
+                'link_hint': '/sjfb/t',
+            },
+            'tjnb': {
+                'name': '统计年报',
+                'base_url': 'https://wsjkw.gxzf.gov.cn/xxgk_49493/fdzdgk/tjxx/tjnb/',
+                'link_hint': '/tjnb/t',
+            },
+        }
+
+        selected = sections or list(self.section_configs.keys())
+        self.sections = [key for key in selected if key in self.section_configs]
+        if not self.sections:
+            self.sections = ['sjfb']
+
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         }
@@ -58,13 +75,31 @@ class GuangxiHealthCrawler:
 
         return None
 
-    def _collect_list_page_urls(self):
+    def _extract_report_year_from_title(self, title):
+        """从标题中提取报告年份（优先使用名称中的年份）"""
+        if not title:
+            return None
+
+        match = re.search(r'(20\d{2})\s*年', title)
+        if not match:
+            return None
+
+        year = int(match.group(1))
+        if 2000 <= year <= 2099:
+            return year
+        return None
+
+    def _collect_list_page_urls(self, base_url, link_hint):
         """收集统计数据列表分页URL"""
-        response = requests.get(self.base_url, headers=self.headers, timeout=15, verify=False)
+        response = requests.get(base_url, headers=self.headers, timeout=15, verify=False)
         response.encoding = 'utf-8'
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        page_urls = {self.base_url, urljoin(self.base_url, 'index.shtml')}
+        base_parsed = urlparse(base_url)
+        base_host = base_parsed.netloc
+        base_path_prefix = base_parsed.path.rstrip('/') + '/'
+
+        page_urls = {base_url, urljoin(base_url, 'index.shtml')}
 
         # 优先从页面文本中提取总页数并生成分页URL
         full_text = soup.get_text(' ', strip=True)
@@ -72,7 +107,7 @@ class GuangxiHealthCrawler:
         if total_page_match:
             total_pages = int(total_page_match.group(1))
             for page_idx in range(1, total_pages):
-                page_urls.add(urljoin(self.base_url, f'index_{page_idx}.shtml'))
+                page_urls.add(urljoin(base_url, f'index_{page_idx}.shtml'))
 
         # 再兜底采集页面里已有的分页链接
         for a_tag in soup.find_all('a', href=True):
@@ -81,13 +116,14 @@ class GuangxiHealthCrawler:
                 continue
 
             if 'index' in href:
-                full_url = urljoin(self.base_url, href)
-                if '/sjfb/' in full_url:
+                full_url = urljoin(base_url, href)
+                parsed_url = urlparse(full_url)
+                if parsed_url.netloc == base_host and parsed_url.path.startswith(base_path_prefix):
                     page_urls.add(full_url)
 
         # 主动探测分页（页面中未必直接暴露所有分页链接）
         for page_idx in range(1, 30):
-            probe_url = urljoin(self.base_url, f'index_{page_idx}.shtml')
+            probe_url = urljoin(base_url, f'index_{page_idx}.shtml')
             try:
                 probe_resp = requests.get(probe_url, headers=self.headers, timeout=10, verify=False)
                 if probe_resp.status_code == 404:
@@ -109,7 +145,7 @@ class GuangxiHealthCrawler:
 
         return sorted(page_urls, key=page_sort_key)
 
-    def _extract_items_from_page(self, list_page_url):
+    def _extract_items_from_page(self, list_page_url, link_hint):
         """提取单个列表页的新闻条目"""
         response = requests.get(list_page_url, headers=self.headers, timeout=15, verify=False)
         response.encoding = 'utf-8'
@@ -130,7 +166,7 @@ class GuangxiHealthCrawler:
                 continue
 
             full_url = urljoin(list_page_url, relative_href)
-            if '/sjfb/t' not in full_url or not full_url.endswith('.shtml'):
+            if link_hint not in full_url or not full_url.endswith('.shtml'):
                 continue
 
             raw_date = ''
@@ -157,6 +193,7 @@ class GuangxiHealthCrawler:
                 'link': full_url,
                 'publish_date': normalized_date or '未知',
                 'publish_year': int(normalized_date[:4]) if normalized_date else None,
+                'report_year': self._extract_report_year_from_title(title),
             })
 
         return parsed_items
@@ -280,7 +317,7 @@ class GuangxiHealthCrawler:
         
         return text
     
-    def crawl_with_ocr(self, enable_ocr=True, min_year=2015):
+    def crawl_with_ocr(self, enable_ocr=True, min_year=2015, year_filter_source='title'):
         """
         主爬虫函数（支持OCR）
         :param enable_ocr: 是否启用OCR识别
@@ -295,8 +332,7 @@ class GuangxiHealthCrawler:
             cursor = conn.cursor()
             
             logger.info("🚀 准备开始采集广西卫健委数据...")
-            page_urls = self._collect_list_page_urls()
-            logger.info(f"📄 发现列表页 {len(page_urls)} 个")
+            logger.info(f"📁 采集栏目: {', '.join(self.sections)}")
             
             inserted_count = 0
             ocr_count = 0
@@ -304,91 +340,98 @@ class GuangxiHealthCrawler:
             year_filtered_count = 0
             seen_links = set()
             
-            for page_idx, page_url in enumerate(page_urls, 1):
-                logger.info(f"📚 正在处理列表页 {page_idx}/{len(page_urls)}: {page_url}")
-                try:
-                    page_items = self._extract_items_from_page(page_url)
-                except Exception as e:
-                    logger.warning(f"⚠️ 列表页解析失败，跳过: {e}")
-                    continue
+            for section_key in self.sections:
+                section_cfg = self.section_configs[section_key]
+                page_urls = self._collect_list_page_urls(section_cfg['base_url'], section_cfg['link_hint'])
+                logger.info(f"📄 [{section_key}] 发现列表页 {len(page_urls)} 个")
 
-                for item in page_items:
-                    title = item['title']
-                    full_url = item['link']
-                    date = item['publish_date']
-                    publish_year = item['publish_year']
-
-                    if full_url in seen_links:
-                        skipped_count += 1
-                        continue
-                    seen_links.add(full_url)
-
-                    if publish_year is not None and publish_year < min_year:
-                        year_filtered_count += 1
-                        continue
-                
-                    # OCR处理（如果启用）
-                    ocr_content = ""
-                    if enable_ocr:
-                        try:
-                            # 提取详情页图片
-                            images = self.extract_images_from_detail(full_url)
-
-                            # 对每张图片进行OCR（最多处理前5张）
-                            image_texts = []
-                            for img_url in images[:5]:
-                                text = self.process_image_with_ocr(img_url)
-                                if text:
-                                    image_texts.append(text)
-                                time.sleep(0.5)  # 图片间减速
-
-                            if image_texts:
-                                ocr_content = "\n---\n".join(image_texts)
-                                ocr_count += 1
-                        except Exception as e:
-                            logger.warning(f"   ⚠️ OCR处理异常: {e}")
-                
-                    # 保存到数据库
+                for page_idx, page_url in enumerate(page_urls, 1):
+                    logger.info(f"📚 [{section_key}] 正在处理列表页 {page_idx}/{len(page_urls)}: {page_url}")
                     try:
-                        sql = """INSERT INTO guangxi_news 
-                                (title, link, publish_date, ocr_content) 
-                                VALUES (%s, %s, %s, %s)"""
-                        cursor.execute(sql, (title, full_url, date, ocr_content))
-                        conn.commit()
+                        page_items = self._extract_items_from_page(page_url, section_cfg['link_hint'])
+                    except Exception as e:
+                        logger.warning(f"⚠️ [{section_key}] 列表页解析失败，跳过: {e}")
+                        continue
 
-                        if ocr_content:
-                            logger.info(f"✅ 已保存（含OCR）: {title}")
-                        else:
-                            logger.info(f"✅ 已保存: {title}")
+                    for item in page_items:
+                        title = item['title']
+                        full_url = item['link']
+                        date = item['publish_date']
+                        publish_year = item['publish_year']
+                        report_year = item.get('report_year')
 
-                        inserted_count += 1
+                        if full_url in seen_links:
+                            skipped_count += 1
+                            continue
+                        seen_links.add(full_url)
 
-                    except mysql.connector.Error as e:
-                        if "Duplicate entry" in str(e):
-                            update_sql = """
-                                UPDATE guangxi_news
-                                SET title = %s,
-                                    publish_date = %s,
-                                    ocr_content = CASE
-                                        WHEN %s IS NOT NULL AND %s != '' THEN %s
-                                        ELSE ocr_content
-                                    END
-                                WHERE link = %s
-                            """
-                            cursor.execute(update_sql, (title, date, ocr_content, ocr_content, ocr_content, full_url))
+                        filter_year = report_year if year_filter_source == 'title' else publish_year
+                        if filter_year is not None and filter_year < min_year:
+                            year_filtered_count += 1
+                            continue
+                    
+                        # OCR处理（如果启用）
+                        ocr_content = ""
+                        if enable_ocr:
+                            try:
+                                # 提取详情页图片
+                                images = self.extract_images_from_detail(full_url)
+
+                                # 对每张图片进行OCR（最多处理前5张）
+                                image_texts = []
+                                for img_url in images[:5]:
+                                    text = self.process_image_with_ocr(img_url)
+                                    if text:
+                                        image_texts.append(text)
+                                    time.sleep(0.5)  # 图片间减速
+
+                                if image_texts:
+                                    ocr_content = "\n---\n".join(image_texts)
+                                    ocr_count += 1
+                            except Exception as e:
+                                logger.warning(f"   ⚠️ OCR处理异常: {e}")
+                    
+                        # 保存到数据库
+                        try:
+                            sql = """INSERT INTO guangxi_news 
+                                    (title, link, publish_date, ocr_content) 
+                                    VALUES (%s, %s, %s, %s)"""
+                            cursor.execute(sql, (title, full_url, date, ocr_content))
                             conn.commit()
 
                             if ocr_content:
-                                logger.info(f"✅ 已更新（含OCR）: {title}")
+                                logger.info(f"✅ [{section_key}] 已保存（含OCR）: {title}")
                             else:
-                                logger.info(f"✅ 已更新: {title}")
+                                logger.info(f"✅ [{section_key}] 已保存: {title}")
 
                             inserted_count += 1
-                        else:
-                            logger.error(f"❌ 数据库错误: {e}")
 
-                    # 减速带：禁用OCR时可加速
-                    time.sleep(1 if enable_ocr else 0.1)
+                        except mysql.connector.Error as e:
+                            if "Duplicate entry" in str(e):
+                                update_sql = """
+                                    UPDATE guangxi_news
+                                    SET title = %s,
+                                        publish_date = %s,
+                                        ocr_content = CASE
+                                            WHEN %s IS NOT NULL AND %s != '' THEN %s
+                                            ELSE ocr_content
+                                        END
+                                    WHERE link = %s
+                                """
+                                cursor.execute(update_sql, (title, date, ocr_content, ocr_content, ocr_content, full_url))
+                                conn.commit()
+
+                                if ocr_content:
+                                    logger.info(f"✅ [{section_key}] 已更新（含OCR）: {title}")
+                                else:
+                                    logger.info(f"✅ [{section_key}] 已更新: {title}")
+
+                                inserted_count += 1
+                            else:
+                                logger.error(f"❌ 数据库错误: {e}")
+
+                        # 减速带：禁用OCR时可加速
+                        time.sleep(1 if enable_ocr else 0.1)
             
             # 统计结果
             logger.info("\n" + "=" * 50)
@@ -396,7 +439,7 @@ class GuangxiHealthCrawler:
             logger.info(f"   📊 新增数据: {inserted_count} 条")
             logger.info(f"   🔍 OCR识别: {ocr_count} 条")
             logger.info(f"   ⏭️ 跳过无效: {skipped_count} 条")
-            logger.info(f"   📅 年份过滤(<{min_year}): {year_filtered_count} 条")
+            logger.info(f"   📅 年份过滤(<{min_year}, 来源={year_filter_source}): {year_filtered_count} 条")
             logger.info("=" * 50)
         
         except Exception as e:
@@ -419,7 +462,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="广西卫健委数据爬虫（支持OCR）")
     parser.add_argument('--disable-ocr', action='store_true', help='禁用OCR识别')
     parser.add_argument('--min-year', type=int, default=2015, help='仅采集该年份及之后的数据')
+    parser.add_argument('--sections', default='sjfb,tjnb', help='采集栏目，逗号分隔：sjfb,tjnb')
+    parser.add_argument('--year-filter-source', choices=['title', 'publish'], default='title', help='年份过滤来源：title(标题年份) 或 publish(发布日期年份)')
     args = parser.parse_args()
 
-    crawler = GuangxiHealthCrawler()
-    crawler.crawl_with_ocr(enable_ocr=not args.disable_ocr, min_year=args.min_year)
+    selected_sections = [part.strip().lower() for part in (args.sections or '').split(',') if part.strip()]
+    crawler = GuangxiHealthCrawler(sections=selected_sections)
+    crawler.crawl_with_ocr(
+        enable_ocr=not args.disable_ocr,
+        min_year=args.min_year,
+        year_filter_source=args.year_filter_source,
+    )

@@ -100,12 +100,10 @@ def _find_metric_value(lines: List[str], keywords: List[str]) -> Tuple[Optional[
         if not any(keyword in line for keyword in keywords):
             continue
 
-        # 优先尝试同一行
         number, raw = _extract_numeric(line)
         if number is not None:
             return number, raw
 
-        # 回看后续两行（OCR经常拆行）
         for offset in (1, 2):
             next_idx = idx + offset
             if next_idx >= len(lines):
@@ -121,7 +119,6 @@ def _normalize_metric_value(metric_key: str, value: Optional[float], raw: Option
     if value is None:
         return None
 
-    # OCR 常见误差: 病床使用率 69.9% 可能被识别成 0699 或 699
     if metric_key == "bed_usage_rate":
         raw_text = (raw or "").replace(".", "").replace(",", "")
         if raw_text.isdigit() and len(raw_text) >= 3 and value > 100:

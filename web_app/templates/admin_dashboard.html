@@ -215,7 +215,7 @@
             color: #74411e;
         }
 
-        .todo {
+        .health-list {
             margin: 0;
             padding: 0;
             list-style: none;
@@ -223,15 +223,16 @@
             gap: 10px;
         }
 
-        .todo li {
+        .health-item {
             border: 1px solid var(--line);
             border-radius: 10px;
             padding: 10px;
-            display: grid;
-            grid-template-columns: 1fr auto auto;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             gap: 10px;
             font-size: 14px;
+            background: #fbfeff;
         }
 
         .tag {
@@ -512,6 +513,22 @@
             color: #6f8593;
         }
 
+        .yearbook-counts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0 0 10px;
+        }
+
+        .yearbook-counts span {
+            border: 1px solid #d1e3ec;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: #34586f;
+            background: #f6fbff;
+        }
+
         .module-modal {
             position: fixed;
             inset: 0;
@@ -621,8 +638,9 @@
             .analysis-grid-bottom {
                 grid-template-columns: 1fr;
             }
-            .todo li {
-                grid-template-columns: 1fr;
+            .health-item {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -655,7 +673,7 @@
             </article>
             <article class="card">
                 <h3>数据更新批次</h3>
-                <div class="kpi-value">42</div>
+                <div class="kpi-value" id="kpiBatch">--</div>
                 <div class="kpi-note">今日已同步 5 批</div>
             </article>
             <article class="card">
@@ -678,8 +696,6 @@
                     <button class="action-btn" data-action="configure_alert">⚙️ 配置预警规则</button>
                     <button class="action-btn" data-action="export_stats">📁 导出机构统计</button>
                     <button class="action-btn" data-action="quality_check">🧪 数据质量巡检</button>
-                    <button class="action-btn" data-action="review_permissions">👥 审核用户权限</button>
-                    <button class="action-btn" data-action="publish_notice">📣 发布通知公告</button>
                 </div>
                 <div id="actionStatus" class="status-box">点击任一操作按钮开始执行任务。</div>
 
@@ -691,11 +707,12 @@
             </article>
 
             <aside class="card">
-                <h2 class="section-title">
-                    运维待办
-                    <button id="refreshTodos" class="mini-btn">刷新</button>
-                </h2>
-                <ul id="todoList" class="todo"></ul>
+                <h2 class="section-title">系统健康状态</h2>
+                <ul id="healthList" class="health-list">
+                    <li class="health-item"><span>接口状态</span><span class="tag tag-warn" id="healthApi">检测中</span></li>
+                    <li class="health-item"><span>实时告警数量</span><span class="tag tag-warn" id="healthAlerts">--</span></li>
+                    <li class="health-item"><span>核心数据完整性</span><span class="tag tag-warn" id="healthIntegrity">检测中</span></li>
+                </ul>
 
                 <h2 class="section-title" style="margin-top: 18px;">
                     API 统计快照
@@ -730,6 +747,18 @@
                 <h2 class="section-title">范围说明</h2>
                 <div class="analysis-note">切换顶部“数据范围”后，新闻、结构化指标、分析模块会统一按同一来源重新加载，避免不同地区数据混杂。</div>
                 <div class="analysis-note">省级范围当前对应广西卫健委数据；国家范围对应国家卫健委数据。</div>
+            </article>
+        </section>
+
+        <section style="margin-top: 20px;">
+            <article class="card" style="width: 100%;">
+                <h2 class="section-title">
+                    🗂 统计年报（新增 tjnb）
+                    <button id="refreshYearbook" class="mini-btn">刷新</button>
+                </h2>
+                <div id="yearbookMeta" class="analysis-note">加载中...</div>
+                <div id="yearbookCounts" class="yearbook-counts"></div>
+                <ul id="yearbookList" class="alert-list"></ul>
             </article>
         </section>
 
@@ -817,16 +846,6 @@
     </div>
 
     <script>
-        function getTagClass(status) {
-            if (status === '已完成') {
-                return 'tag tag-ok';
-            }
-            if (status === '紧急') {
-                return 'tag tag-danger';
-            }
-            return 'tag tag-warn';
-        }
-
         const ANALYSIS_GROUPS = {
             personnel: {
                 label: '医疗人员',
@@ -874,6 +893,7 @@
             metricRows: [],
             scope: 'guangxi',
             scopeLabel: '省级卫健委（广西）',
+            actionBusy: false,
             activeGroup: 'personnel',
             selectedMetricByGroup: {
                 personnel: 'doctor_count',
@@ -888,6 +908,10 @@
             newsYearMax: 0,
             newsYearTimer: null,
         };
+
+        let alertsTimer = null;
+        let alertsLoading = false;
+        let latestAlertCount = 0;
 
         function escapeHtml(value) {
             return String(value ?? '').replace(/[&<>"]/g, char => ({
@@ -1341,6 +1365,18 @@
 
         async function runAdminAction(action) {
             const statusEl = document.getElementById('actionStatus');
+            if (analysisState.actionBusy) {
+                statusEl.textContent = '当前有任务在执行，请稍候。';
+                return;
+            }
+
+            analysisState.actionBusy = true;
+            const actionButtons = document.querySelectorAll('[data-action]');
+            actionButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.65';
+            });
+
             statusEl.textContent = '任务执行中...';
             try {
                 const resp = await fetch('/admin/api/action', {
@@ -1363,8 +1399,6 @@
                         await loadHealthStats();
                         await reloadScopedData();
                     },
-                    review_permissions: loadTodos,
-                    publish_notice: loadRegionNews,
                 };
 
                 if (actionRefreshMap[action]) {
@@ -1372,10 +1406,21 @@
                 }
             } catch (err) {
                 statusEl.textContent = '请求失败，请检查服务是否正常。';
+            } finally {
+                analysisState.actionBusy = false;
+                actionButtons.forEach(btn => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
             }
         }
 
         async function loadAlerts() {
+            if (alertsLoading) {
+                return;
+            }
+
+            alertsLoading = true;
             const listEl = document.getElementById('alertList');
             try {
                 const resp = await fetch('/admin/api/alerts');
@@ -1385,42 +1430,67 @@
                     return;
                 }
 
-                listEl.innerHTML = data.items.map(item => {
-                    return `<li class="alert-item"><span>${item.content}（${item.level}）</span><span>${item.time}</span></li>`;
-                }).join('');
-            } catch (err) {
-                listEl.innerHTML = '<li class="alert-item"><span>网络异常，告警流加载失败</span><span>--</span></li>';
-            }
-        }
-
-        async function toggleTodo(id) {
-            await fetch(`/admin/api/todos/${id}/toggle`, { method: 'POST' });
-            await loadTodos();
-        }
-
-        async function loadTodos() {
-            const listEl = document.getElementById('todoList');
-            try {
-                const resp = await fetch('/admin/api/todos');
-                const data = await resp.json();
-                if (!resp.ok) {
-                    listEl.innerHTML = '<li><span>无法加载待办</span></li>';
+                const items = Array.isArray(data.items) ? data.items : [];
+                latestAlertCount = items.length;
+                if (!items.length) {
+                    listEl.innerHTML = '<li class="alert-item"><span>当前暂无告警</span><span>--</span></li>';
+                    renderHealthStatus();
                     return;
                 }
 
-                listEl.innerHTML = data.items.map(item => {
-                    return `<li>
-                        <span>${item.content}</span>
-                        <span class="${getTagClass(item.status)}">${item.status}</span>
-                        <button class="mini-btn" data-todo-id="${item.id}">切换状态</button>
-                    </li>`;
+                listEl.innerHTML = items.map(item => {
+                    return `<li class="alert-item"><span>${escapeHtml(item.content)}（${escapeHtml(item.level)}）</span><span>${escapeHtml(item.time)}</span></li>`;
                 }).join('');
-
-                listEl.querySelectorAll('[data-todo-id]').forEach(btn => {
-                    btn.addEventListener('click', () => toggleTodo(btn.dataset.todoId));
-                });
+                renderHealthStatus();
             } catch (err) {
-                listEl.innerHTML = '<li><span>网络异常，待办加载失败</span></li>';
+                listEl.innerHTML = '<li class="alert-item"><span>网络异常，告警流加载失败</span><span>--</span></li>';
+                latestAlertCount = 0;
+                renderHealthStatus(false);
+            } finally {
+                alertsLoading = false;
+            }
+        }
+
+        function startAlertsPolling() {
+            if (alertsTimer) {
+                clearInterval(alertsTimer);
+            }
+            alertsTimer = setInterval(loadAlerts, 5000);
+        }
+
+        function setHealthTag(elementId, text, level) {
+            const el = document.getElementById(elementId);
+            if (!el) {
+                return;
+            }
+            el.className = `tag ${level === 'ok' ? 'tag-ok' : level === 'danger' ? 'tag-danger' : 'tag-warn'}`;
+            el.textContent = text;
+        }
+
+        function renderHealthStatus(apiOk = true) {
+            const inst = Number(document.getElementById('kpiInst').textContent);
+            const batch = Number(document.getElementById('kpiBatch').textContent);
+
+            if (apiOk) {
+                setHealthTag('healthApi', '正常', 'ok');
+            } else {
+                setHealthTag('healthApi', '异常', 'danger');
+            }
+
+            if (latestAlertCount >= 8) {
+                setHealthTag('healthAlerts', `${latestAlertCount} 条`, 'danger');
+            } else if (latestAlertCount >= 3) {
+                setHealthTag('healthAlerts', `${latestAlertCount} 条`, 'warn');
+            } else {
+                setHealthTag('healthAlerts', `${latestAlertCount} 条`, 'ok');
+            }
+
+            if (Number.isFinite(inst) && inst > 0 && Number.isFinite(batch) && batch > 0) {
+                setHealthTag('healthIntegrity', '较完整', 'ok');
+            } else if (Number.isFinite(inst) && inst > 0) {
+                setHealthTag('healthIntegrity', '部分缺失', 'warn');
+            } else {
+                setHealthTag('healthIntegrity', '不足', 'danger');
             }
         }
 
@@ -1436,18 +1506,24 @@
                 document.getElementById('apiScopeNote').textContent = `当前范围: ${data.scope_label || analysisState.scopeLabel}`;
 
                 const inst = data.institution_count ?? data.inst_count ?? '--';
+                const batch = data.metric_count ?? '--';
                 const risk = data.risk_events ?? data.risk_count ?? 3;
                 const online = data.online_users ?? data.active_users ?? 67;
 
                 document.getElementById('kpiInst').textContent = inst;
+                document.getElementById('kpiBatch').textContent = batch;
                 document.getElementById('kpiRisk').textContent = risk;
                 document.getElementById('kpiOnline').textContent = online;
             } catch (err) {
                 panel.textContent = '无法获取统计数据，请检查后端接口或 Redis 服务。';
                 document.getElementById('kpiInst').textContent = 128;
+                document.getElementById('kpiBatch').textContent = 0;
                 document.getElementById('kpiRisk').textContent = 3;
                 document.getElementById('kpiOnline').textContent = 67;
+                renderHealthStatus(false);
+                return;
             }
+            renderHealthStatus(true);
         }
 
         function withScope(path) {
@@ -1491,6 +1567,57 @@
             }, 180);
         }
 
+        function renderYearbookCounts(yearCounts) {
+            const container = document.getElementById('yearbookCounts');
+            if (!Array.isArray(yearCounts) || !yearCounts.length) {
+                container.innerHTML = '<span>暂无年度分布</span>';
+                return;
+            }
+
+            container.innerHTML = yearCounts
+                .slice(0, 10)
+                .map(item => `<span>${escapeHtml(item.year)} 年: ${formatNumber(item.count)} 条</span>`)
+                .join('');
+        }
+
+        async function loadTjnbYearbook() {
+            const listEl = document.getElementById('yearbookList');
+            const metaEl = document.getElementById('yearbookMeta');
+
+            try {
+                const resp = await fetch(withScope('/api/news/tjnb'));
+                const data = await resp.json();
+                if (!resp.ok) {
+                    throw new Error(data.error || '接口返回异常');
+                }
+
+                const items = Array.isArray(data.items) ? data.items : [];
+                const meta = data.meta || {};
+                renderYearbookCounts(data.year_counts || []);
+
+                if (meta.message) {
+                    metaEl.textContent = meta.message;
+                } else {
+                    metaEl.textContent = `范围: ${meta.scope_label || analysisState.scopeLabel} · 最小年份: ${meta.min_year || '--'} · 条目: ${meta.total || 0} · 有效统计条目: ${meta.useful_total || 0}`;
+                }
+
+                if (!items.length) {
+                    listEl.innerHTML = '<li class="alert-item"><span>当前范围暂无统计年报数据</span><span>--</span></li>';
+                    return;
+                }
+
+                listEl.innerHTML = items.slice(0, 12).map(item => {
+                    const yearText = item.report_year ? `${item.report_year}年` : '--';
+                    const usefulTag = item.is_useful ? '有效' : '参考';
+                    return `<li class="alert-item"><span>[${escapeHtml(yearText)}][${escapeHtml(item.category || '--')}][${usefulTag}] <a href="${escapeHtml(item.link || '#')}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title || '--')}</a></span><span>${escapeHtml(item.publish_date || '--')}</span></li>`;
+                }).join('');
+            } catch (err) {
+                metaEl.textContent = '统计年报加载失败';
+                listEl.innerHTML = '<li class="alert-item"><span>统计年报接口异常</span><span>--</span></li>';
+                renderYearbookCounts([]);
+            }
+        }
+
         async function loadRegionNews() {
             const listEl = document.getElementById('regionNewsList');
             const metaEl = document.getElementById('regionNewsMeta');
@@ -1517,12 +1644,13 @@
                     scheduleRegionNewsReload();
                 };
 
-                listEl.innerHTML = (data.items || []).map(item => {
+                const items = Array.isArray(data.items) ? data.items : [];
+                listEl.innerHTML = items.map(item => {
                     const sourceText = item.source === 'national' ? '国家' : item.source === 'guangxi' ? '省级' : '--';
-                    return `<li class="alert-item"><span>[${sourceText}] ${item.title}</span><span>${item.publish_date || '--'}</span></li>`;
+                    return `<li class="alert-item"><span>[${sourceText}] ${escapeHtml(item.title)}</span><span>${escapeHtml(item.publish_date || '--')}</span></li>`;
                 }).join('');
 
-                if (data.items.length === 0) {
+                if (items.length === 0) {
                     listEl.innerHTML = '<li class="alert-item"><span>该年份暂无数据</span><span>--</span></li>';
                 }
             } catch (err) {
@@ -1582,16 +1710,6 @@
             }
         }
 
-        function statusBadge(status) {
-            if (status === 'completed') {
-                return '<span class="tag tag-ok">已完成</span>';
-            }
-            if (status === 'partial') {
-                return '<span class="tag tag-warn">部分完成</span>';
-            }
-            return '<span class="tag tag-danger">已跳过</span>';
-        }
-
         async function loadAnalysisStatus() {
             try {
                 const resp = await fetch(withScope('/api/analysis/module-status'));
@@ -1641,7 +1759,9 @@
         }
 
         async function reloadScopedData() {
+            await loadHealthStats();
             await loadRegionNews();
+            await loadTjnbYearbook();
             await loadMetrics();
             await loadAnalysisStatus();
             await loadAnalysisSummary();
@@ -1652,9 +1772,9 @@
         });
 
         document.getElementById('refreshAlerts').addEventListener('click', loadAlerts);
-        document.getElementById('refreshTodos').addEventListener('click', loadTodos);
         document.getElementById('refreshApi').addEventListener('click', loadHealthStats);
         document.getElementById('refreshRegionNews').addEventListener('click', loadRegionNews);
+        document.getElementById('refreshYearbook').addEventListener('click', loadTjnbYearbook);
         document.getElementById('refreshMetrics').addEventListener('click', loadMetrics);
         document.getElementById('refreshAnalysis').addEventListener('click', async () => {
             await loadAnalysisStatus();
@@ -1674,10 +1794,21 @@
                 closeModuleModal();
             }
         });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (alertsTimer) {
+                    clearInterval(alertsTimer);
+                    alertsTimer = null;
+                }
+                return;
+            }
+
+            loadAlerts();
+            startAlertsPolling();
+        });
 
         loadAlerts();
-        loadTodos();
-        loadHealthStats();
+        startAlertsPolling();
         reloadScopedData();
     </script>
 </body>

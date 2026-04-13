@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 import json
@@ -16,11 +17,19 @@ ADMIN_ALERTS = [
     {"id": 3, "content": "某机构重复上报记录待核查", "time": "13分钟前", "level": "中"},
 ]
 
-ADMIN_TODOS = [
-    {"id": 1, "content": "完成本周数据口径确认", "status": "进行中"},
-    {"id": 2, "content": "提交区域联防分析报告", "status": "已完成"},
-    {"id": 3, "content": "处理缓存服务扩容评估", "status": "紧急"},
-]
+
+def push_admin_alert(content: str, level: str = '中'):
+    alert_id = int(datetime.now().timestamp() * 1000)
+    ADMIN_ALERTS.insert(
+        0,
+        {
+            "id": alert_id,
+            "content": content,
+            "time": datetime.now().strftime('%H:%M:%S'),
+            "level": level,
+        },
+    )
+    del ADMIN_ALERTS[20:]
 
 USER_TIPS = [
     "本周平均步数较上周下降 7%，建议晚间增加 20 分钟快走。",
@@ -359,6 +368,123 @@ def get_region_news():
         return jsonify({"error": str(e), "items": []}), 500
 
 
+@app.route('/api/news/tjnb', methods=['GET'])
+def get_tjnb_news():
+    """统计年报（tjnb）专项数据，优先用于展示可分析条目"""
+    if not is_role('admin'):
+        return admin_forbidden_response()
+
+    scope = get_scope()
+    min_year_arg = (request.args.get('min_year') or '2015').strip()
+    try:
+        min_year = int(min_year_arg)
+    except ValueError:
+        min_year = 2015
+
+    # 统计年报目前仅在广西来源中维护
+    if scope == 'national':
+        return jsonify({
+            "items": [],
+            "year_counts": [],
+            "meta": {
+                "scope": scope,
+                "scope_label": SCOPE_LABELS.get(scope, scope),
+                "min_year": min_year,
+                "total": 0,
+                "useful_total": 0,
+                "message": "国家范围暂无统计年报（tjnb）数据",
+            }
+        })
+
+    def infer_report_year(title: str, publish_date: str):
+        text = title or ''
+        title_match = re.search(r'(20\d{2})\s*年', text)
+        if title_match:
+            return int(title_match.group(1))
+
+        if publish_date and re.match(r'^20\d{2}-\d{2}-\d{2}$', str(publish_date)):
+            return int(str(publish_date)[:4])
+
+        return None
+
+    def infer_category(title: str):
+        text = title or ''
+        if '公报' in text:
+            return '统计公报'
+        if '简报' in text:
+            return '统计简报'
+        if '图解' in text:
+            return '图解'
+        if '统计' in text:
+            return '统计信息'
+        return '其他'
+
+    try:
+        import mysql.connector
+        conn = mysql.connector.connect(host='localhost', user='root', password='rootpassword', database='health_db')
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute(
+            """
+            SELECT id, title, link, publish_date
+            FROM guangxi_news
+            WHERE link LIKE %s
+              AND publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+            ORDER BY publish_date DESC, id DESC
+            """,
+            ('%/tjnb/%',)
+        )
+        rows = cursor.fetchall()
+        conn.close()
+
+        normalized_items = []
+        year_counter = {}
+        useful_count = 0
+
+        for row in rows:
+            report_year = infer_report_year(row.get('title'), row.get('publish_date'))
+            if report_year is not None and report_year < min_year:
+                continue
+
+            category = infer_category(row.get('title'))
+            is_useful = category in {'统计公报', '统计简报', '统计信息'}
+            if is_useful:
+                useful_count += 1
+
+            if report_year is not None:
+                year_counter[report_year] = year_counter.get(report_year, 0) + 1
+
+            normalized_items.append({
+                "id": row.get('id'),
+                "title": row.get('title'),
+                "link": row.get('link'),
+                "publish_date": row.get('publish_date'),
+                "report_year": report_year,
+                "category": category,
+                "is_useful": is_useful,
+            })
+
+        year_counts = [
+            {"year": year, "count": year_counter[year]}
+            for year in sorted(year_counter.keys(), reverse=True)
+        ]
+
+        return jsonify({
+            "items": normalized_items[:30],
+            "year_counts": year_counts,
+            "meta": {
+                "scope": scope,
+                "scope_label": SCOPE_LABELS.get(scope, scope),
+                "min_year": min_year,
+                "total": len(normalized_items),
+                "useful_total": useful_count,
+                "latest_publish_date": normalized_items[0]['publish_date'] if normalized_items else None,
+            }
+        })
+    except Exception as e:
+        return jsonify({"error": str(e), "items": [], "year_counts": []}), 500
+
+
 @app.route('/api/metrics/summary', methods=['GET'])
 def get_metrics_summary():
     """ 获取真实结构化指标汇总数据（按年） """
@@ -652,12 +778,12 @@ def admin_action():
         'configure_alert': '预警规则配置面板已记录操作请求。',
         'export_stats': '机构统计导出任务已加入队列。',
         'quality_check': '数据质量巡检已开始执行。',
-        'review_permissions': '用户权限审核任务已分发。',
-        'publish_notice': '通知发布流程已启动，请继续填写公告正文。',
     }
 
     if action not in action_messages:
         return jsonify({"error": "不支持的操作类型"}), 400
+
+    push_admin_alert(f"管理快捷操作已执行: {action}", '中')
 
     return jsonify({"ok": True, "message": action_messages[action]})
 
@@ -667,31 +793,8 @@ def admin_alerts():
     if not is_role('admin'):
         return admin_forbidden_response()
 
-    return jsonify({"items": ADMIN_ALERTS})
-
-
-@app.route('/admin/api/todos', methods=['GET'])
-def admin_todos():
-    if not is_role('admin'):
-        return admin_forbidden_response()
-
-    return jsonify({"items": ADMIN_TODOS})
-
-
-@app.route('/admin/api/todos/<int:todo_id>/toggle', methods=['POST'])
-def admin_toggle_todo(todo_id: int):
-    if not is_role('admin'):
-        return admin_forbidden_response()
-
-    for todo in ADMIN_TODOS:
-        if todo['id'] == todo_id:
-            if todo['status'] == '已完成':
-                todo['status'] = '进行中'
-            elif todo['status'] == '进行中':
-                todo['status'] = '已完成'
-            return jsonify({"ok": True, "item": todo})
-
-    return jsonify({"error": "待办不存在"}), 404
+    items = sorted(ADMIN_ALERTS, key=lambda item: int(item.get('id', 0)), reverse=True)
+    return jsonify({"items": items[:20]})
 
 
 @app.route('/user/api/profile', methods=['GET'])
