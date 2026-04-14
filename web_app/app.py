@@ -146,13 +146,6 @@ def detect_risk_events():
     return max(1, risk_count)  # 至少返回1个风险
 
 
-def get_scope() -> str:
-    scope = (request.args.get('scope') or 'guangxi').strip().lower()
-    if scope not in VALID_SCOPES:
-        return 'guangxi'
-    return scope
-
-
 def build_metric_scope_filter(scope: str):
     if scope == 'guangxi':
         return "source_table = %s", ['guangxi_news']
