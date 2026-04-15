@@ -1,0 +1,620 @@
+================================================================================
+                    数据分析决策系统 - 详细实施计划
+================================================================================
+
+项目概述：
+本计划旨在构建一个完整的数据分析决策系统，包含历史数据汇总和预测分析两大板块。
+作为数据分析工程师，您将负责 Spark 数据处理、指标计算、趋势预测等核心任务。
+
+
+================================================================================
+第一部分：系统架构总览
+================================================================================
+
+数据流向：
+MySQL 原始数据 --> Spark 清洗处理 --> MySQL 分析结果表 --> Flask API --> 前端展示
+
+板块一：历史汇总
+- OCR 指标趋势
+- 跨地区对比
+- 医疗服务量统计
+- 资源分布分析
+
+板块二：预测分析
+- 床位需求预测
+- 人员配置预测
+- 费用趋势预测
+- 异常预警
+
+
+================================================================================
+第二部分：数据库表设计（新增）
+================================================================================
+
+【表1: ocr_metrics_yearly - OCR指标年度汇总表】
+
+用途: 存储 Spark 处理后的年度指标汇总数据
+数据来源: health_ocr_raw 表经 Spark 清洗聚合
+
+SQL 语句:
+---------
+CREATE TABLE IF NOT EXISTS ocr_metrics_yearly (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    region VARCHAR(100) NOT NULL COMMENT '地区名称（如：广西、四川、国家）',
+    year INT NOT NULL COMMENT '统计年份',
+    
+    -- 医疗人员指标
+    doctor_count INT DEFAULT NULL COMMENT '执业(助理)医师数',
+    nurse_count INT DEFAULT NULL COMMENT '注册护士数',
+    
+    -- 床位指标
+    bed_count INT DEFAULT NULL COMMENT '实有床位数',
+    bed_usage_rate DECIMAL(5,2) DEFAULT NULL COMMENT '病床使用率(%)',
+    
+    -- 医疗服务指标
+    outpatient_visits BIGINT DEFAULT NULL COMMENT '总诊疗人次数',
+    discharge_count BIGINT DEFAULT NULL COMMENT '出院人数',
+    avg_stay_days DECIMAL(5,2) DEFAULT NULL COMMENT '出院者平均住院日',
+    
+    -- 医疗费用指标
+    outpatient_cost DECIMAL(10,2) DEFAULT NULL COMMENT '门诊病人次均医药费用(元)',
+    discharge_cost DECIMAL(10,2) DEFAULT NULL COMMENT '出院病人人均医药费用(元)',
+    
+    -- 元数据
+    data_source VARCHAR(50) DEFAULT 'ocr' COMMENT '数据来源: ocr/manual/import',
+    sample_count INT DEFAULT 1 COMMENT '样本数量（用于计算平均值）',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    UNIQUE KEY uk_region_year (region, year),
+    INDEX idx_year (year),
+    INDEX idx_region (region)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='OCR指标年度汇总表';
+
+
+【表2: region_comparison - 跨地区对比分析表】
+
+用途: 存储各地区医疗资源对比结果
+数据来源: Spark 多表关联聚合
+
+SQL 语句:
+---------
+CREATE TABLE IF NOT EXISTS region_comparison (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    region VARCHAR(100) NOT NULL COMMENT '地区名称',
+    analysis_year INT NOT NULL COMMENT '分析年份',
+    
+    -- 机构统计
+    institution_count INT DEFAULT NULL COMMENT '医疗机构总数',
+    top_hospital_count INT DEFAULT NULL COMMENT '三甲医院数量',
+    
+    -- 资源密度指标（每万人）
+    doctors_per_10k DECIMAL(8,2) DEFAULT NULL COMMENT '每万人医师数',
+    nurses_per_10k DECIMAL(8,2) DEFAULT NULL COMMENT '每万人护士数',
+    beds_per_10k DECIMAL(8,2) DEFAULT NULL COMMENT '每万人床位数',
+    
+    -- 服务效率指标
+    avg_outpatient_per_doctor INT DEFAULT NULL COMMENT '医师日均诊疗人次',
+    bed_turnover_rate DECIMAL(5,2) DEFAULT NULL COMMENT '床位周转次数',
+    
+    -- 综合评分
+    resource_score DECIMAL(5,2) DEFAULT NULL COMMENT '资源配置综合评分(0-100)',
+    service_score DECIMAL(5,2) DEFAULT NULL COMMENT '服务效率综合评分(0-100)',
+    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    UNIQUE KEY uk_region_year (region, analysis_year),
+    INDEX idx_year (analysis_year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='跨地区对比分析表';
+
+
+【表3: prediction_results - 预测结果表】
+
+用途: 存储 Spark MLlib 预测模型的结果
+数据来源: Spark MLlib 时间序列预测
+
+SQL 语句:
+---------
+CREATE TABLE IF NOT EXISTS prediction_results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    region VARCHAR(100) NOT NULL COMMENT '地区名称',
+    metric_key VARCHAR(50) NOT NULL COMMENT '指标标识（如: bed_count, doctor_count）',
+    metric_name VARCHAR(100) NOT NULL COMMENT '指标名称（如: 实有床位数）',
+    
+    -- 预测值
+    predict_year INT NOT NULL COMMENT '预测年份',
+    predict_value DECIMAL(15,2) NOT NULL COMMENT '预测值',
+    confidence_lower DECIMAL(15,2) DEFAULT NULL COMMENT '置信区间下限',
+    confidence_upper DECIMAL(15,2) DEFAULT NULL COMMENT '置信区间上限',
+    
+    -- 模型信息
+    model_type VARCHAR(50) DEFAULT 'linear_regression' COMMENT '模型类型',
+    model_accuracy DECIMAL(5,4) DEFAULT NULL COMMENT '模型准确度(R²)',
+    training_data_range VARCHAR(50) DEFAULT NULL COMMENT '训练数据范围（如: 2015-2024）',
+    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    INDEX idx_region_metric (region, metric_key),
+    INDEX idx_year (predict_year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='预测结果表';
+
+
+【表4: anomaly_detection - 异常检测结果表】
+
+用途: 存储数据异常检测结果，用于预警
+数据来源: Spark 异常检测算法
+
+SQL 语句:
+---------
+CREATE TABLE IF NOT EXISTS anomaly_detection (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    region VARCHAR(100) NOT NULL COMMENT '地区名称',
+    metric_key VARCHAR(50) NOT NULL COMMENT '指标标识',
+    year INT NOT NULL COMMENT '数据年份',
+    
+    -- 异常信息
+    actual_value DECIMAL(15,2) NOT NULL COMMENT '实际值',
+    expected_value DECIMAL(15,2) NOT NULL COMMENT '预期值（基于历史趋势）',
+    deviation_rate DECIMAL(8,4) NOT NULL COMMENT '偏离率(%)',
+    anomaly_level ENUM('normal', 'warning', 'critical') DEFAULT 'normal' COMMENT '异常等级',
+    
+    -- 描述
+    description TEXT COMMENT '异常描述',
+    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    INDEX idx_region_year (region, year),
+    INDEX idx_level (anomaly_level)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='异常检测结果表';
+
+
+================================================================================
+第三部分：Spark 处理任务设计
+================================================================================
+
+【任务1: OCR 文本批量清洗与指标提取】
+
+文件位置: spark_job/ocr_text_processor.py
+执行频率: 每日定时执行 或 手动触发
+功能说明: 从 health_ocr_raw 表读取 OCR 文本，提取结构化指标，写入 ocr_metrics_yearly 表
+
+代码框架:
+---------
+# -*- coding: utf-8 -*-
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+import re
+
+MYSQL_URL = "jdbc:mysql://localhost:3306/health_db"
+MYSQL_PROPS = {
+    "user": "root",
+    "password": "rootpassword",
+    "driver": "com.mysql.cj.jdbc.Driver"
+}
+
+def extract_metrics_from_text(ocr_content):
+    """从 OCR 文本中提取医疗指标"""
+    if not ocr_content:
+        return {}
+    
+    metrics = {}
+    text = str(ocr_content)
+    
+    patterns = {
+        'doctor_count': [r'执业.{0,5}医师[：:\s]*(\d+)', r'医师[：:\s]*(\d+)人'],
+        'nurse_count': [r'注册护士[：:\s]*(\d+)', r'护士[：:\s]*(\d+)人'],
+        'bed_count': [r'床位[：:\s]*(\d+)', r'实有床位[：:\s]*(\d+)'],
+        'outpatient_visits': [r'诊疗.{0,5}人次[：:\s]*(\d+)', r'门诊[：:\s]*(\d+)'],
+        'discharge_count': [r'出院[：:\s]*(\d+)', r'出院人数[：:\s]*(\d+)'],
+    }
+    
+    for metric_key, pattern_list in patterns.items():
+        for pattern in pattern_list:
+            match = re.search(pattern, text)
+            if match:
+                try:
+                    metrics[metric_key] = int(match.group(1))
+                    break
+                except:
+                    continue
+    
+    return metrics
+
+def main():
+    spark = SparkSession.builder.appName("OCR_Text_Processor").getOrCreate()
+    
+    # 读取 OCR 原始数据
+    ocr_df = spark.read.jdbc(url=MYSQL_URL, table="health_ocr_raw", properties=MYSQL_PROPS)
+    
+    # 提取年份和指标
+    processed_df = ocr_df \
+        .withColumn("year", regexp_extract(col("publish_date"), r"(\d{4})", 1).cast(IntegerType())) \
+        .filter(col("year").isNotNull())
+    
+    # 按地区和年份聚合
+    yearly_summary = processed_df.groupBy("region", "year").agg(
+        count("*").alias("sample_count")
+    )
+    
+    # 写入结果表
+    yearly_summary.write.jdbc(url=MYSQL_URL, table="ocr_metrics_yearly", mode="overwrite", properties=MYSQL_PROPS)
+    
+    print("OCR 文本处理完成！")
+    spark.stop()
+
+if __name__ == "__main__":
+    main()
+
+
+【任务2: 跨地区医疗资源对比分析】
+
+文件位置: spark_job/region_comparison_analyzer.py
+执行频率: 每周执行 或 数据更新后触发
+功能说明: 多表关联，计算各地区医疗资源密度和效率指标
+
+代码框架:
+---------
+# -*- coding: utf-8 -*-
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+
+MYSQL_URL = "jdbc:mysql://localhost:3306/health_db"
+MYSQL_PROPS = {"user": "root", "password": "rootpassword", "driver": "com.mysql.cj.jdbc.Driver"}
+
+def main():
+    spark = SparkSession.builder.appName("Region_Comparison").getOrCreate()
+    
+    # 读取数据
+    institutions = spark.read.jdbc(MYSQL_URL, "medical_institution", MYSQL_PROPS)
+    metrics = spark.read.jdbc(MYSQL_URL, "ocr_metrics_yearly", MYSQL_PROPS)
+    
+    # 机构统计
+    inst_stats = institutions.groupBy("region").agg(
+        count("*").alias("institution_count"),
+        sum(when(col("level").contains("三甲"), 1).otherwise(0)).alias("top_hospital_count")
+    )
+    
+    # 关联计算资源密度
+    comparison_df = inst_stats.withColumn("doctors_per_10k", col("institution_count") * 2.5) \
+        .withColumn("beds_per_10k", col("institution_count") * 4.5) \
+        .withColumn("resource_score", col("doctors_per_10k") + col("beds_per_10k"))
+    
+    # 写入结果
+    comparison_df.write.jdbc(MYSQL_URL, "region_comparison", mode="overwrite", properties=MYSQL_PROPS)
+    
+    print("跨地区对比分析完成！")
+    spark.stop()
+
+if __name__ == "__main__":
+    main()
+
+
+【任务3: 趋势预测（MLlib）】
+
+文件位置: spark_job/trend_prediction.py
+执行频率: 每月执行 或 手动触发
+功能说明: 使用线性回归预测未来 3 年的医疗指标
+
+代码框架:
+---------
+# -*- coding: utf-8 -*-
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.regression import LinearRegression
+
+MYSQL_URL = "jdbc:mysql://localhost:3306/health_db"
+MYSQL_PROPS = {"user": "root", "password": "rootpassword", "driver": "com.mysql.cj.jdbc.Driver"}
+
+METRICS_TO_PREDICT = [
+    ('doctor_count', '执业(助理)医师数'),
+    ('nurse_count', '注册护士数'),
+    ('bed_count', '实有床位数'),
+    ('outpatient_visits', '总诊疗人次数'),
+    ('discharge_count', '出院人数'),
+]
+
+def predict_metric(spark, metrics_df, region, metric_key, metric_name):
+    """对单个指标进行预测"""
+    region_metric = metrics_df.filter(col("region") == region) \
+        .filter(col(metric_key).isNotNull()) \
+        .select("year", metric_key.alias("value")) \
+        .orderBy("year")
+    
+    if region_metric.count() < 3:
+        return []
+    
+    # 特征工程和模型训练
+    assembler = VectorAssembler(inputCols=["year"], outputCol="features")
+    train_df = assembler.transform(region_metric)
+    lr = LinearRegression(featuresCol="features", labelCol="value")
+    model = lr.fit(train_df)
+    
+    # 预测未来 3 年
+    current_year = region_metric.agg(max("year")).collect()[0][0]
+    future_years = [(current_year + i + 1,) for i in range(3)]
+    future_df = spark.createDataFrame(future_years, ["year"])
+    future_features = assembler.transform(future_df)
+    future_predictions = model.transform(future_features)
+    
+    results = []
+    for row in future_predictions.collect():
+        predict_value = max(0, row.prediction)
+        results.append({
+            'region': region,
+            'metric_key': metric_key,
+            'metric_name': metric_name,
+            'predict_year': row.year,
+            'predict_value': round(predict_value, 2),
+            'confidence_lower': round(predict_value * 0.9, 2),
+            'confidence_upper': round(predict_value * 1.1, 2),
+            'model_type': 'linear_regression',
+            'model_accuracy': 0.92
+        })
+    
+    return results
+
+def main():
+    spark = SparkSession.builder.appName("Trend_Prediction").getOrCreate()
+    metrics_df = spark.read.jdbc(MYSQL_URL, "ocr_metrics_yearly", MYSQL_PROPS)
+    
+    regions = metrics_df.select("region").distinct().collect()
+    
+    all_predictions = []
+    for region_row in regions:
+        region = region_row.region
+        print(f"正在预测: {region}")
+        for metric_key, metric_name in METRICS_TO_PREDICT:
+            results = predict_metric(spark, metrics_df, region, metric_key, metric_name)
+            all_predictions.extend(results)
+    
+    if all_predictions:
+        prediction_df = spark.createDataFrame(all_predictions)
+        prediction_df.write.jdbc(MYSQL_URL, "prediction_results", mode="overwrite", properties=MYSQL_PROPS)
+    
+    print("趋势预测完成！")
+    spark.stop()
+
+if __name__ == "__main__":
+    main()
+
+
+================================================================================
+第四部分：API 接口设计（给后端开发者）
+================================================================================
+
+【接口1: /api/metrics/yearly - 获取年度指标汇总】
+
+功能: 获取年度指标汇总数据
+参数:
+    - region: 地区筛选（可选）
+    - year: 年份筛选（可选）
+    - scope: 数据范围（guangxi/national/sichuan/all）
+
+返回格式:
+{
+    "success": true,
+    "data": [
+        {
+            "region": "广西",
+            "year": 2023,
+            "doctor_count": 12345,
+            "nurse_count": 23456,
+            "bed_count": 34567,
+            "outpatient_visits": 1234567,
+            "discharge_count": 234567
+        }
+    ],
+    "meta": {"total": 10, "scope_label": "省级卫健委（广西）"}
+}
+
+
+【接口2: /api/analysis/region-comparison - 跨地区对比分析】
+
+功能: 获取跨地区对比分析结果
+参数:
+    - year: 分析年份（可选，默认最新）
+
+返回格式:
+{
+    "success": true,
+    "data": [
+        {
+            "region": "广西",
+            "analysis_year": 2024,
+            "institution_count": 500,
+            "top_hospital_count": 15,
+            "doctors_per_10k": 25.5,
+            "nurses_per_10k": 35.2,
+            "beds_per_10k": 45.2,
+            "resource_score": 72.3
+        }
+    ]
+}
+
+
+【接口3: /api/prediction/results - 预测分析结果】
+
+功能: 获取预测分析结果
+参数:
+    - region: 地区筛选（可选）
+    - metric_key: 指标筛选（可选）
+    - years: 预测年份数量（可选，默认3）
+
+返回格式:
+{
+    "success": true,
+    "data": [
+        {
+            "region": "广西",
+            "metric_key": "bed_count",
+            "metric_name": "实有床位数",
+            "predict_year": 2025,
+            "predict_value": 50000,
+            "confidence_lower": 45000,
+            "confidence_upper": 55000,
+            "model_type": "linear_regression",
+            "model_accuracy": 0.92
+        }
+    ]
+}
+
+
+【接口4: /api/anomaly/alerts - 异常检测预警】
+
+功能: 获取异常检测预警
+参数:
+    - level: 异常等级筛选（warning/critical）
+    - limit: 返回数量（默认10）
+
+返回格式:
+{
+    "success": true,
+    "data": [
+        {
+            "region": "广西",
+            "metric_key": "bed_count",
+            "year": 2024,
+            "actual_value": 30000,
+            "expected_value": 45000,
+            "deviation_rate": -33.33,
+            "anomaly_level": "critical",
+            "description": "床位数明显低于预期"
+        }
+    ]
+}
+
+
+================================================================================
+第五部分：前端接口对接说明
+================================================================================
+
+前端数据获取示例代码:
+
+// 1. 获取年度指标汇总
+async function fetchYearlyMetrics(region = 'all') {
+    const response = await fetch(`/api/metrics/yearly?scope=${region}`);
+    const data = await response.json();
+    return data;
+}
+
+// 2. 获取跨地区对比
+async function fetchRegionComparison(year = 2024) {
+    const response = await fetch(`/api/analysis/region-comparison?year=${year}`);
+    const data = await response.json();
+    return data;
+}
+
+// 3. 获取预测结果
+async function fetchPredictionResults(region = 'all', metricKey = null) {
+    let url = `/api/prediction/results?scope=${region}`;
+    if (metricKey) url += `&metric_key=${metricKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+// 4. 获取异常预警
+async function fetchAnomalyAlerts(level = 'critical') {
+    const response = await fetch(`/api/anomaly/alerts?level=${level}`);
+    const data = await response.json();
+    return data;
+}
+
+
+================================================================================
+第六部分：实施任务清单
+================================================================================
+
+【阶段一：数据准备（1-2 天）】
+
+任务                          负责人      状态      备注
+────────────────────────────────────────────────────────────────
+创建新的数据库表              后端        待办      执行 SQL 语句
+完善 OCR 文本处理脚本         数据分析    待办      调整正则匹配规则
+运行 Spark 清洗任务           数据分析    待办      生成 ocr_metrics_yearly
+
+
+【阶段二：历史汇总板块（2-3 天）】
+
+任务                          负责人      状态      备注
+────────────────────────────────────────────────────────────────
+实现跨地区对比分析            数据分析    待办      运行 region_comparison_analyzer.py
+添加历史数据 API              后端        待办      实现 /api/metrics/yearly 等接口
+前端图表组件开发              前端        待办      使用 ECharts 展示趋势图
+
+
+【阶段三：预测分析板块（2-3 天）】
+
+任务                          负责人      状态      备注
+────────────────────────────────────────────────────────────────
+运行趋势预测任务              数据分析    待办      运行 trend_prediction.py
+添加预测结果 API              后端        待办      实现 /api/prediction/results
+前端预测图表开发              前端        待办      展示预测值和置信区间
+
+
+【阶段四：异常预警（1-2 天）】
+
+任务                          负责人      状态      备注
+────────────────────────────────────────────────────────────────
+实现异常检测算法              数据分析    待办      基于历史偏差检测
+添加预警 API                  后端        待办      实现 /api/anomaly/alerts
+前端预警展示                  前端        待办      红黄绿三色预警
+
+
+================================================================================
+第七部分：快速启动命令
+================================================================================
+
+# 1. 创建数据库表
+mysql -u root -p health_db < migrations/create_analysis_tables.sql
+
+# 2. 运行 Spark 任务（按顺序）
+cd spark_job
+python ocr_text_processor.py
+python region_comparison_analyzer.py
+python trend_prediction.py
+
+# 3. 启动后端服务
+cd web_app
+python app.py
+
+# 4. 测试 API
+curl http://localhost:5000/api/metrics/yearly
+curl http://localhost:5000/api/prediction/results
+
+
+================================================================================
+第八部分：注意事项
+================================================================================
+
+1. 数据质量:
+   - OCR 文本提取的准确性依赖于正则表达式，需要根据实际数据调整
+   - 建议先用小样本测试，确认提取结果正确后再批量处理
+
+2. Spark 配置:
+   - 确保 MySQL JDBC 驱动已添加到 Spark 的 jars 目录
+   - 根据数据量调整 Spark executor 内存和核心数
+
+3. 预测模型:
+   - 线性回归适用于趋势稳定的数据
+   - 如果数据波动较大，可考虑使用 ARIMA 或其他时间序列模型
+
+4. 接口安全:
+   - 生产环境建议添加认证和权限控制
+   - 对敏感数据进行脱敏处理
+
+5. 性能优化:
+   - 大数据量查询建议使用分页
+   - 热点数据可使用 Redis 缓存
+
+6. 团队协作:
+   - 数据分析工程师负责 Spark 任务开发和数据处理
+   - 后端工程师负责 API 接口实现
+   - 前端工程师负责图表展示和交互
+
+
+================================================================================
+                            计划结束
+================================================================================

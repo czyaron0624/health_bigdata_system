@@ -35,10 +35,44 @@
             background: linear-gradient(90deg, #07364a, #0e5f76);
             color: #ecfeff;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
+        }
+        
+        .title-container {
+            text-align: center;
+        }
+        
+        .main-title {
+            margin: 0;
+            font-size: clamp(18px, 2.1vw, 26px);
+            letter-spacing: 0.4px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        .sub-title {
+            margin: 4px 0 0 0;
+            font-size: clamp(14px, 1.5vw, 18px);
+            letter-spacing: 0.3px;
+            font-weight: 500;
+            opacity: 0.9;
+            line-height: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
             flex-wrap: wrap;
+        }
+        
+        .top-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .topbar h1 {
@@ -99,11 +133,6 @@
             font-size: 13px;
         }
 
-        .container {
-            max-width: 1240px;
-            margin: 20px auto;
-            padding: 0 18px 24px;
-        }
 
         .kpi-grid {
             display: grid;
@@ -113,7 +142,7 @@
 
         .card {
             background: var(--surface);
-            border: 1px solid var(--line);
+      border: 1px solid var(--line);
             border-radius: 14px;
             padding: 16px;
             box-shadow: 0 10px 18px rgba(9, 38, 55, 0.05);
@@ -861,29 +890,276 @@
                 align-items: flex-start;
             }
         }
+
+        /* ============ 左侧索引栏样式 ============ */
+        .sidebar-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 240px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(14, 116, 144, 0.15);
+            box-shadow: 2px 0 12px rgba(9, 38, 55, 0.08);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px 16px;
+            border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+            margin-bottom: 8px;
+        }
+
+        .sidebar-logo {
+            font-size: 28px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0e7490;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 0 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #4d6878;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            background: transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(14, 116, 144, 0.08);
+            color: #0e7490;
+            border-color: rgba(14, 116, 144, 0.2);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #0e7490, #1b8ba4);
+            color: white;
+            border-color: #0e7490;
+            box-shadow: 0 4px 12px rgba(14, 116, 144, 0.25);
+        }
+
+        .nav-item.active .nav-icon {
+            color: white;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            color: #6f8593;
+            transition: color 0.2s ease;
+        }
+
+        .nav-text {
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(14, 116, 144, 0.1);
+            margin-top: 8px;
+        }
+
+        .nav-hint {
+            font-size: 12px;
+            color: #6f8593;
+            text-align: center;
+            padding: 8px;
+            background: rgba(14, 116, 144, 0.05);
+            border-radius: 8px;
+            border: 1px dashed rgba(14, 116, 144, 0.2);
+        }
+
+        /* 调整主要内容区域，为侧边栏留出空间 */
+        body {
+            padding-left: 240px;
+        }
+
+        .topbar {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(90deg, #07364a, #0e5f76);
+            color: #ecfeff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 响应式设计：小屏幕隐藏侧边栏 */
+        @media (max-width: 1024px) {
+            .sidebar-nav {
+                transform: translateX(-100%);
+            }
+            
+            body {
+                padding-left: 0;
+            }
+            
+            .topbar {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .container {
+                margin-left: 0;
+                width: calc(100% - 36px);
+            }
+            
+            /* 添加汉堡菜单按钮 */
+            .topbar::before {
+                content: "☰";
+                font-size: 20px;
+                cursor: pointer;
+                margin-right: 12px;
+                color: #ecfeff;
+            }
+            
+            .sidebar-nav.show {
+                transform: translateX(0);
+            }
+        }
+
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 单页应用导航样式 */
+        section[data-section] {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        section[data-section].hidden {
+            display: none;
+        }
+        
+        section[data-section].active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 显示全部按钮 */
+        .show-all-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background: #0e7490;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(14, 116, 144, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .show-all-btn:hover {
+            background: #1b8ba4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(14, 116, 144, 0.4);
+        }
     </style>
 </head>
 <body>
+    <!-- 左侧索引栏 -->
+    <nav class="sidebar-nav">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">📊</div>
+            <div class="sidebar-title">导航索引</div>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#core-overview" class="nav-item active" data-section="overview">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-text">核心概览</span>
+            </a>
+            <a href="#region-news" class="nav-item" data-section="news">
+                <span class="nav-icon">📰</span>
+                <span class="nav-text">区域新闻</span>
+            </a>
+            <a href="#statistical-yearbook" class="nav-item" data-section="yearbook">
+                <span class="nav-icon">📋</span>
+                <span class="nav-text">统计年报</span>
+            </a>
+            <a href="#structured-metrics" class="nav-item" data-section="metrics">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">结构化指标</span>
+            </a>
+            <a href="#analysis-modules" class="nav-item" data-section="analysis">
+                <span class="nav-icon">✅</span>
+                <span class="nav-text">分析模块</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <div class="nav-hint">点击快速导航</div>
+        </div>
+    </nav>
+
     <header class="topbar">
-        <h1>🏥 健康大数据应用创新研发中心统计分析决策系统 · 管理员控制台</h1>
-        <div class="top-actions">
-            <label class="scope-switch" for="scopeSelector">
-                <span>数据范围</span>
-                <select id="scopeSelector">
-                    <option value="guangxi">省级卫健委（广西）</option>
-                    <option value="national">国家卫健委</option>
-                    <option value="all">全部来源</option>
-                </select>
-            </label>
-            <span class="badge">管理员</span>
-            <span id="scopeBadge" class="badge">当前: 省级卫健委（广西）</span>
-            <span class="badge">运行状态: 在线</span>
-            <a class="logout" href="/logout">退出登录</a>
+        <div class="title-container">
+            <div class="main-title">🏥 健康大数据应用创新研发中心统计分析决策系统</div>
+            <div class="sub-title">
+                <label class="scope-switch" for="scopeSelector">
+                    <span>数据范围</span>
+                    <select id="scopeSelector">
+                        <option value="guangxi">省级卫健委（广西）</option>
+                        <option value="national">国家卫健委</option>
+                        <option value="sichuan">省级卫健委（四川）</option>
+                        <option value="all">全部来源</option>
+                    </select>
+                </label>
+                <span class="badge">管理员</span>
+                <span id="scopeBadge" class="badge">当前: 省级卫健委（广西）</span>
+                <span class="badge">运行状态: 在线</span>
+                <a class="logout" href="/logout">退出登录</a>
+            </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="kpi-grid">
+        <!-- 锚点：核心概览 -->
+        <div id="core-overview" style="position: relative; top: -80px;"></div>
+        
+        <!-- KPI指标 -->
+        <section class="kpi-grid" data-section="overview">
             <article class="card">
                 <h3>平台机构数</h3>
                 <div class="kpi-value" id="kpiInst">--</div>
@@ -906,7 +1182,8 @@
             </article>
         </section>
 
-        <section class="main-grid">
+        <!-- 快捷操作、实时告警、系统健康、API统计 -->
+        <section class="main-grid" data-section="overview">
             <article class="card">
                 <h2 class="section-title">管理快捷操作</h2>
                 <div class="quick-actions">
@@ -914,6 +1191,10 @@
                     <button class="action-btn" data-action="configure_alert">⚙️ 配置预警规则</button>
                     <button class="action-btn" data-action="export_stats">📁 导出机构统计</button>
                     <button class="action-btn" id="openUploadModal" style="cursor:pointer;">📤 文档上传</button>
+                    <button class="action-btn" data-action="clean_data">🧹 数据清理</button>
+                    <button class="action-btn" data-action="backup_data">💾 数据备份</button>
+                    <button class="action-btn" data-action="user_management">👥 用户管理</button>
+                    <button class="action-btn" data-action="system_logs">📋 系统日志</button>
                 </div>
                 <div id="actionStatus" class="status-box">点击任一操作按钮开始执行任务。</div>
 
@@ -944,20 +1225,23 @@
             </aside>
         </section>
 
-        <section class="main-grid" style="margin-top: 20px;">
+        <section class="main-grid" style="margin-top: 20px;" data-section="news">
             <article class="card">
+                <!-- 锚点：区域新闻 -->
+                <div id="region-news" style="position: relative; top: -80px;"></div>
                 <h2 class="section-title">
                     区域新闻采集
                     <button id="refreshRegionNews" class="mini-btn">刷新</button>
                 </h2>
                 <div id="regionNewsMeta" class="scope-note">当前范围: 省级卫健委（广西）</div>
-                <div class="news-slider">
-                    <div class="news-slider-head">
-                        <span>拖动查看往年</span>
-                        <span id="newsYearLabel">全部年份</span>
-                    </div>
-                    <input id="newsYearSlider" type="range" min="0" max="0" value="0" step="1">
-                    <div id="newsSliderNote" class="news-slider-note">拖动到具体年份后，列表只展示该年的新闻。</div>
+                <div class="year-selector-container" style="margin: 12px 0 16px;">
+                    <label class="scope-switch" for="yearSelector" style="background: rgba(14, 116, 144, 0.08); border: 1px solid rgba(14, 116, 144, 0.2); color: #0f2f3d;">
+                        <span>年份筛选</span>
+                        <select id="yearSelector">
+                            <option value="">不限年份</option>
+                            <!-- 年份选项将通过JavaScript动态添加 -->
+                        </select>
+                    </label>
                 </div>
                 <ul id="regionNewsList" class="alert-list"></ul>
             </article>
@@ -968,7 +1252,7 @@
             </article>
         </section>
 
-        <section style="margin-top: 20px;">
+        <section style="margin-top: 20px;" data-section="yearbook">
             <article class="card" style="width: 100%;">
                 <h2 class="section-title">
                     🗂 统计年报（新增 tjnb）
@@ -980,7 +1264,7 @@
             </article>
         </section>
 
-        <section style="margin-top: 20px;">
+        <section style="margin-top: 20px;" data-section="metrics">
             <article class="card" style="width: 100%;">
                 <h2 class="section-title">
                     📊 真实结构化指标年度汇总
@@ -992,7 +1276,7 @@
             </article>
         </section>
 
-        <section style="margin-top: 20px;">
+        <section style="margin-top: 20px;" data-section="analysis">
             <article class="card" style="width: 100%;">
                 <div class="section-title">
                     <div>
@@ -1102,6 +1386,30 @@
         </div>
     </div>
 
+    <!-- 新闻详情模态框 -->
+    <div id="newsDetailModal" class="upload-modal" style="display: none;">
+        <div class="upload-modal-card" style="max-width: 800px;">
+            <div class="upload-modal-header">
+                <h2 class="upload-modal-title">📰 新闻详情</h2>
+                <button id="newsDetailCloseBtn" class="upload-close-btn">关闭</button>
+            </div>
+            <div class="news-detail-content" style="padding: 20px; max-height: 70vh; overflow-y: auto;">
+                <h3 id="newsDetailTitle" style="margin-top: 0; color: #0e7490;"></h3>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 14px; color: #666;">
+                    <div><strong>来源:</strong> <span id="newsDetailSource"></span></div>
+                    <div><strong>发布日期:</strong> <span id="newsDetailDate"></span></div>
+                    <div><strong>发布年份:</strong> <span id="newsDetailYear"></span></div>
+                </div>
+                <div id="newsDetailContent" style="line-height: 1.6; color: #333;">
+                    <p>新闻内容加载中...</p>
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <a id="newsDetailLink" href="#" target="_blank" style="color: #0e7490; text-decoration: none;">查看原文链接</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const ANALYSIS_GROUPS = {
             personnel: {
@@ -1136,7 +1444,7 @@
         };
 
         const MODULE_VIEW_MAP = {
-            '人口信息统计分析': { key: 'population', metrics: [] },
+            '人口信息统计分析': { key: 'population', metrics: [], skipped: true },
             '医疗卫生人员统计分析': { key: 'personnel', metrics: ['doctor_count', 'nurse_count'] },
             '医疗卫生床位统计分析': { key: 'bed', metrics: ['bed_count', 'bed_usage_rate'] },
             '医疗服务统计分析': { key: 'service', metrics: ['outpatient_visits', 'discharge_count', 'avg_stay_days'] },
@@ -1426,49 +1734,17 @@
         }
 
         function renderPopulationSection() {
-            const populationRows = [...analysisState.populationRows]
-                .filter(row => Number(row.person_count) > 0)
-                .sort((a, b) => Number(b.person_count) - Number(a.person_count));
-            const topRows = populationRows.slice(0, 8);
             const canvas = document.getElementById('populationChart');
             const empty = document.getElementById('populationChartEmpty');
             const meta = document.getElementById('populationMeta');
 
-            if (!topRows.length) {
-                canvas.style.display = 'none';
-                empty.style.display = 'block';
-                empty.textContent = '人口数据不足，暂无法生成分布图。';
-            } else {
-                canvas.style.display = 'block';
-                empty.style.display = 'none';
-                drawHorizontalBarChart(canvas, topRows);
-            }
+            // 人口数据模块已移除，直接显示提示
+            canvas.style.display = 'none';
+            empty.style.display = 'block';
+            empty.textContent = '人口信息统计分析模块已移除（population_data 表数据已删除）。';
+            meta.textContent = '已跳过';
 
-            meta.textContent = topRows.length ? `展示前 ${topRows.length} 个区县` : '无可展示区县';
-
-            document.getElementById('populationSummaryTable').innerHTML = topRows.length
-                ? `
-                    <table class="analysis-table">
-                        <thead>
-                            <tr>
-                                <th>区县</th>
-                                <th>人口样本数</th>
-                                <th>平均健康评分</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${topRows.map(row => `
-                                <tr>
-                                    <td>${escapeHtml(row.district || '未知')}</td>
-                                    <td>${formatNumber(row.person_count)}</td>
-                                    <td>${formatNumber(row.avg_health_score)}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                    <div class="analysis-note">当前人口数据来自 population_data 表，已按区县聚合后展示。</div>
-                `
-                : '<div class="analysis-note">人口数据不足，已自动跳过人口分析。</div>';
+            document.getElementById('populationSummaryTable').innerHTML = '<div class="analysis-note">人口数据模块已移除，不再展示人口分布信息。</div>';
         }
 
         function renderMetricTabs() {
@@ -1656,6 +1932,22 @@
                         await loadHealthStats();
                         await reloadScopedData();
                     },
+                    clean_data: async () => {
+                        await loadAlerts();
+                        await loadHealthStats();
+                    },
+                    backup_data: async () => {
+                        await loadAlerts();
+                        await loadHealthStats();
+                    },
+                    user_management: async () => {
+                        await loadAlerts();
+                        await loadHealthStats();
+                    },
+                    system_logs: async () => {
+                        await loadAlerts();
+                        await loadHealthStats();
+                    },
                 };
 
                 if (actionRefreshMap[action]) {
@@ -1791,31 +2083,49 @@
             return `${path}${separator}scope=${encodeURIComponent(analysisState.scope)}`;
         }
 
-        function renderNewsYearSlider(yearMin, yearMax, selectedYear) {
-            const slider = document.getElementById('newsYearSlider');
-            const label = document.getElementById('newsYearLabel');
-            const minYear = Number(yearMin) || 0;
-            const maxYear = Number(yearMax) || 0;
-            analysisState.newsYearMin = minYear;
-            analysisState.newsYearMax = maxYear;
-
-            if (!minYear || !maxYear || maxYear < minYear) {
-                slider.min = 0;
-                slider.max = 0;
-                slider.value = 0;
-                label.textContent = '全部年份';
-                slider.disabled = true;
-                return;
+        function renderYearSelector(yearMin, yearMax, selectedYear) {
+            const selector = document.getElementById('yearSelector');
+            
+            // 清空现有选项（保留"不限年份"选项）
+            while (selector.options.length > 1) {
+                selector.remove(1);
             }
 
-            slider.disabled = false;
-            slider.min = minYear;
-            slider.max = maxYear;
+            // 即使没有年份数据，也不要禁用选择器
+            selector.disabled = false;
+            
+            // 如果有有效年份数据，添加年份选项
+            if (yearMin && yearMax && yearMax >= yearMin) {
+                const minYear = Number(yearMin);
+                const maxYear = Number(yearMax);
+                analysisState.newsYearMin = minYear;
+                analysisState.newsYearMax = maxYear;
+                
+                // 添加年份选项（从最新到最旧）
+                for (let year = maxYear; year >= minYear; year--) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = `${year} 年`;
+                    selector.appendChild(option);
+                }
+            } else {
+                // 如果没有年份数据，使用默认的年份范围（2015-2026）
+                analysisState.newsYearMin = 2015;
+                analysisState.newsYearMax = 2026;
+                
+                // 添加默认年份选项（从最新到最旧）
+                for (let year = 2026; year >= 2015; year--) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = `${year} 年`;
+                    selector.appendChild(option);
+                }
+            }
 
-            const currentYear = Number(selectedYear) || maxYear;
+            // 设置选中的年份
+            const currentYear = Number(selectedYear) || '';
             analysisState.newsYear = currentYear;
-            slider.value = currentYear;
-            label.textContent = `${currentYear} 年`;
+            selector.value = currentYear;
         }
 
         function scheduleRegionNewsReload() {
@@ -1881,8 +2191,6 @@
         async function loadRegionNews() {
             const listEl = document.getElementById('regionNewsList');
             const metaEl = document.getElementById('regionNewsMeta');
-            const slider = document.getElementById('newsYearSlider');
-            const label = document.getElementById('newsYearLabel');
             try {
                 const url = analysisState.newsYear ? `${withScope('/api/news/region')}&year=${encodeURIComponent(analysisState.newsYear)}` : withScope('/api/news/region');
                 const resp = await fetch(url);
@@ -1895,19 +2203,15 @@
                 metaEl.textContent = `当前范围: ${analysisState.scopeLabel}`;
                 document.getElementById('apiScopeNote').textContent = `当前范围: ${analysisState.scopeLabel}`;
 
-                renderNewsYearSlider(data.year_min, data.year_max, data.selected_year || analysisState.newsYear || data.year_max);
-                label.textContent = data.selected_year ? `${data.selected_year} 年` : '全部年份';
-
-                slider.oninput = () => {
-                    label.textContent = `${slider.value} 年`;
-                    analysisState.newsYear = Number(slider.value);
-                    scheduleRegionNewsReload();
-                };
+                // 使用新的年份选择器函数
+                renderYearSelector(data.year_min, data.year_max, data.selected_year || analysisState.newsYear || data.year_max);
 
                 const items = Array.isArray(data.items) ? data.items : [];
                 listEl.innerHTML = items.map(item => {
                     const sourceText = item.source === 'national' ? '国家' : item.source === 'guangxi' ? '省级' : '--';
-                    return `<li class="alert-item"><span>[${sourceText}] ${escapeHtml(item.title)}</span><span>${escapeHtml(item.publish_date || '--')}</span></li>`;
+                    return `<li class="alert-item" onclick="showNewsDetail(${item.id}, '${escapeHtml(item.title)}', '${item.source}', '${escapeHtml(item.publish_date || '--')}', '${item.link || ''}')" style="cursor: pointer;">
+                        <span>[${sourceText}] ${escapeHtml(item.title)}</span><span>${escapeHtml(item.publish_date || '--')}</span>
+                    </li>`;
                 }).join('');
 
                 if (items.length === 0) {
@@ -1917,6 +2221,60 @@
                 listEl.innerHTML = '<li class="alert-item"><span>加载失败</span><span>--</span></li>';
             }
         }
+
+        // 显示新闻详情函数
+        function showNewsDetail(id, title, source, publishDate, link) {
+            const modal = document.getElementById('newsDetailModal');
+            const sourceText = source === 'national' ? '国家卫健委' : source === 'guangxi' ? '广西卫健委' : '未知来源';
+            const year = publishDate && publishDate.match(/^\d{4}/) ? publishDate.substring(0, 4) : '--';
+            
+            // 填充模态框内容
+            document.getElementById('newsDetailTitle').textContent = title;
+            document.getElementById('newsDetailSource').textContent = sourceText;
+            document.getElementById('newsDetailDate').textContent = publishDate;
+            document.getElementById('newsDetailYear').textContent = year;
+            
+            // 设置新闻内容 - 简化显示，移除冗余信息
+            document.getElementById('newsDetailContent').innerHTML = `
+                <p><strong>新闻ID:</strong> ${id}</p>
+                <p><em>注：如需查看详细内容，请点击下方链接访问原文。</em></p>
+            `;
+            
+            // 设置链接
+            const linkElement = document.getElementById('newsDetailLink');
+            if (link && link !== '' && link !== 'undefined' && link !== 'null') {
+                linkElement.href = link;
+                linkElement.textContent = '查看原文链接';
+                linkElement.style.display = 'inline';
+                linkElement.style.color = '#0e7490';
+                linkElement.style.textDecoration = 'none';
+            } else {
+                linkElement.textContent = '暂无原文链接';
+                linkElement.href = '#';
+                linkElement.style.display = 'inline';
+                linkElement.style.color = '#999';
+                linkElement.style.textDecoration = 'none';
+                linkElement.onclick = (e) => {
+                    e.preventDefault();
+                    return false;
+                };
+            }
+            
+            // 显示模态框
+            modal.style.display = 'flex';
+        }
+
+        // 新闻详情模态框关闭功能
+        document.getElementById('newsDetailCloseBtn').addEventListener('click', () => {
+            document.getElementById('newsDetailModal').style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        document.getElementById('newsDetailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'newsDetailModal') {
+                e.target.style.display = 'none';
+            }
+        });
 
         async function loadMetrics() {
             const container = document.getElementById('metricsData');
@@ -2065,6 +2423,285 @@
 
             loadAlerts();
             startAlertsPolling();
+        });
+
+        /* ============ 单页应用导航逻辑 ============ */
+        function initSPANavigation() {
+            const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
+            const sections = document.querySelectorAll('section[data-section]');
+            let currentSection = 'overview';
+            let showAllMode = false;
+
+            // 创建"显示全部"按钮
+            const showAllBtn = document.createElement('button');
+            showAllBtn.className = 'show-all-btn';
+            showAllBtn.textContent = '显示全部';
+            document.body.appendChild(showAllBtn);
+
+            // 初始化：只显示核心概览模块
+            switchToSection('overview');
+
+            // 点击导航项
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = item.getAttribute('data-section');
+                    
+                    // 移除所有active类
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // 添加active类到当前项
+                    item.classList.add('active');
+                    
+                    // 切换到对应模块
+                    switchToSection(sectionId);
+                    showAllMode = false;
+                    showAllBtn.textContent = '显示全部';
+                });
+            });
+
+            // "显示全部"按钮点击事件
+            showAllBtn.addEventListener('click', () => {
+                if (showAllMode) {
+                    // 如果当前是显示全部模式，切换回当前选中的模块
+                    switchToSection(currentSection);
+                    showAllMode = false;
+                    showAllBtn.textContent = '显示全部';
+                } else {
+                    // 切换到显示全部模式
+                    showAllSections();
+                    showAllMode = true;
+                    showAllBtn.textContent = '返回单页';
+                }
+            });
+
+            // 切换到指定模块
+            function switchToSection(sectionId) {
+                currentSection = sectionId;
+                
+                // 隐藏所有模块
+                sections.forEach(section => {
+                    section.classList.add('hidden');
+                    section.classList.remove('active');
+                });
+                
+                // 显示目标模块（可能有多个section具有相同的data-section值）
+                const targetSections = document.querySelectorAll(`section[data-section="${sectionId}"]`);
+                if (targetSections.length > 0) {
+                    targetSections.forEach(section => {
+                        section.classList.remove('hidden');
+                        section.classList.add('active');
+                    });
+                    
+                    // 滚动到顶部
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            // 显示所有模块
+            function showAllSections() {
+                sections.forEach(section => {
+                    section.classList.remove('hidden');
+                    section.classList.add('active');
+                });
+                
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // 禁用滚动导航（根据用户要求）
+            function updateScrollBehavior() {
+                if (!showAllMode) {
+                    // 在单页模式下，允许模块内部滚动，但防止滚动到其他模块
+                    document.body.style.overflow = 'auto';
+                    document.documentElement.style.overflow = 'auto';
+                    
+                    // 监听滚动事件，防止滚动到其他模块
+                    const activeSection = document.querySelector(`section[data-section="${currentSection}"].active`);
+                    if (activeSection) {
+                        // 确保页面在顶部
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        
+                        // 监听滚动，如果滚动超出当前模块，则回到模块顶部
+                        const sectionRect = activeSection.getBoundingClientRect();
+                        const sectionTop = sectionRect.top + window.scrollY;
+                        const sectionBottom = sectionTop + sectionRect.height;
+                        
+                        window.addEventListener('scroll', handleSinglePageScroll);
+                    }
+                } else {
+                    // 在显示全部模式下，允许滚动
+                    document.body.style.overflow = 'auto';
+                    document.documentElement.style.overflow = 'auto';
+                    // 移除滚动监听器
+                    window.removeEventListener('scroll', handleSinglePageScroll);
+                }
+            }
+            
+            // 单页模式滚动处理函数
+            function handleSinglePageScroll() {
+                const activeSection = document.querySelector(`section[data-section="${currentSection}"].active`);
+                if (!activeSection) return;
+                
+                const sectionRect = activeSection.getBoundingClientRect();
+                const sectionTop = sectionRect.top + window.scrollY;
+                const sectionBottom = sectionTop + sectionRect.height;
+                const currentScroll = window.scrollY;
+                
+                // 只在滚动超出模块边界时才触发
+                // 允许滚动到模块顶部，但防止滚动到其他模块
+                const tolerance = 10; // 减少容错范围到10px
+                
+                // 如果滚动到模块上方（超出模块顶部）
+                // 只有当滚动位置明显低于模块顶部时才触发
+                if (currentScroll < sectionTop - tolerance) {
+                    window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+                }
+                // 如果滚动到模块下方（超出模块底部）
+                else if (currentScroll > sectionBottom + tolerance) {
+                    window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+                }
+                // 如果用户在模块顶部附近（sectionTop到sectionTop+tolerance之间），允许自由滚动
+                // 这样可以避免在顶部附近频繁触发限制
+            }
+            
+            // 初始设置滚动行为
+            updateScrollBehavior();
+            
+            // 监听模式变化
+            showAllBtn.addEventListener('click', () => {
+                setTimeout(updateScrollBehavior, 10);
+            });
+            
+            // 监听导航项点击
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    setTimeout(updateScrollBehavior, 10);
+                });
+            });
+        }
+
+        /* ============ 左侧索引栏交互逻辑 ============ */
+        function initSidebarNavigation() {
+            const navItems = document.querySelectorAll('.sidebar-menu .nav-item');
+            const sections = [
+                { id: 'core-overview', selector: '.kpi-grid' },
+                { id: 'region-news', selector: '#regionNewsList' },
+                { id: 'statistical-yearbook', selector: '#yearbookList' },
+                { id: 'structured-metrics', selector: '#metricsData' },
+                { id: 'analysis-modules', selector: '#analysisOverview' }
+            ];
+
+            // 点击导航项
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = item.getAttribute('href').substring(1);
+                    
+                    // 移除所有active类
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // 添加active类到当前项
+                    item.classList.add('active');
+                    
+                    // 平滑滚动到目标位置
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        // 如果没有对应的id，尝试滚动到选择器对应的元素
+                        const section = sections.find(s => s.id === targetId);
+                        if (section) {
+                            const element = document.querySelector(section.selector);
+                            if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 滚动时高亮当前章节（仅在显示全部模式下生效）
+            function updateActiveNavItem() {
+                // 检查是否在单页模式下
+                const showAllBtn = document.querySelector('.show-all-btn');
+                const isShowAllMode = showAllBtn && showAllBtn.textContent === '返回单页';
+                
+                // 如果在单页模式下，不更新导航项高亮
+                if (!isShowAllMode) {
+                    return;
+                }
+                
+                const scrollPosition = window.scrollY + 100;
+                
+                // 找到当前可见的章节
+                let currentSectionId = 'core-overview';
+                
+                for (const section of sections) {
+                    const element = document.getElementById(section.id) || document.querySelector(section.selector);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        const elementTop = rect.top + window.scrollY;
+                        const elementBottom = elementTop + rect.height;
+                        
+                        if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+                            currentSectionId = section.id;
+                            break;
+                        }
+                    }
+                }
+                
+                // 更新导航项状态
+                navItems.forEach(item => {
+                    const itemId = item.getAttribute('href').substring(1);
+                    if (itemId === currentSectionId) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+
+            // 监听滚动事件
+            window.addEventListener('scroll', () => {
+                updateActiveNavItem();
+            });
+
+            // 初始更新
+            updateActiveNavItem();
+
+            // 响应式：小屏幕汉堡菜单
+            const topbar = document.querySelector('.topbar');
+            const sidebar = document.querySelector('.sidebar-nav');
+            
+            if (window.innerWidth <= 1024) {
+                // 添加汉堡菜单点击事件
+                topbar.addEventListener('click', (e) => {
+                    if (e.target === topbar || e.target.classList.contains('topbar')) {
+                        sidebar.classList.toggle('show');
+                    }
+                });
+                
+                // 点击侧边栏外部关闭
+                document.addEventListener('click', (e) => {
+                    if (sidebar.classList.contains('show') && 
+                        !sidebar.contains(e.target) && 
+                        e.target !== topbar) {
+                        sidebar.classList.remove('show');
+                    }
+                });
+            }
+        }
+
+        // 初始化侧边栏导航
+        initSidebarNavigation();
+
+        // 初始化单页应用导航
+        initSPANavigation();
+
+        // 添加年份选择器事件监听器
+        document.getElementById('yearSelector').addEventListener('change', (event) => {
+            const selectedYear = event.target.value;
+            analysisState.newsYear = selectedYear ? Number(selectedYear) : 0;
+            scheduleRegionNewsReload();
         });
 
         loadAlerts();

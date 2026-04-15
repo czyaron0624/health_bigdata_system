@@ -35,6 +35,8 @@ if (-not (Test-Path (Join-Path $projectRoot 'run.py'))) {
 
 Set-Location $projectRoot
 
+$env:OCR_BACKEND = 'rapidocr'
+
 # Check virtual environment
 Write-Host "[1/3] Checking virtual environment..." -ForegroundColor Yellow
 if (-not (Test-Path "venv\Scripts\python.exe")) {

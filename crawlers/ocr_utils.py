@@ -10,6 +10,7 @@ import tempfile
 from PIL import Image
 from io import BytesIO
 import logging
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -20,55 +21,94 @@ class OCRProcessor:
         :param use_gpu: 是否使用GPU加速（需要CUDA环境）
         """
         self.ocr = None
+        self.rapidocr = None
         self.backend = None
         self.use_gpu = use_gpu
         os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
+        os.environ.setdefault("FLAGS_use_mkldnn", "0")
+        os.environ.setdefault("FLAGS_enable_pir_api", "0")
+        self.force_rapidocr = os.environ.get("OCR_BACKEND", "rapidocr").strip().lower() != "paddleocr"
         self._init_ocr()
     
     def _init_ocr(self):
         """延迟初始化OCR引擎"""
+        if self.force_rapidocr:
+            self._init_rapidocr()
+            return
+
+        try:
+            from paddleocr import PaddleOCR
+
+            init_kwargs = {
+                'lang': 'ch',
+            }
+
+            signature = inspect.signature(PaddleOCR)
+            if 'device' in signature.parameters and self.use_gpu:
+                init_kwargs['device'] = 'gpu'
+
+            self.ocr = PaddleOCR(**init_kwargs)
+            self.backend = 'paddleocr'
+            logger.info("✅ PaddleOCR 初始化成功")
+        except Exception as paddleocr_error:
+            logger.warning(f"⚠️ PaddleOCR 初始化失败，尝试 RapidOCR 兜底: {paddleocr_error}")
+            self._init_rapidocr()
+
+    def _init_rapidocr(self):
         try:
             from rapidocr_onnxruntime import RapidOCR
 
-            self.ocr = RapidOCR()
+            self.rapidocr = RapidOCR()
+            self.ocr = self.rapidocr
             self.backend = 'rapidocr'
             logger.info("✅ RapidOCR 初始化成功")
-        except Exception as rapidocr_error:
-            logger.warning(f"⚠️ RapidOCR 初始化失败，尝试 PaddleOCR 兜底: {rapidocr_error}")
-
-            try:
-                from paddleocr import PaddleOCR
-
-                init_kwargs = {
-                    'lang': 'ch',
-                }
-
-                signature = inspect.signature(PaddleOCR)
-                if 'device' in signature.parameters and self.use_gpu:
-                    init_kwargs['device'] = 'gpu'
-
-                self.ocr = PaddleOCR(**init_kwargs)
-                self.backend = 'paddleocr'
-                logger.info("✅ PaddleOCR 初始化成功")
-            except ImportError:
-                logger.error("❌ 请安装 rapidocr-onnxruntime 或 paddleocr")
-                raise
-            except Exception as e:
-                logger.error(f"❌ OCR初始化失败: {e}")
-                raise
+        except ImportError:
+            logger.error("❌ 请安装 paddleocr 或 rapidocr-onnxruntime")
+            raise
+        except Exception as e:
+            logger.error(f"❌ OCR初始化失败: {e}")
+            raise
 
     def _run_ocr(self, image_path):
         """执行OCR识别并兼容不同后端返回格式"""
         if self.backend == 'rapidocr':
-            result = self.ocr(image_path)
+            rapidocr: Any = self.ocr
+            result = rapidocr(image_path)
             if isinstance(result, tuple):
                 return result[0] or []
             return result or []
 
         if hasattr(self.ocr, 'predict'):
-            return self.ocr.predict(image_path)
+            paddleocr: Any = self.ocr
+            return paddleocr.predict(image_path)
 
-        return self.ocr.ocr(image_path)
+        paddleocr: Any = self.ocr
+        return paddleocr.ocr(image_path)
+
+    def _should_fallback_to_rapidocr(self, error: Exception) -> bool:
+        message = str(error)
+        return any(
+            token in message
+            for token in (
+                'ConvertPirAttribute2RuntimeAttribute',
+                'onednn',
+                'oneDNN',
+                'pir::',
+                'NotImplementedError',
+            )
+        )
+
+    def _run_with_fallback(self, image_path):
+        try:
+            result = self._run_ocr(image_path)
+            return self._normalize_result(result)
+        except Exception as error:
+            if self.backend != 'rapidocr' and self._should_fallback_to_rapidocr(error):
+                logger.warning(f"⚠️ PaddleOCR 推理失败，切换 RapidOCR 重试: {error}")
+                self._init_rapidocr()
+                result = self._run_ocr(image_path)
+                return self._normalize_result(result)
+            raise
 
     def _normalize_result(self, result):
         """统一不同OCR后端的返回格式"""
@@ -171,8 +211,7 @@ class OCRProcessor:
             
             try:
                 # 执行OCR识别
-                result = self._run_ocr(tmp_path)
-                return self._normalize_result(result)
+                return self._run_with_fallback(tmp_path)
             
             finally:
                 # 清理临时文件
@@ -209,8 +248,7 @@ class OCRProcessor:
         :return: 识别结果列表
         """
         try:
-            result = self._run_ocr(image_path)
-            return self._normalize_result(result)
+            return self._run_with_fallback(image_path)
         except Exception as e:
             logger.error(f"❌ 本地图片识别失败: {e}")
             return []

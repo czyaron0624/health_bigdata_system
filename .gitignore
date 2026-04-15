@@ -1,6 +1,5 @@
 # 忽略 Python 虚拟环境
 venv/
-.venv/
 
 # 忽略 Docker 的数据库文件
 mysql_data/
@@ -14,3 +13,7 @@ __pycache__/
 
 # 忽略 VS Code 的本地设置
 .vscode/
+
+# 忽略数据文件目录
+outputs/
+inputs/

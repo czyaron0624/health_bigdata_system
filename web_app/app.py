@@ -53,26 +53,15 @@ USER_REMINDERS = [
 TREND_LABELS = ["一", "二", "三", "四", "五", "六", "日"]
 TREND_VALUES = [68, 72, 70, 76, 79, 81, 82]
 
-# OCR 指标有效范围过滤，避免异常识别值污染图表
-OCR_METRIC_VALID_SQL = """
-(
-    (metric_key = 'doctor_count' AND metric_value BETWEEN 1000 AND 300000)
-    OR (metric_key = 'nurse_count' AND metric_value BETWEEN 1000 AND 400000)
-    OR (metric_key = 'bed_count' AND metric_value BETWEEN 1000 AND 600000)
-    OR (metric_key = 'bed_usage_rate' AND metric_value BETWEEN 1 AND 100)
-    OR (metric_key = 'outpatient_visits' AND metric_value BETWEEN 100000 AND 50000000)
-    OR (metric_key = 'discharge_count' AND metric_value BETWEEN 1000 AND 5000000)
-    OR (metric_key = 'avg_stay_days' AND metric_value BETWEEN 1 AND 30)
-    OR (metric_key = 'outpatient_cost' AND metric_value BETWEEN 1 AND 2000)
-    OR (metric_key = 'discharge_cost' AND metric_value BETWEEN 1 AND 50000)
-)
-"""
+# 弃用硬编码聚合SQL，改为使用 vw_metric_clean 视图
+# OCR_METRIC_VALID_SQL 规则已下沉到数据库视图中
 
-VALID_SCOPES = {'all', 'guangxi', 'national'}
+VALID_SCOPES = {'all', 'guangxi', 'national', 'sichuan'}
 SCOPE_LABELS = {
     'all': '全部来源',
     'guangxi': '省级卫健委（广西）',
     'national': '国家卫健委',
+    'sichuan': '省级卫健委（四川）',
 }
 
 
@@ -151,6 +140,8 @@ def build_metric_scope_filter(scope: str):
         return "source_table = %s", ['guangxi_news']
     if scope == 'national':
         return "source_table = %s", ['national_news']
+    if scope == 'sichuan':
+        return "source_table = %s", ['sichuan_news']
     return "", []
 
 
@@ -226,11 +217,8 @@ def get_stats():
         cursor.execute("SELECT COUNT(*) FROM medical_institution")
         live_payload["institution_count"] = int(cursor.fetchone()[0])
 
-        if scope in {'guangxi', 'all'}:
-            cursor.execute("SELECT COUNT(*) FROM population_data")
-            live_payload["population_count"] = int(cursor.fetchone()[0])
-        else:
-            live_payload["population_count"] = 0
+        # population_data 已移除，固定返回 0
+        live_payload["population_count"] = 0
 
         if scope == 'guangxi':
             cursor.execute("SELECT COUNT(*) FROM guangxi_news")
@@ -245,7 +233,7 @@ def get_stats():
             national_count = int(cursor.fetchone()[0])
             live_payload["news_count"] = guangxi_count + national_count
 
-        cursor.execute("SELECT COUNT(*) FROM health_ocr_metrics")
+        cursor.execute("SELECT COUNT(*) FROM vw_metric_clean")
         live_payload["metric_count"] = int(cursor.fetchone()[0])
 
         cursor.close()
@@ -373,49 +361,127 @@ def get_region_news():
 
         if scope == 'guangxi':
             year_clause, year_params = build_year_filter('guangxi_news')
-            cursor.execute(
-                """
-                SELECT id, title, publish_date, 'guangxi' AS source,
-                       YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                FROM guangxi_news
-                WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
-                ORDER BY publish_year DESC, publish_date DESC, id DESC
-                LIMIT 50
-                """,
-                tuple(year_params)
-            )
+            try:
+                cursor.execute(
+                    """
+                    SELECT id, title, publish_date, 'guangxi' AS source,
+                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
+                    FROM guangxi_news
+                    WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
+                    ORDER BY publish_year DESC, publish_date DESC, id DESC
+                    LIMIT 50
+                    """,
+                    tuple(year_params)
+                )
+            except Exception:
+                # 表不存在或查询失败，返回空结果
+                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
         elif scope == 'national':
             year_clause, year_params = build_year_filter('national_news')
-            cursor.execute(
-                """
-                SELECT id, title, publish_date, 'national' AS source,
-                       YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                FROM national_news
-                WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
-                ORDER BY publish_year DESC, publish_date DESC, id DESC
-                LIMIT 50
-                """,
-                tuple(year_params)
-            )
+            try:
+                cursor.execute(
+                    """
+                    SELECT id, title, publish_date, 'national' AS source,
+                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
+                    FROM national_news
+                    WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
+                    ORDER BY publish_year DESC, publish_date DESC, id DESC
+                    LIMIT 50
+                    """,
+                    tuple(year_params)
+                )
+            except Exception:
+                # 表不存在或查询失败，返回空结果
+                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
+        elif scope == 'sichuan':
+            year_clause, year_params = build_year_filter('sichuan_news')
+            try:
+                cursor.execute(
+                    """
+                    SELECT id, title, publish_date, 'sichuan' AS source,
+                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
+                    FROM sichuan_news
+                    WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
+                    ORDER BY publish_year DESC, publish_date DESC, id DESC
+                    LIMIT 50
+                    """,
+                    tuple(year_params)
+                )
+            except Exception:
+                # 表不存在或查询失败，返回空结果
+                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
         else:
             year_clause, year_params = build_year_filter('t')
-            cursor.execute(build_union_query(year_clause), tuple(year_params))
+            # 对于 'all' scope，尝试构建包含所有可用表的查询
+            all_query_parts = []
+            table_mapping = {
+                'guangxi_news': 'guangxi',
+                'national_news': 'national',
+                'sichuan_news': 'sichuan'
+            }
+            
+            # 检查哪些表存在并构建查询
+            test_cursor = conn.cursor()
+            for table_name, source_label in table_mapping.items():
+                try:
+                    test_cursor.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
+                    test_cursor.fetchone()
+                    all_query_parts.append(f"""
+                        SELECT id, title, publish_date, '{source_label}' AS source,
+                               YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
+                        FROM {table_name}
+                    """)
+                except Exception:
+                    pass
+            test_cursor.close()
+            
+            if all_query_parts:
+                all_union_query = " UNION ALL ".join(all_query_parts) + f"""
+                    WHERE publish_year IS NOT NULL {year_clause}
+                    ORDER BY publish_year DESC, publish_date DESC, id DESC
+                    LIMIT 50
+                """
+                cursor.execute(all_union_query, tuple(year_params))
+            else:
+                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
 
         items = cursor.fetchall()
 
-        cursor.execute(
-            f"""
-            SELECT MIN(publish_year) AS year_min, MAX(publish_year) AS year_max
-            FROM (
-                SELECT YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                FROM guangxi_news
-                UNION ALL
-                SELECT YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                FROM national_news
-            ) y
-            WHERE publish_year IS NOT NULL
+        # 为年份统计构建动态查询
+        year_query_parts = []
+        table_mapping = {
+            'guangxi_news': 'guangxi',
+            'national_news': 'national', 
+            'sichuan_news': 'sichuan'
+        }
+        
+        year_test_cursor = conn.cursor()
+        for table_name in table_mapping.keys():
+            try:
+                year_test_cursor.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
+                year_test_cursor.fetchone()
+                year_query_parts.append(f"""
+                    SELECT YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
+                    FROM {table_name}
+                """)
+            except Exception:
+                pass
+        year_test_cursor.close()
+        
+        if year_query_parts:
+            year_union_query = " UNION ALL ".join(year_query_parts) + """
+                WHERE publish_year IS NOT NULL
             """
-        )
+            try:
+                cursor.execute(f"""
+                    SELECT MIN(publish_year) AS year_min, MAX(publish_year) AS year_max
+                    FROM ({year_union_query}) y
+                """)
+            except Exception:
+                cursor.execute("SELECT NULL AS year_min, NULL AS year_max")
+        else:
+            cursor.execute("SELECT NULL AS year_min, NULL AS year_max")
+        
         year_meta = cursor.fetchone() or {}
         conn.close()
 
@@ -583,11 +649,8 @@ def get_metrics_summary():
                 metric_key,
                 ROUND(AVG(metric_value), 4) AS avg_value,
                 COUNT(*) AS sample_count
-            FROM health_ocr_metrics
-            WHERE metric_value IS NOT NULL
-              AND year IS NOT NULL
-              AND metric_key IN ({placeholders})
-              AND {OCR_METRIC_VALID_SQL}
+            FROM vw_metric_clean
+            WHERE metric_key IN ({placeholders})
         """
 
         if scope_clause:
@@ -640,7 +703,7 @@ def get_metrics_summary():
             "total_reports": len(summary_data),
             "data": summary_data,
             "meta": {
-                "source": "health_ocr_metrics",
+                "source": "vw_metric_clean",
                 "scope": scope,
                 "scope_label": SCOPE_LABELS.get(scope, scope),
                 "year_min": summary_data[-1]['report_id'] if summary_data else None,
@@ -669,11 +732,8 @@ def get_module_status():
             cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
             table_counts[table_name] = int(cursor.fetchone()[0])
 
-        if scope in {'guangxi', 'all'}:
-            cursor.execute("SELECT COUNT(*) FROM population_data")
-            table_counts['population_data'] = int(cursor.fetchone()[0])
-        else:
-            table_counts['population_data'] = 0
+        # population_data 已移除，固定返回 0
+        table_counts['population_data'] = 0
 
         metrics_map = {
             'personnel': ['doctor_count', 'nurse_count'],
@@ -687,7 +747,7 @@ def get_module_status():
         for key, metric_keys in metrics_map.items():
             placeholders = ','.join(['%s'] * len(metric_keys))
             sql = f"""
-                SELECT COUNT(*) FROM health_ocr_metrics
+                SELECT COUNT(*) FROM vw_metric_clean
                 WHERE metric_key IN ({placeholders}) AND metric_value IS NOT NULL
             """
             params = list(metric_keys)
@@ -764,21 +824,10 @@ def get_analysis_data_summary():
 
         scope = get_scope()
 
-        # 人口数据（目前仅在省级数据中启用）
-        if scope in {'guangxi', 'all'}:
-            cursor.execute(
-                """
-                SELECT district, COUNT(*) AS person_count, ROUND(AVG(health_score), 2) AS avg_health_score
-                FROM population_data
-                GROUP BY district
-                ORDER BY person_count DESC
-                """
-            )
-            population_by_district = cursor.fetchall()
-        else:
-            population_by_district = []
+        # population_data 已移除，返回空数组
+        population_by_district = []
 
-        # OCR结构化指标按年汇总
+        # OCR结构化指标按年汇总，使用 vw_metric_clean
         scope_clause, scope_params = build_metric_scope_filter(scope)
         sql = f"""
             SELECT
@@ -786,16 +835,13 @@ def get_analysis_data_summary():
                 metric_key,
                 ROUND(AVG(metric_value), 4) AS avg_value,
                 COUNT(*) AS sample_count
-            FROM health_ocr_metrics
-            WHERE metric_value IS NOT NULL
-              AND metric_key IN (
+            FROM vw_metric_clean
+            WHERE metric_key IN (
                   'doctor_count', 'nurse_count',
                   'bed_count', 'bed_usage_rate',
                   'outpatient_visits', 'discharge_count', 'avg_stay_days',
                   'outpatient_cost', 'discharge_cost'
               )
-              AND year IS NOT NULL
-              AND {OCR_METRIC_VALID_SQL}
         """
 
         if scope_clause:
@@ -827,6 +873,77 @@ def get_analysis_data_summary():
     except Exception as e:
         return jsonify({'error': str(e), 'data': {}}), 500
 
+@app.route('/api/analysis/metric-details', methods=['GET'])
+def get_metric_details():
+    """提供数据明细的分页接口（整理层清洗后结果）"""
+    try:
+        import mysql.connector
+        conn = mysql.connector.connect(host='localhost', user='root', password='rootpassword', database='health_db')
+        cursor = conn.cursor(dictionary=True)
+
+        scope = get_scope()
+        metric_key = request.args.get('metric_key')
+        year = request.args.get('year', type=int)
+        page = request.args.get('page', default=1, type=int)
+        page_size = request.args.get('page_size', default=10, type=int)
+
+        query_params = []
+        where_clauses = []
+
+        scope_clause, scope_params = build_metric_scope_filter(scope)
+        if scope_clause:
+            where_clauses.append(scope_clause)
+            query_params.extend(scope_params)
+
+        if metric_key:
+            where_clauses.append("metric_key = %s")
+            query_params.append(metric_key)
+
+        if year:
+            where_clauses.append("year = %s")
+            query_params.append(year)
+
+        where_sql = " AND ".join(where_clauses) if where_clauses else "1=1"
+
+        # Count total
+        count_sql = f"SELECT COUNT(*) as total FROM vw_metric_clean WHERE {where_sql}"
+        cursor.execute(count_sql, tuple(query_params))
+        total_rows = cursor.fetchone()['total']
+
+        # Fetch data
+        data_sql = f"""
+            SELECT id, news_id, title, publish_date, year, month, 
+                   metric_key, metric_name, metric_value, metric_raw, source_table, updated_at
+            FROM vw_metric_clean
+            WHERE {where_sql}
+            ORDER BY year DESC, month DESC, id DESC
+            LIMIT %s OFFSET %s
+        """
+        fetch_params = query_params + [page_size, (page - 1) * page_size]
+        cursor.execute(data_sql, tuple(fetch_params))
+        rows = cursor.fetchall()
+        
+        # Format updated_at
+        for row in rows:
+            if row.get('updated_at'):
+                row['updated_at'] = row['updated_at'].strftime('%Y-%m-%d %H:%M:%S')
+
+        conn.close()
+
+        return jsonify({
+            'status': 'success',
+            'data': rows,
+            'meta': {
+                'total': total_rows,
+                'page': page,
+                'page_size': page_size,
+                'scope': scope,
+                'metric_key': metric_key,
+                'year': year
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'data': []}), 500
 
 @app.route('/admin/api/action', methods=['POST'])
 def admin_action():
@@ -908,6 +1025,105 @@ try:
 except ImportError:
     from document import document_bp
 app.register_blueprint(document_bp)
+
+# Register six modules analysis API
+try:
+    from .analysis_api import init_analysis_api
+except ImportError:
+    from analysis_api import init_analysis_api
+init_analysis_api(app, None)
+
+
+@app.route('/api/institutions/charts', methods=['GET'])
+def get_institution_charts():
+    """医疗机构统计数据图表接口"""
+    if not is_role('admin'):
+        return admin_forbidden_response()
+
+    try:
+        import mysql.connector
+        conn = mysql.connector.connect(host='localhost', user='root', password='rootpassword', database='health_db')
+        cursor = conn.cursor()
+
+        # 1. 按机构性质分类（饼图数据）
+        cursor.execute("""
+            SELECT 
+                CASE 
+                    WHEN name LIKE '%民营%' OR name LIKE '%私立%' OR name LIKE '%有限责任%' THEN '民营'
+                    WHEN name LIKE '%公立%' OR name LIKE '%人民%' OR name LIKE '%中心%' OR name LIKE '%卫生%' THEN '公立'
+                    WHEN name LIKE '%诊所%' OR name LIKE '%门诊%' THEN '基层'
+                    ELSE '其他'
+                END as scope_type,
+                COUNT(*) as cnt
+            FROM medical_institution
+            WHERE name IS NOT NULL AND name != ''
+            GROUP BY scope_type
+            ORDER BY cnt DESC
+        """)
+        rows = cursor.fetchall()
+        scope_data = [{"name": r[0], "value": int(r[1])} for r in rows]
+
+        # 2. 按地区机构数量TOP10（柱状图数据）
+        cursor.execute("""
+            SELECT 
+                SUBSTRING_INDEX(SUBSTRING_INDEX(region, '区', 1), '县', 1) as area,
+                COUNT(*) as cnt
+            FROM medical_institution
+            WHERE region IS NOT NULL AND region != ''
+            GROUP BY area
+            ORDER BY cnt DESC
+            LIMIT 10
+        """)
+        rows = cursor.fetchall()
+        region_top10 = [{"name": r[0], "value": int(r[1])} for r in rows]
+
+        # 3. 按机构类型分类（例如：医院、诊所等）
+        cursor.execute("""
+            SELECT 
+                CASE 
+                    WHEN name LIKE '%医院%' THEN '医院'
+                    WHEN name LIKE '%诊所%' OR name LIKE '%门诊%' THEN '诊所/门诊'
+                    WHEN name LIKE '%卫生院%' OR name LIKE '%卫生所%' THEN '卫生院/所'
+                    WHEN name LIKE '%中心%' THEN '医疗中心'
+                    ELSE '其他机构'
+                END as inst_type,
+                COUNT(*) as cnt
+            FROM medical_institution
+            WHERE name IS NOT NULL AND name != ''
+            GROUP BY inst_type
+            ORDER BY cnt DESC
+        """)
+        rows = cursor.fetchall()
+        inst_type_data = [{"name": r[0], "value": int(r[1])} for r in rows]
+
+        # 4. 统计汇总
+        cursor.execute("SELECT COUNT(*) FROM medical_institution")
+        row = cursor.fetchone()
+        total_count = int(row[0]) if row else 0
+
+        cursor.execute("SELECT COUNT(DISTINCT region) FROM medical_institution WHERE region IS NOT NULL AND region != ''")
+        row = cursor.fetchone()
+        region_count = int(row[0]) if row else 0
+
+        conn.close()
+
+        return jsonify({
+            'status': 'success',
+            'data': {
+                'scope_distribution': scope_data,  # 执业范围分布（饼图）
+                'region_top10': region_top10,       # 地区TOP10（柱状图）
+                'inst_type_distribution': inst_type_data,  # 机构类型分布（饼图）
+                'summary': {
+                    'total_institutions': total_count,
+                    'total_regions': region_count
+                }
+            },
+            'meta': {
+                'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e), 'data': {}}), 500
 
 
 if __name__ == '__main__':

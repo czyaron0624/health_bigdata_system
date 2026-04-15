@@ -21,6 +21,7 @@ OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file
 
 SOURCE_LABELS = {
     "guangxi_news": {"province_code": "GX", "province_name": "广西", "source_name": "省级卫健委"},
+    "sichuan_news": {"province_code": "SC", "province_name": "四川", "source_name": "省级卫健委"},
     "national_news": {"province_code": "NHC", "province_name": "国家", "source_name": "国家卫健委"},
 }
 

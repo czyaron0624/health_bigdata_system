@@ -1,0 +1,97 @@
+============================================================
+健康大数据系统 API 接口文档
+更新时间：2026-04-15
+============================================================
+
+本文件整理了系统 web_app (`app.py` 及 `document.py`) 下全部有效的 API 与路由入口。
+
+一、 页面及认证路由 (Pages & Auth)
+------------------------------------------------------------
+1. GET / 
+   - 说明：根路径，重定向至登录页。
+2. GET/POST /login 
+   - 说明：系统登录入口，根据用户角色 (role=admin/user) 进行校验及重定向。
+3. GET /admin/dashboard 
+   - 说明：管理员仪表板（看板页面）。
+4. GET /user/dashboard 
+   - 说明：个人用户仪表板（C端用户页面）。
+5. GET /logout 
+   - 说明：清除 Session 登录状态并返回登录页。
+
+
+二、 数据分析与明细接口 (可被不同角色或前端调用)
+------------------------------------------------------------
+6. GET /api/health-stats
+   - 参数：?scope={all|guangxi|national|sichuan}
+   - 说明：获取全系统的基础数据统计概览（涵盖医疗机构数、人口数、采集新闻数及解析入库的指标数等），支持 Redis 缓存。
+
+7. GET /api/metrics/summary 
+   - 参数：?scope={all|guangxi|national|sichuan}
+   - 说明：针对指标表，获取主要指标（床位数、各医护人数、就诊人数、费用等）的按年度聚合数据统计与抽样计数。
+
+8. GET /api/analysis/module-status
+   - 权限：仅 Admin
+   - 说明：获取目前爬虫/处理等各模块运行完整度和数据支撑的完成状态。
+
+9. GET /api/analysis/data-summary
+   - 权限：仅 Admin
+   - 参数：?scope={all|guangxi|national|sichuan}
+   - 说明：获取人口按地区汇总情况、各指标按年的数值均貌及图表绘制准备数据。
+
+10. GET /api/analysis/metric-details
+    - 权限：公开（通过前端）
+    - 参数：?scope=xxx & metric_key=xxx & year=2021 & page=1 & page_size=10
+    - 说明：[最新] 数据整理层（视图 vw_metric_clean）暴露的最小化明细接口。支持分页，提供原始来源标记、数据指标、回溯键值等，用于表格渲染或列表导出。
+
+
+三、 资讯与爬虫内容接口 (News & Content)
+------------------------------------------------------------
+11. GET /api/news/national
+    - 说明：获取国家卫健委采集的最新资讯及其基础信息。
+12. GET /api/news/guangxi
+    - 说明：获取广西卫健委采集的最新资讯。
+13. GET /api/news/region
+    - 说明：按所属区域（省份/国家）和特定维度查询相关的新闻、政策链接集。
+14. GET /api/news/tjnb
+    - 说明：获取被归类为“统计年报”(tjnb) 的新闻或数据公告。
+
+
+四、 管理员快捷操作及监控感知 API
+------------------------------------------------------------
+15. POST /admin/api/action
+    - 权限：仅 Admin
+    - 参数：JSON {"action": "weekly_report" | "configure_alert" | "export_stats" | "quality_check"}
+    - 说明：触发后台快捷操作，生成任务记录并推送通知。
+16. GET /admin/api/alerts
+    - 权限：仅 Admin
+    - 说明：拉取系统运行中检测到的管理告警及巡检风险（包含数据延迟、异常分布和质量检测等信息）。
+
+
+五、 普通用户(To-C) 健康数据 API
+------------------------------------------------------------
+17. GET /user/api/profile
+    - 权限：仅 User
+    - 说明：获取该登录用户的基本体征健康档案信息、健康状况得分。
+18. GET /user/api/tips
+    - 权限：仅 User
+    - 说明：获取给该系统用户的针对性健康干预提示和养生提醒。
+19. GET /user/api/reminders
+    - 权限：仅 User
+    - 说明：获取用户的复诊、待办随访等业务日程提醒。
+20. GET /user/api/trend
+    - 权限：仅 User
+    - 说明：获取该用户的短期健康趋势折线图数据（如近一周的步数趋势或睡眠分数等）。
+
+
+六、 文档解析与上传导入 (Document /upload)
+------------------------------------------------------------
+(路由挂载于 document_bp, url_prefix='/upload')
+
+21. GET/POST /upload/
+    - 说明：上传页面入口提示（当前提示已被集成到 Admin 仪表板视图中处理）。
+22. POST /upload/preview
+    - 参数：FormData (包含 'file')
+    - 说明：接收文件 (.xlsx, .docx, .pdf, .txt 等)，进行 OCR 或文本解析并进行识别。向前端返回结构化后的提取预览数据（区分是人口、单位信息，还是医疗指标信息），供使用者确认。
+23. POST /upload/confirm
+    - 参数：JSON {"target_table": "xxx", "data": [...]}
+    - 说明：将用户确认后的预览级数据推入真实的底层数据库中（医疗机构表、人口表或 health_ocr_metrics 指标事实表）。
