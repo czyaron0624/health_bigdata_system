@@ -196,7 +196,7 @@
 
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
         }
 
@@ -375,6 +375,103 @@
             text-align: center;
             background: #fbfeff;
             font-size: 13px;
+        }
+
+        .signal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .signal-card {
+            border: 1px solid #d9e7ef;
+            border-radius: 10px;
+            padding: 10px;
+            background: #ffffff;
+        }
+
+        .signal-card .label {
+            font-size: 12px;
+            color: #6b8393;
+        }
+
+        .signal-card .value {
+            margin-top: 6px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #154960;
+        }
+
+        .signal-card.warning {
+            background: #fff9f2;
+            border-color: #f4d8bc;
+        }
+
+        .signal-card.critical {
+            background: #fff5f5;
+            border-color: #f1c8c8;
+        }
+
+        .signal-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .signal-item {
+            border: 1px solid #dbe8f0;
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: #ffffff;
+        }
+
+        .signal-item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .signal-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #184b63;
+        }
+
+        .signal-item-desc {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #567082;
+        }
+
+        .signal-item-metrics {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #6a8292;
+        }
+
+        .signal-level {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 3px 9px;
+            font-size: 12px;
+            color: #fff;
+            min-width: 56px;
+        }
+
+        .signal-level.warning {
+            background: #ea580c;
+        }
+
+        .signal-level.critical {
+            background: #dc2626;
+        }
+
+        .signal-level.normal {
+            background: #16a34a;
         }
 
         .chart-tabs {
@@ -1127,6 +1224,10 @@
                 <span class="nav-icon">✅</span>
                 <span class="nav-text">分析模块</span>
             </a>
+            <a href="#forecast-alerts" class="nav-item" data-section="forecast-alerts">
+                <span class="nav-icon">📈</span>
+                <span class="nav-text">趋势预测与预警</span>
+            </a>
         </div>
         <div class="sidebar-footer">
             <div class="nav-hint">点击快速导航</div>
@@ -1142,8 +1243,6 @@
                     <select id="scopeSelector">
                         <option value="guangxi">省级卫健委（广西）</option>
                         <option value="national">国家卫健委</option>
-                        <option value="sichuan">省级卫健委（四川）</option>
-                        <option value="all">全部来源</option>
                     </select>
                 </label>
                 <span class="badge">管理员</span>
@@ -1188,13 +1287,7 @@
                 <h2 class="section-title">管理快捷操作</h2>
                 <div class="quick-actions">
                     <button class="action-btn" data-action="weekly_report">📊 生成周报</button>
-                    <button class="action-btn" data-action="configure_alert">⚙️ 配置预警规则</button>
-                    <button class="action-btn" data-action="export_stats">📁 导出机构统计</button>
                     <button class="action-btn" id="openUploadModal" style="cursor:pointer;">📤 文档上传</button>
-                    <button class="action-btn" data-action="clean_data">🧹 数据清理</button>
-                    <button class="action-btn" data-action="backup_data">💾 数据备份</button>
-                    <button class="action-btn" data-action="user_management">👥 用户管理</button>
-                    <button class="action-btn" data-action="system_logs">📋 系统日志</button>
                 </div>
                 <div id="actionStatus" class="status-box">点击任一操作按钮开始执行任务。</div>
 
@@ -1328,6 +1421,38 @@
                 </div>
             </article>
         </section>
+        <section id="forecast-alerts" style="margin-top: 20px;" data-section="forecast-alerts">
+            <article class="card" style="width: 100%;">
+                <div class="section-title">
+                    <div>
+                        <div style="font-size:16px; font-weight:700;">趋势预测与异常预警</div>
+                        <div class="section-subtitle">直接读取预测结果表与异常检测结果表，展示当前范围的预测走势和高优先级告警。</div>
+                    </div>
+                </div>
+                <div class="analysis-grid">
+                    <section class="analysis-panel">
+                        <div class="panel-head">
+                            <h3>趋势预测</h3>
+                            <span id="predictionMeta" class="panel-meta">加载中...</span>
+                        </div>
+                        <div id="predictionSelector" class="metric-selector"></div>
+                        <div class="chart-shell">
+                            <canvas id="predictionChart" width="820" height="280"></canvas>
+                        </div>
+                        <div id="predictionChartEmpty" class="chart-empty" style="display:none;"></div>
+                    </section>
+
+                    <section class="analysis-panel">
+                        <div class="panel-head">
+                            <h3>异常预警</h3>
+                            <span id="anomalyMeta" class="panel-meta">加载中...</span>
+                        </div>
+                        <div id="anomalySummary" class="signal-grid">加载中...</div>
+                        <div id="anomalyList" class="signal-list">加载中...</div>
+                    </section>
+                </div>
+            </article>
+        </section>
     </main>
 
     <div id="moduleModal" class="module-modal">
@@ -1456,6 +1581,9 @@
             meta: null,
             populationRows: [],
             metricRows: [],
+            yearlyRows: [],
+            predictionRows: [],
+            anomalyRows: [],
             scope: 'guangxi',
             scopeLabel: '省级卫健委（广西）',
             actionBusy: false,
@@ -1466,11 +1594,12 @@
                 service: 'outpatient_visits',
                 cost: 'outpatient_cost',
             },
+            predictionMetricKey: 'doctor_count',
             modalModuleKey: null,
             modalMetricKey: null,
-            newsYear: 0,
-            newsYearMin: 0,
-            newsYearMax: 0,
+            newsYear: null,
+            newsYearMin: null,
+            newsYearMax: null,
             newsYearTimer: null,
         };
 
@@ -1496,6 +1625,20 @@
                 return numeric.toLocaleString('zh-CN', { maximumFractionDigits: 2 });
             }
             return String(value);
+        }
+
+        function currentScopeRegion() {
+            return {
+                guangxi: '广西',
+                national: '国家',
+            }[analysisState.scope] || null;
+        }
+
+        function fetchJsonOrThrow(resp, payload) {
+            if (!resp.ok || payload?.success === false || payload?.status === 'error') {
+                throw new Error(payload?.error || '接口返回异常');
+            }
+            return payload;
         }
 
         function statusBadgeClass(status) {
@@ -1683,6 +1826,268 @@
             ctx.fillStyle = '#3f6378';
             ctx.font = '12px Microsoft YaHei, sans-serif';
             ctx.fillText(metricLabel, margin.left, margin.top - 8);
+        }
+
+        function buildYearlyMetricSeries(metricKey) {
+            return analysisState.yearlyRows
+                .map(row => ({
+                    year: Number(row.year),
+                    value: Number(row[metricKey]),
+                }))
+                .filter(item => Number.isFinite(item.year) && Number.isFinite(item.value))
+                .sort((a, b) => a.year - b.year);
+        }
+
+        function buildPredictionSeries(metricKey) {
+            return analysisState.predictionRows
+                .filter(row => row.metric_key === metricKey)
+                .map(row => ({
+                    year: Number(row.predict_year),
+                    value: Number(row.predict_value),
+                    lower: Number(row.confidence_lower),
+                    upper: Number(row.confidence_upper),
+                }))
+                .filter(item => Number.isFinite(item.year) && Number.isFinite(item.value))
+                .sort((a, b) => a.year - b.year);
+        }
+
+        function drawPredictionChart(canvas, actualPoints, predictedPoints, metricLabel) {
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+
+            if (!predictedPoints.length) {
+                drawEmpty(canvas, '暂无预测结果');
+                return;
+            }
+
+            const margin = { top: 24, right: 24, bottom: 36, left: 60 };
+            const chartWidth = width - margin.left - margin.right;
+            const chartHeight = height - margin.top - margin.bottom;
+            const yearLabels = Array.from(new Set([
+                ...actualPoints.map(item => item.year),
+                ...predictedPoints.map(item => item.year),
+            ])).sort((a, b) => a - b);
+
+            const xByYear = new Map(yearLabels.map((year, index) => [
+                year,
+                margin.left + (chartWidth / Math.max(yearLabels.length - 1, 1)) * index,
+            ]));
+
+            const allValues = [
+                ...actualPoints.map(item => item.value),
+                ...predictedPoints.map(item => item.value),
+                ...predictedPoints.map(item => item.lower).filter(Number.isFinite),
+                ...predictedPoints.map(item => item.upper).filter(Number.isFinite),
+            ];
+            const minValue = Math.min(...allValues);
+            const maxValue = Math.max(...allValues);
+            const range = maxValue - minValue || 1;
+            const yForValue = value => margin.top + chartHeight - ((value - minValue) / range) * chartHeight;
+
+            ctx.strokeStyle = '#d7e6ee';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const y = margin.top + (chartHeight / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(margin.left, y);
+                ctx.lineTo(width - margin.right, y);
+                ctx.stroke();
+            }
+
+            if (predictedPoints.length >= 2 && predictedPoints.every(item => Number.isFinite(item.lower) && Number.isFinite(item.upper))) {
+                ctx.beginPath();
+                predictedPoints.forEach((point, index) => {
+                    const x = xByYear.get(point.year);
+                    const y = yForValue(point.upper);
+                    if (index === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                [...predictedPoints].reverse().forEach(point => {
+                    ctx.lineTo(xByYear.get(point.year), yForValue(point.lower));
+                });
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(234, 88, 12, 0.12)';
+                ctx.fill();
+            }
+
+            if (actualPoints.length) {
+                ctx.beginPath();
+                actualPoints.forEach((point, index) => {
+                    const x = xByYear.get(point.year);
+                    const y = yForValue(point.value);
+                    if (index === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                ctx.strokeStyle = '#0e7490';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([]);
+                ctx.stroke();
+            }
+
+            ctx.beginPath();
+            predictedPoints.forEach((point, index) => {
+                const x = xByYear.get(point.year);
+                const y = yForValue(point.value);
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.strokeStyle = '#ea580c';
+            ctx.lineWidth = 3;
+            ctx.setLineDash([6, 5]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            actualPoints.forEach(point => {
+                const x = xByYear.get(point.year);
+                const y = yForValue(point.value);
+                ctx.beginPath();
+                ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#0e7490';
+                ctx.fill();
+            });
+
+            predictedPoints.forEach(point => {
+                const x = xByYear.get(point.year);
+                const y = yForValue(point.value);
+                ctx.beginPath();
+                ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ea580c';
+                ctx.fill();
+            });
+
+            ctx.fillStyle = '#4d6878';
+            ctx.font = '12px Microsoft YaHei, sans-serif';
+            ctx.textAlign = 'center';
+            yearLabels.forEach(year => {
+                ctx.fillText(String(year), xByYear.get(year), height - 12);
+            });
+
+            ctx.textAlign = 'right';
+            [maxValue, minValue + range * 0.75, minValue + range * 0.5, minValue + range * 0.25, minValue].forEach((value, index) => {
+                ctx.fillText(formatNumber(value), margin.left - 8, margin.top + (chartHeight / 4) * index + 4);
+            });
+
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#3f6378';
+            ctx.fillText(metricLabel, margin.left, margin.top - 8);
+
+            ctx.fillStyle = '#0e7490';
+            ctx.fillRect(width - 210, margin.top - 12, 18, 3);
+            ctx.fillStyle = '#3f6378';
+            ctx.fillText('历史值', width - 186, margin.top - 8);
+
+            ctx.fillStyle = '#ea580c';
+            ctx.fillRect(width - 120, margin.top - 12, 18, 3);
+            ctx.fillStyle = '#3f6378';
+            ctx.fillText('预测值', width - 96, margin.top - 8);
+        }
+
+        function renderPredictionSection() {
+            const region = currentScopeRegion();
+            const canvas = document.getElementById('predictionChart');
+            const empty = document.getElementById('predictionChartEmpty');
+            const meta = document.getElementById('predictionMeta');
+            const selector = document.getElementById('predictionSelector');
+
+            if (!region) {
+                selector.innerHTML = '';
+                canvas.style.display = 'none';
+                empty.style.display = 'block';
+                empty.textContent = '预测图仅在单地区范围下展示，请切换到广西或国家范围。';
+                meta.textContent = '当前范围不支持';
+                return;
+            }
+
+            const metricOptions = Array.from(new Set(analysisState.predictionRows.map(row => row.metric_key)));
+            let metricKey = analysisState.predictionMetricKey;
+            if (!metricOptions.includes(metricKey)) {
+                metricKey = metricOptions[0] || 'doctor_count';
+                analysisState.predictionMetricKey = metricKey;
+            }
+
+            selector.innerHTML = metricOptions.map(metric => `
+                <button class="metric-chip ${metric === metricKey ? 'active' : ''}" data-prediction-metric="${metric}">${escapeHtml(METRIC_LABELS[metric] || metric)}</button>
+            `).join('');
+
+            selector.querySelectorAll('[data-prediction-metric]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    analysisState.predictionMetricKey = btn.dataset.predictionMetric;
+                    renderPredictionSection();
+                });
+            });
+
+            const actualPoints = buildYearlyMetricSeries(metricKey);
+            const predictedPoints = buildPredictionSeries(metricKey);
+
+            if (!predictedPoints.length) {
+                canvas.style.display = 'none';
+                empty.style.display = 'block';
+                empty.textContent = `${region} 当前没有可展示的预测结果。`;
+                meta.textContent = `${region} · 0 条预测`;
+                return;
+            }
+
+            canvas.style.display = 'block';
+            empty.style.display = 'none';
+            meta.textContent = `${region} · ${METRIC_LABELS[metricKey] || metricKey} · ${predictedPoints.length} 个预测年份`;
+            drawPredictionChart(canvas, actualPoints, predictedPoints, METRIC_LABELS[metricKey] || metricKey);
+        }
+
+        function renderAnomalySection() {
+            const region = currentScopeRegion();
+            const meta = document.getElementById('anomalyMeta');
+            const summary = document.getElementById('anomalySummary');
+            const list = document.getElementById('anomalyList');
+            const warningCount = analysisState.anomalyRows.filter(item => item.anomaly_level === 'warning').length;
+            const criticalCount = analysisState.anomalyRows.filter(item => item.anomaly_level === 'critical').length;
+
+            summary.innerHTML = `
+                <div class="signal-card">
+                    <div class="label">总告警</div>
+                    <div class="value">${analysisState.anomalyRows.length}</div>
+                </div>
+                <div class="signal-card warning">
+                    <div class="label">预警</div>
+                    <div class="value">${warningCount}</div>
+                </div>
+                <div class="signal-card critical">
+                    <div class="label">严重</div>
+                    <div class="value">${criticalCount}</div>
+                </div>
+            `;
+
+            meta.textContent = `${region || '全部范围'} · ${analysisState.anomalyRows.length} 条高优先级告警`;
+
+            if (!analysisState.anomalyRows.length) {
+                list.innerHTML = '<div class="chart-empty">当前范围暂无 warning / critical 告警。</div>';
+                return;
+            }
+
+            list.innerHTML = analysisState.anomalyRows.slice(0, 6).map(item => `
+                <article class="signal-item">
+                    <div class="signal-item-head">
+                        <div class="signal-item-title">${escapeHtml(item.region)} · ${escapeHtml(METRIC_LABELS[item.metric_key] || item.metric_key)} · ${escapeHtml(item.year)}</div>
+                        <span class="signal-level ${escapeHtml(item.anomaly_level)}">${item.anomaly_level === 'critical' ? '严重' : '预警'}</span>
+                    </div>
+                    <div class="signal-item-desc">${escapeHtml(item.description || '无描述')}</div>
+                    <div class="signal-item-metrics">
+                        实际值 ${formatNumber(item.actual_value)} / 期望值 ${formatNumber(item.expected_value)} / 偏离 ${formatNumber(item.deviation_rate)}%
+                    </div>
+                </article>
+            `).join('');
         }
 
         function renderAnalysisOverview() {
@@ -1926,28 +2331,6 @@
 
                 const actionRefreshMap = {
                     weekly_report: reloadScopedData,
-                    configure_alert: loadAlerts,
-                    export_stats: loadMetrics,
-                    quality_check: async () => {
-                        await loadHealthStats();
-                        await reloadScopedData();
-                    },
-                    clean_data: async () => {
-                        await loadAlerts();
-                        await loadHealthStats();
-                    },
-                    backup_data: async () => {
-                        await loadAlerts();
-                        await loadHealthStats();
-                    },
-                    user_management: async () => {
-                        await loadAlerts();
-                        await loadHealthStats();
-                    },
-                    system_logs: async () => {
-                        await loadAlerts();
-                        await loadHealthStats();
-                    },
                 };
 
                 if (actionRefreshMap[action]) {
@@ -2083,49 +2466,37 @@
             return `${path}${separator}scope=${encodeURIComponent(analysisState.scope)}`;
         }
 
-        function renderYearSelector(yearMin, yearMax, selectedYear) {
+        function renderYearSelector(yearOptions, selectedYear) {
             const selector = document.getElementById('yearSelector');
-            
-            // 清空现有选项（保留"不限年份"选项）
-            while (selector.options.length > 1) {
-                selector.remove(1);
-            }
 
-            // 即使没有年份数据，也不要禁用选择器
+            selector.innerHTML = '';
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = '不限年份';
+            selector.appendChild(defaultOption);
             selector.disabled = false;
-            
-            // 如果有有效年份数据，添加年份选项
-            if (yearMin && yearMax && yearMax >= yearMin) {
-                const minYear = Number(yearMin);
-                const maxYear = Number(yearMax);
-                analysisState.newsYearMin = minYear;
-                analysisState.newsYearMax = maxYear;
-                
-                // 添加年份选项（从最新到最旧）
-                for (let year = maxYear; year >= minYear; year--) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = `${year} 年`;
-                    selector.appendChild(option);
-                }
-            } else {
-                // 如果没有年份数据，使用默认的年份范围（2015-2026）
-                analysisState.newsYearMin = 2015;
-                analysisState.newsYearMax = 2026;
-                
-                // 添加默认年份选项（从最新到最旧）
-                for (let year = 2026; year >= 2015; year--) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = `${year} 年`;
-                    selector.appendChild(option);
-                }
-            }
 
-            // 设置选中的年份
-            const currentYear = Number(selectedYear) || '';
+            const normalizedYears = Array.isArray(yearOptions)
+                ? yearOptions
+                    .map(year => Number(year))
+                    .filter(year => Number.isInteger(year) && year > 0)
+                : [];
+
+            analysisState.newsYearMax = normalizedYears.length ? normalizedYears[0] : null;
+            analysisState.newsYearMin = normalizedYears.length ? normalizedYears[normalizedYears.length - 1] : null;
+
+            normalizedYears.forEach(year => {
+                const option = document.createElement('option');
+                option.value = String(year);
+                option.textContent = String(year);
+                selector.appendChild(option);
+            });
+
+            const currentYear = Number.isInteger(Number(selectedYear)) && Number(selectedYear) > 0
+                ? Number(selectedYear)
+                : null;
             analysisState.newsYear = currentYear;
-            selector.value = currentYear;
+            selector.value = currentYear === null ? '' : String(currentYear);
         }
 
         function scheduleRegionNewsReload() {
@@ -2192,7 +2563,10 @@
             const listEl = document.getElementById('regionNewsList');
             const metaEl = document.getElementById('regionNewsMeta');
             try {
-                const url = analysisState.newsYear ? `${withScope('/api/news/region')}&year=${encodeURIComponent(analysisState.newsYear)}` : withScope('/api/news/region');
+                const hasYearFilter = Number.isInteger(analysisState.newsYear) && analysisState.newsYear > 0;
+                const url = hasYearFilter
+                    ? `${withScope('/api/news/region')}&year=${encodeURIComponent(analysisState.newsYear)}`
+                    : withScope('/api/news/region');
                 const resp = await fetch(url);
                 const data = await resp.json();
                 if (!resp.ok) {
@@ -2204,7 +2578,7 @@
                 document.getElementById('apiScopeNote').textContent = `当前范围: ${analysisState.scopeLabel}`;
 
                 // 使用新的年份选择器函数
-                renderYearSelector(data.year_min, data.year_max, data.selected_year || analysisState.newsYear || data.year_max);
+                renderYearSelector(data.year_options, data.selected_year);
 
                 const items = Array.isArray(data.items) ? data.items : [];
                 listEl.innerHTML = items.map(item => {
@@ -2376,6 +2750,52 @@
             }
         }
 
+        async function loadForecastAndAlerts() {
+            const region = currentScopeRegion();
+
+            if (!region) {
+                analysisState.yearlyRows = [];
+                analysisState.predictionRows = [];
+                analysisState.anomalyRows = [];
+                renderPredictionSection();
+                renderAnomalySection();
+                return;
+            }
+
+            try {
+                const [historyResp, predictionResp, anomalyResp] = await Promise.all([
+                    fetch(`/api/metrics/yearly?scope=${encodeURIComponent(analysisState.scope)}`),
+                    fetch(`/api/prediction/results?region=${encodeURIComponent(region)}&years=3`),
+                    fetch(`/api/anomaly/alerts?region=${encodeURIComponent(region)}&limit=8`),
+                ]);
+
+                const historyPayload = fetchJsonOrThrow(historyResp, await historyResp.json());
+                const predictionPayload = fetchJsonOrThrow(predictionResp, await predictionResp.json());
+                const anomalyPayload = fetchJsonOrThrow(anomalyResp, await anomalyResp.json());
+
+                analysisState.yearlyRows = historyPayload.data || [];
+                analysisState.predictionRows = predictionPayload.data || [];
+                analysisState.anomalyRows = anomalyPayload.data || [];
+
+                renderPredictionSection();
+                renderAnomalySection();
+            } catch (err) {
+                analysisState.yearlyRows = [];
+                analysisState.predictionRows = [];
+                analysisState.anomalyRows = [];
+
+                document.getElementById('predictionSelector').innerHTML = '';
+                document.getElementById('predictionChart').style.display = 'none';
+                document.getElementById('predictionChartEmpty').style.display = 'block';
+                document.getElementById('predictionChartEmpty').textContent = `预测结果加载失败: ${err.message}`;
+                document.getElementById('predictionMeta').textContent = '加载失败';
+
+                document.getElementById('anomalySummary').innerHTML = '<div class="chart-empty">异常预警加载失败</div>';
+                document.getElementById('anomalyList').innerHTML = `<div class="chart-empty">异常预警加载失败: ${escapeHtml(err.message)}</div>`;
+                document.getElementById('anomalyMeta').textContent = '加载失败';
+            }
+        }
+
         async function reloadScopedData() {
             await loadHealthStats();
             await loadRegionNews();
@@ -2383,6 +2803,7 @@
             await loadMetrics();
             await loadAnalysisStatus();
             await loadAnalysisSummary();
+            await loadForecastAndAlerts();
         }
 
         document.querySelectorAll('[data-action]').forEach(btn => {
@@ -2397,12 +2818,13 @@
         document.getElementById('refreshAnalysis').addEventListener('click', async () => {
             await loadAnalysisStatus();
             await loadAnalysisSummary();
+            await loadForecastAndAlerts();
         });
         document.getElementById('scopeSelector').addEventListener('change', async (event) => {
             analysisState.scope = event.target.value;
             analysisState.modalModuleKey = null;
             analysisState.modalMetricKey = null;
-            analysisState.newsYear = 0;
+            analysisState.newsYear = null;
             closeModuleModal();
             await reloadScopedData();
         });
@@ -2492,7 +2914,6 @@
                         section.classList.add('active');
                     });
                     
-                    // 滚动到顶部
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             }
@@ -2504,64 +2925,18 @@
                     section.classList.add('active');
                 });
                 
-                // 滚动到顶部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // 禁用滚动导航（根据用户要求）
+            // Keep native page scrolling enabled in single-page mode.
             function updateScrollBehavior() {
-                if (!showAllMode) {
-                    // 在单页模式下，允许模块内部滚动，但防止滚动到其他模块
-                    document.body.style.overflow = 'auto';
-                    document.documentElement.style.overflow = 'auto';
-                    
-                    // 监听滚动事件，防止滚动到其他模块
-                    const activeSection = document.querySelector(`section[data-section="${currentSection}"].active`);
-                    if (activeSection) {
-                        // 确保页面在顶部
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        
-                        // 监听滚动，如果滚动超出当前模块，则回到模块顶部
-                        const sectionRect = activeSection.getBoundingClientRect();
-                        const sectionTop = sectionRect.top + window.scrollY;
-                        const sectionBottom = sectionTop + sectionRect.height;
-                        
-                        window.addEventListener('scroll', handleSinglePageScroll);
-                    }
-                } else {
-                    // 在显示全部模式下，允许滚动
-                    document.body.style.overflow = 'auto';
-                    document.documentElement.style.overflow = 'auto';
-                    // 移除滚动监听器
-                    window.removeEventListener('scroll', handleSinglePageScroll);
-                }
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
+                window.removeEventListener('scroll', handleSinglePageScroll);
             }
             
-            // 单页模式滚动处理函数
             function handleSinglePageScroll() {
-                const activeSection = document.querySelector(`section[data-section="${currentSection}"].active`);
-                if (!activeSection) return;
-                
-                const sectionRect = activeSection.getBoundingClientRect();
-                const sectionTop = sectionRect.top + window.scrollY;
-                const sectionBottom = sectionTop + sectionRect.height;
-                const currentScroll = window.scrollY;
-                
-                // 只在滚动超出模块边界时才触发
-                // 允许滚动到模块顶部，但防止滚动到其他模块
-                const tolerance = 10; // 减少容错范围到10px
-                
-                // 如果滚动到模块上方（超出模块顶部）
-                // 只有当滚动位置明显低于模块顶部时才触发
-                if (currentScroll < sectionTop - tolerance) {
-                    window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-                }
-                // 如果滚动到模块下方（超出模块底部）
-                else if (currentScroll > sectionBottom + tolerance) {
-                    window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-                }
-                // 如果用户在模块顶部附近（sectionTop到sectionTop+tolerance之间），允许自由滚动
-                // 这样可以避免在顶部附近频繁触发限制
+                return;
             }
             
             // 初始设置滚动行为
@@ -2700,7 +3075,7 @@
         // 添加年份选择器事件监听器
         document.getElementById('yearSelector').addEventListener('change', (event) => {
             const selectedYear = event.target.value;
-            analysisState.newsYear = selectedYear ? Number(selectedYear) : 0;
+            analysisState.newsYear = selectedYear ? Number(selectedYear) : null;
             scheduleRegionNewsReload();
         });
 

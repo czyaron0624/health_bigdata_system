@@ -56,12 +56,11 @@ TREND_VALUES = [68, 72, 70, 76, 79, 81, 82]
 # 弃用硬编码聚合SQL，改为使用 vw_metric_clean 视图
 # OCR_METRIC_VALID_SQL 规则已下沉到数据库视图中
 
-VALID_SCOPES = {'all', 'guangxi', 'national', 'sichuan'}
+VALID_SCOPES = {'all', 'guangxi', 'national'}
 SCOPE_LABELS = {
     'all': '全部来源',
     'guangxi': '省级卫健委（广西）',
     'national': '国家卫健委',
-    'sichuan': '省级卫健委（四川）',
 }
 
 
@@ -140,8 +139,6 @@ def build_metric_scope_filter(scope: str):
         return "source_table = %s", ['guangxi_news']
     if scope == 'national':
         return "source_table = %s", ['national_news']
-    if scope == 'sichuan':
-        return "source_table = %s", ['sichuan_news']
     return "", []
 
 
@@ -328,170 +325,92 @@ def get_region_news():
 
     scope = get_scope()
     selected_year = request.args.get('year', '').strip()
+    selected_year_int = int(selected_year) if selected_year.isdigit() else None
 
-    def build_year_filter(alias: str):
-        if selected_year.isdigit():
-            return f" AND YEAR(STR_TO_DATE({alias}.publish_date, '%%Y-%%m-%%d')) = %s", [int(selected_year)]
-        return "", []
-
-    def build_union_query(year_clause: str):
-        return f"""
-                SELECT id, title, publish_date, source, publish_year
-                FROM (
-                    SELECT id, title, publish_date, 'guangxi' AS source,
-                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                    FROM guangxi_news
-                    UNION ALL
-                    SELECT id, title, publish_date, 'national' AS source,
-                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                    FROM national_news
-                ) t
-                WHERE publish_year IS NOT NULL {year_clause}
-                ORDER BY publish_year DESC, publish_date DESC, id DESC
-                LIMIT 50
-                """
+    scope_sources = {
+        'guangxi': [('guangxi_news', 'guangxi')],
+        'national': [('national_news', 'national')],
+        'all': [('guangxi_news', 'guangxi'), ('national_news', 'national')],
+    }
 
     try:
         import mysql.connector
         conn = mysql.connector.connect(host='localhost', user='root', password='rootpassword', database='health_db')
         cursor = conn.cursor(dictionary=True)
 
-        year_clause = ''
-        year_params = []
-
-        if scope == 'guangxi':
-            year_clause, year_params = build_year_filter('guangxi_news')
+        available_sources = []
+        test_cursor = conn.cursor()
+        for table_name, source_label in scope_sources.get(scope, scope_sources['guangxi']):
             try:
-                cursor.execute(
-                    """
-                    SELECT id, title, publish_date, 'guangxi' AS source,
-                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                    FROM guangxi_news
-                    WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
-                    ORDER BY publish_year DESC, publish_date DESC, id DESC
-                    LIMIT 50
-                    """,
-                    tuple(year_params)
-                )
-            except Exception:
-                # 表不存在或查询失败，返回空结果
-                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
-        elif scope == 'national':
-            year_clause, year_params = build_year_filter('national_news')
-            try:
-                cursor.execute(
-                    """
-                    SELECT id, title, publish_date, 'national' AS source,
-                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                    FROM national_news
-                    WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
-                    ORDER BY publish_year DESC, publish_date DESC, id DESC
-                    LIMIT 50
-                    """,
-                    tuple(year_params)
-                )
-            except Exception:
-                # 表不存在或查询失败，返回空结果
-                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
-        elif scope == 'sichuan':
-            year_clause, year_params = build_year_filter('sichuan_news')
-            try:
-                cursor.execute(
-                    """
-                    SELECT id, title, publish_date, 'sichuan' AS source,
-                           YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                    FROM sichuan_news
-                    WHERE publish_date REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'""" + year_clause + """
-                    ORDER BY publish_year DESC, publish_date DESC, id DESC
-                    LIMIT 50
-                    """,
-                    tuple(year_params)
-                )
-            except Exception:
-                # 表不存在或查询失败，返回空结果
-                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
-        else:
-            year_clause, year_params = build_year_filter('t')
-            # 对于 'all' scope，尝试构建包含所有可用表的查询
-            all_query_parts = []
-            table_mapping = {
-                'guangxi_news': 'guangxi',
-                'national_news': 'national',
-                'sichuan_news': 'sichuan'
-            }
-            
-            # 检查哪些表存在并构建查询
-            test_cursor = conn.cursor()
-            for table_name, source_label in table_mapping.items():
-                try:
-                    test_cursor.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
-                    test_cursor.fetchone()
-                    all_query_parts.append(f"""
-                        SELECT id, title, publish_date, '{source_label}' AS source,
-                               YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                        FROM {table_name}
-                    """)
-                except Exception:
-                    pass
-            test_cursor.close()
-            
-            if all_query_parts:
-                all_union_query = " UNION ALL ".join(all_query_parts) + f"""
-                    WHERE publish_year IS NOT NULL {year_clause}
-                    ORDER BY publish_year DESC, publish_date DESC, id DESC
-                    LIMIT 50
-                """
-                cursor.execute(all_union_query, tuple(year_params))
-            else:
-                cursor.execute("SELECT NULL as id, NULL as title, NULL as publish_date, NULL as source, NULL as publish_year WHERE FALSE")
-
-        items = cursor.fetchall()
-
-        # 为年份统计构建动态查询
-        year_query_parts = []
-        table_mapping = {
-            'guangxi_news': 'guangxi',
-            'national_news': 'national', 
-            'sichuan_news': 'sichuan'
-        }
-        
-        year_test_cursor = conn.cursor()
-        for table_name in table_mapping.keys():
-            try:
-                year_test_cursor.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
-                year_test_cursor.fetchone()
-                year_query_parts.append(f"""
-                    SELECT YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
-                    FROM {table_name}
-                """)
+                test_cursor.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
+                test_cursor.fetchone()
+                available_sources.append((table_name, source_label))
             except Exception:
                 pass
-        year_test_cursor.close()
-        
-        if year_query_parts:
-            year_union_query = " UNION ALL ".join(year_query_parts) + """
+        test_cursor.close()
+
+        items = []
+        year_options = []
+        year_min = None
+        year_max = None
+
+        if available_sources:
+            base_query_parts = [
+                f"""
+                SELECT
+                    id,
+                    title,
+                    publish_date,
+                    link,
+                    '{source_label}' AS source,
+                    YEAR(STR_TO_DATE(publish_date, '%%Y-%%m-%%d')) AS publish_year
+                FROM {table_name}
+                WHERE publish_date REGEXP '^[0-9]{{4}}-[0-9]{{2}}-[0-9]{{2}}$'
+                """
+                for table_name, source_label in available_sources
+            ]
+            base_union_sql = " UNION ALL ".join(base_query_parts)
+
+            items_sql = f"""
+                SELECT id, title, publish_date, link, source, publish_year
+                FROM ({base_union_sql}) t
                 WHERE publish_year IS NOT NULL
             """
-            try:
-                cursor.execute(f"""
-                    SELECT MIN(publish_year) AS year_min, MAX(publish_year) AS year_max
-                    FROM ({year_union_query}) y
-                """)
-            except Exception:
-                cursor.execute("SELECT NULL AS year_min, NULL AS year_max")
-        else:
-            cursor.execute("SELECT NULL AS year_min, NULL AS year_max")
-        
-        year_meta = cursor.fetchone() or {}
+            item_params = []
+            if selected_year_int is not None:
+                items_sql += " AND publish_year = %s"
+                item_params.append(selected_year_int)
+            items_sql += """
+                ORDER BY publish_year DESC, publish_date DESC, id DESC
+                LIMIT 50
+            """
+            cursor.execute(items_sql, tuple(item_params))
+            items = cursor.fetchall()
+
+            year_sql = f"""
+                SELECT publish_year
+                FROM ({base_union_sql}) y
+                WHERE publish_year IS NOT NULL
+                GROUP BY publish_year
+                ORDER BY publish_year DESC
+            """
+            cursor.execute(year_sql)
+            year_rows = cursor.fetchall()
+            year_options = [int(row['publish_year']) for row in year_rows if row.get('publish_year') is not None]
+            if year_options:
+                year_max = year_options[0]
+                year_min = year_options[-1]
+
         conn.close()
 
         return jsonify({
             "items": items,
             "scope": scope,
             "scope_label": SCOPE_LABELS.get(scope, scope),
-            "selected_year": int(selected_year) if selected_year.isdigit() else None,
-            "year_min": year_meta.get('year_min'),
-            "year_max": year_meta.get('year_max'),
+            "selected_year": selected_year_int,
+            "year_min": year_min,
+            "year_max": year_max,
+            "year_options": year_options,
         })
     except Exception as e:
         return jsonify({"error": str(e), "items": []}), 500
@@ -955,9 +874,6 @@ def admin_action():
 
     action_messages = {
         'weekly_report': '周报任务已提交，预计 2 分钟后生成。',
-        'configure_alert': '预警规则配置面板已记录操作请求。',
-        'export_stats': '机构统计导出任务已加入队列。',
-        'quality_check': '数据质量巡检已开始执行。',
     }
 
     if action not in action_messages:

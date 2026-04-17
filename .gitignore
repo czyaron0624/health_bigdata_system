@@ -13,7 +13,3 @@ __pycache__/
 
 # 忽略 VS Code 的本地设置
 .vscode/
-
-# 忽略数据文件目录
-outputs/
-inputs/

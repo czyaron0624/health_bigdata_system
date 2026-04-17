@@ -28,7 +28,7 @@ DB_CONFIG = {
     "database": "health_db",
 }
 
-SOURCE_TABLES = ["guangxi_news", "sichuan_news"]
+SOURCE_TABLES = ["guangxi_news", "national_news"]
 
 
 def table_has_column(cursor, table_name: str, column_name: str) -> bool:

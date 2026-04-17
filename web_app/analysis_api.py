@@ -18,21 +18,18 @@ DB_CONFIG = {
 
 SCOPE_TO_REGION = {
     "guangxi": "广西",
-    "sichuan": "四川",
     "national": "国家",
 }
 
 SCOPE_LABELS = {
     "all": "全部来源",
     "guangxi": "省级卫健委（广西）",
-    "sichuan": "省级卫健委（四川）",
     "national": "国家卫健委",
 }
 
 RAW_REGION_SQL = """
 CASE
     WHEN source_table = 'guangxi_news' THEN '广西'
-    WHEN source_table = 'sichuan_news' THEN '四川'
     WHEN source_table = 'national_news' THEN '国家'
     ELSE source_table
 END
@@ -140,7 +137,7 @@ def weighted_average(rows, value_key, weight_key):
 
 def normalize_scope(scope):
     normalized = (scope or "all").strip().lower()
-    if normalized not in {"all", "guangxi", "sichuan", "national"}:
+    if normalized not in {"all", "guangxi", "national"}:
         return None
     return normalized
 

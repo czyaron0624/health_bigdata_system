@@ -1,0 +1,877 @@
+健康大数据系统
+系统架构与详细设计说明书
+
+编写日期: 2026-04-17
+项目名称: health_bigdata_system
+文档类型: 系统架构与详细设计说明书
+适用对象: 项目经理, 架构师, 后端开发, 数据工程师, 测试人员, 运维人员
+
+
+1. 文档说明
+
+1.1 编写目的
+本文档用于说明本项目当前代码实现对应的系统架构、模块边界、数据库设计、数据处理流程、接口设计、部署结构和运维要点，作为项目交付、后续迭代、团队协作和系统验收的依据。
+
+1.2 文档范围
+本文档覆盖以下内容:
+1. 系统总体架构
+2. 前后端与数据处理模块划分
+3. 数据采集、OCR结构化、分析建模、结果展示全链路
+4. 数据库与分析结果表设计
+5. 核心接口设计
+6. 任务调度与部署运行方式
+7. 安全、性能、风险与演进建议
+
+1.3 项目现状说明
+本说明书基于当前仓库代码实际状态编写，而不是纯需求态文档。
+当前项目已经具备:
+1. 新闻与公告采集能力
+2. OCR指标结构化能力
+3. 文档上传预览与入库能力
+4. 六大分析模块结果表生成能力
+5. 年度汇总、区域对比、趋势预测、异常预警能力
+6. 管理端看板与预测预警展示能力
+
+同时，系统中仍保留部分早期演示接口与占位逻辑，因此本文档会明确区分“当前已实现能力”和“建议优化项”。
+
+1.4 参考资料
+1. docker-compose.yml
+2. config.py
+3. run.py
+4. web_app/app.py
+5. web_app/analysis_api.py
+6. web_app/document.py
+7. web_app/document_parser.py
+8. crawlers/*.py
+9. spark_job/*.py
+10. migrations/create_analysis_views.sql
+11. migrations/create_vw_metric_clean.sql
+12. migrations/add_health_ocr_metrics.sql
+13. 六大模块与分析功能整合规范_FINAL版.md
+
+
+2. 系统建设目标
+
+2.1 业务目标
+本系统围绕卫生健康领域数据的采集、整理、分析和展示，建立一套可扩展的轻量级数据分析决策平台。主要目标如下:
+1. 统一采集省级、国家级卫生健康新闻公告与统计信息
+2. 从公告文本和上传材料中提取结构化卫生指标
+3. 对人口、机构、人员、床位、服务、费用六大模块进行统计分析
+4. 支持年度趋势分析、跨地区对比、趋势预测和异常预警
+5. 通过管理端页面为业务人员提供可视化查看入口
+
+2.2 技术目标
+1. 以 MySQL 作为核心数据底座
+2. 以 Flask 提供 Web 页面和 REST API
+3. 以 Redis 提供轻量缓存与统计快照支持
+4. 以 Spark 或 Python 批处理脚本完成分析任务
+5. 保留向列式分析引擎和分布式文件存储演进的空间
+
+
+3. 总体架构设计
+
+3.1 架构概览
+系统整体采用“采集层 + 存储层 + 处理层 + 服务层 + 展示层”的分层架构。
+
+逻辑流向如下:
+1. 采集层从国家卫健委、地方卫健委等来源抓取新闻公告
+2. 原始数据进入 MySQL 原始新闻表
+3. OCR/规则抽取程序将文本转换为结构化指标，写入指标事实表
+4. Spark/Python 分析任务按业务主题生成分析结果表
+5. Flask API 从原始表、视图或结果表读取数据，对外提供服务
+6. 管理端页面调用 API 展示统计、预测和预警结果
+
+3.2 分层架构
+
+一. 采集层
+1. crawlers/guangxi_health_crawler.py
+2. crawlers/national_health_crawler.py
+3. crawlers/sichuan_health_crawler.py
+4. crawlers/deep_crawler.py
+5. crawlers/detail_crawler.py
+6. crawlers/nhc_deep_crawler.py
+
+职责:
+1. 抓取新闻标题、正文、发布日期、来源链接等原始信息
+2. 将采集结果写入原始新闻表
+3. 为 OCR 和后续结构化分析提供原始文本来源
+
+二. 结构化抽取层
+1. crawlers/backfill_ocr_metrics.py
+2. crawlers/ocr_structurer.py
+3. crawlers/ocr_utils.py
+4. web_app/document_parser.py
+
+职责:
+1. 从 OCR 文本、文档内容中提取结构化指标
+2. 统一指标键值和时间字段
+3. 将结果写入 health_ocr_metrics 或上传目标表
+
+三. 数据处理与分析层
+1. spark_job/six_modules_processor.py
+2. spark_job/yearly_metrics_processor.py
+3. spark_job/region_comparison_analyzer.py
+4. spark_job/trend_prediction.py
+5. spark_job/anomaly_detection.py
+
+职责:
+1. 计算六大模块结果表
+2. 生成按地区按年度汇总指标
+3. 生成区域资源与服务能力对比
+4. 生成未来年度预测结果
+5. 生成异常预警结果
+
+四. 服务层
+1. web_app/app.py
+2. web_app/analysis_api.py
+3. web_app/document.py
+
+职责:
+1. 提供登录、管理端、用户端页面
+2. 提供管理端基础统计接口
+3. 提供分析类 REST API
+4. 提供上传预览、确认入库接口
+
+五. 展示层
+1. web_app/templates/admin_dashboard.html
+2. web_app/templates/user_dashboard.html
+3. web_app/templates/login.html
+
+职责:
+1. 提供管理端分析看板
+2. 展示新闻、年报、结构化指标、六大模块状态
+3. 展示趋势预测与异常预警
+4. 提供上传与预览交互
+
+3.3 部署架构
+当前项目采用单机开发部署方式，核心依赖如下:
+1. MySQL 8.0 容器
+2. Redis 6.2 容器
+3. 本地 Python 运行 Flask 应用和数据脚本
+4. 本地或单机 Spark 环境执行批处理脚本
+
+部署关系:
+1. docker-compose 提供 db 和 redis 容器
+2. Flask 本地连接 localhost:3306 和 localhost:6379
+3. Spark/Python 批处理脚本直接连接 MySQL
+4. Web 管理端通过浏览器访问 Flask 服务 5000 端口
+
+
+4. 技术架构设计
+
+4.1 技术栈
+1. Web框架: Flask 2.2.5
+2. ORM/迁移: Flask-SQLAlchemy, Flask-Migrate, Alembic
+3. 数据库驱动: PyMySQL, mysql-connector-python
+4. 缓存: Redis
+5. 数据处理: PySpark, Python 批处理脚本
+6. 文档解析: pandas, PyPDF2, python-docx, openpyxl
+7. 前端: Jinja2 模板 + 原生 HTML/CSS/JavaScript
+
+4.2 关键配置
+1. MySQL 连接串配置于 config.py
+2. Redis 地址配置于 config.py
+3. Flask 入口为 run.py 和 web_app/app.py
+4. Docker 编排文件为 docker-compose.yml
+
+4.3 当前技术实现特征
+1. 事务型数据以 MySQL 为主
+2. 分析结果仍回写 MySQL，未独立拆分数仓引擎
+3. 管理端页面采用服务端模板，不是前后端完全分离模式
+4. 部分分析任务由 Spark 执行，部分已改为纯 Python + MySQL 执行，目的是降低本地依赖和 JDBC 风险
+
+
+5. 功能架构设计
+
+5.1 功能模块划分
+系统可划分为以下九类模块:
+1. 用户认证与页面访问模块
+2. 新闻采集与展示模块
+3. 文档上传与导入模块
+4. OCR结构化指标模块
+5. 六大分析模块
+6. 年度汇总模块
+7. 区域对比模块
+8. 趋势预测模块
+9. 异常预警模块
+
+5.2 用户认证与页面访问模块
+实现位置:
+1. /login
+2. /admin/dashboard
+3. /user/dashboard
+4. /logout
+
+设计说明:
+1. 系统采用 Session 维持登录状态
+2. 区分管理员和普通用户角色
+3. 管理端拥有分析和上传能力
+4. 用户端主要展示个人化内容和轻量统计
+
+5.3 新闻采集与展示模块
+实现位置:
+1. /api/news/national
+2. /api/news/guangxi
+3. /api/news/region
+4. /api/news/tjnb
+
+设计说明:
+1. 原始新闻按来源入不同表
+2. 管理端按范围展示区域新闻与统计年报
+3. 页面支持年份筛选和新闻详情查看
+
+5.4 文档上传与导入模块
+实现位置:
+1. /upload/preview
+2. /upload/confirm
+
+设计说明:
+1. 文件先保存到 web_app/uploads
+2. 系统依据扩展名调用不同解析器
+3. 先返回预览结果，再由管理员确认入库
+4. 当前可导入 population_info, medical_institution, health_ocr_metrics 三类目标表
+
+5.5 OCR结构化指标模块
+核心表:
+1. health_ocr_metrics
+2. vw_metric_clean
+
+设计说明:
+1. health_ocr_metrics 记录结构化指标事实
+2. vw_metric_clean 对异常值进行范围过滤
+3. 年份、月份、指标键、来源表作为核心维度
+4. 该表是大多数分析任务的基础输入
+
+5.6 六大分析模块
+六大模块分别为:
+1. 人口信息统计分析
+2. 医疗卫生机构统计分析
+3. 医疗卫生人员统计分析
+4. 医疗卫生床位统计分析
+5. 医疗服务统计分析
+6. 医疗费用统计分析
+
+结果表:
+1. analysis_population_region
+2. analysis_population_age
+3. analysis_population_gender
+4. analysis_institution_type
+5. analysis_institution_level
+6. analysis_institution_region
+7. analysis_personnel
+8. analysis_beds
+9. analysis_services
+10. analysis_costs
+
+5.7 年度汇总模块
+结果表:
+1. ocr_metrics_yearly
+
+设计说明:
+1. 将 health_ocr_metrics 或 vw_metric_clean 聚合到 region + year 粒度
+2. 为预测、异常、区域对比和接口展示提供统一输入
+
+5.8 区域对比模块
+结果表:
+1. region_comparison
+
+设计说明:
+1. 结合人口、机构汇总、年度指标表
+2. 计算每万人医师、每万人护士、每万人床位等指标
+3. 计算资源评分和服务评分
+
+5.9 趋势预测模块
+结果表:
+1. prediction_results
+
+设计说明:
+1. 基于 ocr_metrics_yearly 对关键指标做线性回归
+2. 默认预测未来 3 年
+3. 自动剔除明显异常尾点和极端历史点
+4. 写入预测值、置信区间、模型精度、训练区间说明
+
+5.10 异常预警模块
+结果表:
+1. anomaly_detection
+
+设计说明:
+1. 优先以预测值为期望值
+2. 无预测重叠时采用近三年中位数作为历史基线
+3. 按偏离幅度划分 normal, warning, critical
+4. 当前管理端已接入预测与预警展示
+
+
+6. 数据架构设计
+
+6.1 数据分层
+根据当前实现，可将数据分为四层:
+
+一. 原始采集层
+1. guangxi_news
+2. national_news
+3. sichuan_news
+4. 其他原始采集表
+
+用途:
+1. 存储公告标题、正文、来源链接、发布日期
+2. 为结构化指标回填提供原始文本
+
+二. 主数据与业务基础层
+1. medical_institution
+2. population_info
+3. hospital_bed
+4. institution_yearly_summary
+
+用途:
+1. 存储机构、人口、床位等基础数据
+2. 支撑分析计算与看板展示
+
+三. 指标事实层
+1. health_ocr_metrics
+2. report_metrics
+3. vw_metric_clean
+
+用途:
+1. 存储可计算、可聚合的卫生统计指标
+2. 为六大分析、年度汇总、预测、异常提供输入
+
+四. 分析结果层
+1. analysis_population_*
+2. analysis_institution_*
+3. analysis_personnel
+4. analysis_beds
+5. analysis_services
+6. analysis_costs
+7. ocr_metrics_yearly
+8. region_comparison
+9. prediction_results
+10. anomaly_detection
+
+用途:
+1. 为 API 和前端页面提供直接消费结果
+2. 降低实时聚合复杂度
+3. 固化分析口径
+
+6.2 地区口径设计
+当前系统明确使用以下地区口径:
+1. 广西
+2. 四川
+3. 国家
+
+设计规则:
+1. 若原始指标表无 region 字段，则由 source_table 反推地区
+2. guangxi_news 对应 广西
+3. sichuan_news 对应 四川
+4. national_news 对应 国家
+
+这是系统中非常关键的口径约束，所有分析结果表和接口应使用统一口径。
+
+6.3 时间口径设计
+1. 原始指标表按 year, month 存储时间
+2. ocr_metrics_yearly 采用 region + year 粒度
+3. prediction_results 采用 predict_year 表示未来年份
+4. anomaly_detection 使用 year 表示被检测年份
+
+6.4 指标键设计
+当前核心指标包括:
+1. doctor_count
+2. nurse_count
+3. bed_count
+4. bed_usage_rate
+5. outpatient_visits
+6. discharge_count
+7. avg_stay_days
+8. outpatient_cost
+9. discharge_cost
+
+所有分析任务和接口均基于上述标准指标键运行。
+
+
+7. 数据库详细设计
+
+7.1 核心表设计
+
+一. health_ocr_metrics
+功能:
+1. 作为 OCR 结构化指标事实表
+
+核心字段:
+1. id
+2. news_id
+3. title
+4. publish_date
+5. year
+6. month
+7. metric_key
+8. metric_name
+9. metric_value
+10. metric_raw
+11. source_table
+12. created_at
+13. updated_at
+
+关键约束:
+1. uk_news_metric(news_id, metric_key)
+2. idx_year_month(year, month)
+3. idx_metric_key(metric_key)
+
+二. population_info
+功能:
+1. 存储人口总量、年龄构成、性别构成
+
+当前特征:
+1. 已导入广西总人口与年龄构成
+2. 无独立 year 字段，现阶段更多作为最新快照使用
+
+三. medical_institution
+功能:
+1. 存储医疗机构基础信息
+
+注意事项:
+1. 历史导入数据中 region 字段存在口径不一问题
+2. 区域对比模块已通过 institution_yearly_summary 对广西部分进行补偿
+
+四. institution_yearly_summary
+功能:
+1. 存储机构年度汇总数据
+2. 支持真实值和估算值并存
+
+关键字段:
+1. region
+2. year
+3. institution_count
+4. top_hospital_count
+5. data_source
+6. is_estimated
+7. notes
+
+五. ocr_metrics_yearly
+功能:
+1. 存储按地区按年度汇总的关键指标
+
+核心字段:
+1. region
+2. year
+3. doctor_count
+4. nurse_count
+5. bed_count
+6. bed_usage_rate
+7. outpatient_visits
+8. discharge_count
+9. avg_stay_days
+10. outpatient_cost
+11. discharge_cost
+12. data_source
+13. sample_count
+
+六. region_comparison
+功能:
+1. 存储区域对比结果
+
+核心字段:
+1. region
+2. analysis_year
+3. institution_count
+4. top_hospital_count
+5. doctors_per_10k
+6. nurses_per_10k
+7. beds_per_10k
+8. avg_outpatient_per_doctor
+9. bed_turnover_rate
+10. resource_score
+11. service_score
+
+七. prediction_results
+功能:
+1. 存储趋势预测结果
+
+核心字段:
+1. region
+2. metric_key
+3. metric_name
+4. predict_year
+5. predict_value
+6. confidence_lower
+7. confidence_upper
+8. model_type
+9. model_accuracy
+10. training_data_range
+
+八. anomaly_detection
+功能:
+1. 存储异常检测结果
+
+核心字段:
+1. region
+2. metric_key
+3. year
+4. actual_value
+5. expected_value
+6. deviation_rate
+7. anomaly_level
+8. description
+
+7.2 视图设计
+当前视图包括:
+1. v_population_stats
+2. v_institution_stats
+3. v_personnel_stats
+4. v_bed_stats
+5. v_service_stats
+6. v_cost_stats
+7. v_health_metrics_summary
+8. vw_metric_clean
+
+设计作用:
+1. 用于数据清洗和主题聚合
+2. 为分析任务提供标准输入
+3. 减少业务层直接处理脏数据的复杂度
+
+
+8. 核心流程详细设计
+
+8.1 新闻采集流程
+流程描述:
+1. 爬虫程序访问目标网站
+2. 解析列表页和详情页
+3. 提取标题、正文、发布日期、链接、来源分类
+4. 写入 MySQL 原始新闻表
+5. 后续结构化任务按年份或批次继续处理
+
+关键脚本:
+1. crawlers/guangxi_health_crawler.py
+2. crawlers/national_health_crawler.py
+3. crawlers/sichuan_health_crawler.py
+
+8.2 OCR结构化流程
+流程描述:
+1. 读取原始新闻正文或 OCR 文本
+2. 根据规则匹配指标名和指标值
+3. 提取 year, month, metric_key, metric_value
+4. 写入 health_ocr_metrics
+5. 通过 vw_metric_clean 过滤不合理值
+
+关键脚本:
+1. crawlers/backfill_ocr_metrics.py
+2. crawlers/ocr_structurer.py
+
+8.3 上传导入流程
+流程描述:
+1. 管理端上传 Excel/PDF/Word/TXT
+2. document.py 将文件保存到 uploads
+3. document_parser.py 依据扩展名解析内容
+4. 根据字段特征识别目标表
+5. 返回预览给前端
+6. 管理员确认后写入 MySQL
+
+设计特点:
+1. 先预览再入库
+2. 支持人口、机构、指标三类导入
+3. 对 health_ocr_metrics 使用 upsert 防重复
+
+8.4 六大分析流程
+流程描述:
+1. 读取 population_info, medical_institution, vw_metric_clean 等基础表
+2. 按地区、年龄、级别、年度等维度聚合
+3. 将结果写入 analysis_* 结果表
+4. API 优先从结果表读取
+
+关键脚本:
+1. spark_job/six_modules_processor.py
+
+8.5 年度汇总流程
+流程描述:
+1. 读取清洗后的指标表
+2. 按 region + year 聚合关键指标
+3. 写入 ocr_metrics_yearly
+
+关键脚本:
+1. spark_job/yearly_metrics_processor.py
+
+8.6 区域对比流程
+流程描述:
+1. 读取 ocr_metrics_yearly
+2. 读取 population_info 获取人口口径
+3. 读取 institution_yearly_summary 或 medical_institution 获取机构口径
+4. 计算每万人指标、机构数、服务效率指标
+5. 按年度归一化形成评分
+6. 写入 region_comparison
+
+关键脚本:
+1. spark_job/region_comparison_analyzer.py
+
+8.7 趋势预测流程
+流程描述:
+1. 读取 ocr_metrics_yearly
+2. 按地区和指标构造时间序列
+3. 剔除明显的异常尾点和极端离群点
+4. 使用线性回归预测未来 3 年
+5. 计算置信区间和拟合优度
+6. 写入 prediction_results
+
+关键脚本:
+1. spark_job/trend_prediction.py
+
+8.8 异常预警流程
+流程描述:
+1. 读取 ocr_metrics_yearly 作为实际值
+2. 读取 prediction_results 作为预测期望值
+3. 若无预测重叠，则回退到近三年历史中位数
+4. 计算偏离率
+5. 按阈值生成告警级别
+6. 写入 anomaly_detection
+
+告警阈值:
+1. 绝对偏离率 >= 20% 且 < 50% 为 warning
+2. 绝对偏离率 >= 50% 为 critical
+
+关键脚本:
+1. spark_job/anomaly_detection.py
+
+
+9. 服务与接口详细设计
+
+9.1 页面路由
+1. /
+2. /login
+3. /admin/dashboard
+4. /user/dashboard
+5. /logout
+
+9.2 管理端基础接口
+1. /api/health-stats
+2. /api/news/national
+3. /api/news/guangxi
+4. /api/news/region
+5. /api/news/tjnb
+6. /api/metrics/summary
+7. /api/analysis/module-status
+8. /api/analysis/data-summary
+9. /api/analysis/metric-details
+10. /admin/api/action
+11. /admin/api/alerts
+12. /api/institutions/charts
+
+9.3 分析接口
+1. /api/analysis/population
+2. /api/analysis/institutions
+3. /api/analysis/personnel
+4. /api/analysis/beds
+5. /api/analysis/services
+6. /api/analysis/costs
+7. /api/metrics/yearly
+8. /api/analysis/region-comparison
+9. /api/prediction/results
+10. /api/anomaly/alerts
+
+9.4 上传接口
+1. /upload/preview
+2. /upload/confirm
+
+9.5 用户端接口
+1. /user/api/profile
+2. /user/api/tips
+3. /user/api/reminders
+4. /user/api/trend
+
+9.6 接口设计原则
+1. 分析接口优先读取分析结果表
+2. 结果表缺失时再回退至基础表或视图
+3. 返回结构统一使用 JSON
+4. 大部分接口带 success/data/meta 或 status/data 结构
+5. 前端使用 scope 参数切换广西、四川、国家或全部范围
+
+
+10. 前端详细设计
+
+10.1 管理端页面组成
+管理端页面主要包含:
+1. 顶部状态栏与范围切换器
+2. 侧边导航栏
+3. 核心概览区
+4. 实时告警区
+5. 区域新闻区
+6. 统计年报区
+7. 结构化指标区
+8. 六大分析模块区
+9. 趋势预测与异常预警区
+10. 文档上传弹窗
+
+10.2 管理端交互设计
+1. 通过 scopeSelector 控制范围切换
+2. 通过侧边导航控制单页模块切换或显示全部
+3. 通过按钮触发刷新、上传、查看详情等行为
+4. 通过 Canvas 绘制人口、指标趋势和预测图
+5. 通过卡片和列表展示异常预警
+
+10.3 用户端页面设计
+用户端页面定位为轻量展示页面，提供:
+1. 用户资料显示
+2. 健康提示
+3. 提醒事项
+4. 简单趋势图
+
+
+11. 部署与运行设计
+
+11.1 基础服务启动
+1. 使用 docker-compose 启动 MySQL 和 Redis
+2. 使用 python run.py 启动 Flask 服务
+3. 使用单独命令执行爬虫和分析脚本
+
+11.2 推荐启动顺序
+1. 启动 Docker 容器
+2. 执行数据库迁移与建表脚本
+3. 执行采集或导入脚本
+4. 执行六大模块处理脚本
+5. 执行年度汇总脚本
+6. 执行区域对比脚本
+7. 执行趋势预测脚本
+8. 执行异常预警脚本
+9. 启动 Flask 服务
+
+11.3 当前运行依赖
+1. MySQL 3306
+2. Redis 6379
+3. Flask 5000
+4. Spark 本地环境
+5. MySQL JDBC 驱动
+
+11.4 文件目录设计
+1. crawlers: 数据采集与OCR相关脚本
+2. web_app: Flask应用与模板
+3. spark_job: 分析与建模脚本
+4. migrations: SQL脚本与视图/结果表定义
+5. tools: 数据导入辅助脚本
+6. inputs: 外部提供的源数据文件
+7. outputs: 导出结果
+8. mysql_data: MySQL 数据卷目录
+
+
+12. 安全与权限设计
+
+12.1 权限控制
+1. 管理员角色可以访问管理端、上传接口、分析接口
+2. 普通用户角色访问用户端页面
+3. 当前采用基于 Session 的简单角色判断
+
+12.2 数据安全
+1. 文件上传通过 secure_filename 处理文件名
+2. MySQL 写入使用参数化 SQL，降低注入风险
+3. 上传流程采用预览后确认，降低误入库风险
+
+12.3 当前风险
+1. 账号密码仍为演示级硬编码
+2. 缺少更细粒度的接口权限控制
+3. 缺少操作审计日志
+4. 缺少文件哈希校验和病毒扫描
+
+
+13. 性能设计
+
+13.1 当前性能策略
+1. 采用结果表降低页面实时聚合压力
+2. 使用 Redis 保存部分统计快照
+3. 使用 MySQL 索引提升按年份、指标键检索效率
+4. 使用批处理离线生成对比、预测、预警结果
+
+13.2 性能瓶颈点
+1. 原始新闻表持续增长后，原始聚合查询会变慢
+2. 文档导入目前为同步处理
+3. Spark 在本地运行时受 JDBC 和内存配置影响较大
+4. 管理端仍有部分旧接口实时读原始表
+
+13.3 性能优化建议
+1. 将管理端总览全面切换到结果表
+2. 为高频接口增加统一缓存策略
+3. 进一步将分析脚本转为纯 Python/MySQL 或统一调度
+4. 引入定时任务框架统一执行批处理
+
+
+14. 可维护性设计
+
+14.1 模块解耦
+当前项目已形成较清晰的目录分工:
+1. 采集逻辑与 Web 服务分离
+2. 文档导入与分析 API 分离
+3. 分析计算与前端展示分离
+
+14.2 可扩展性
+系统具备以下扩展空间:
+1. 新增地区来源
+2. 新增指标键
+3. 新增分析结果表
+4. 新增前端分析面板
+5. 新增列式存储或对象存储
+
+14.3 建议进一步优化
+1. 将数据库连接配置统一抽象
+2. 为批处理脚本增加统一日志规范
+3. 建立统一任务调度入口
+4. 对旧演示接口做清理或标注
+
+
+15. 当前实现状态评估
+
+15.1 已实现
+1. Docker 化 MySQL 和 Redis
+2. Flask 管理端与用户端页面
+3. 新闻采集链路
+4. OCR 结构化指标链路
+5. 上传预览与确认入库链路
+6. 六大模块结果表
+7. 年度汇总表
+8. 区域对比表
+9. 趋势预测表
+10. 异常预警表
+11. 管理端预测与预警展示
+
+15.2 部分实现或需继续整理
+1. 管理端部分旧接口仍有早期演示逻辑
+2. medical_institution 历史地区字段口径需持续清理
+3. population_info 缺少年份字段，现阶段更适合做快照分析
+4. 部分页面文本曾有编码历史问题，需要持续统一为 UTF-8
+
+15.3 技术注意事项
+1. Flask 2.2.5 与 Werkzeug 3.1.x 在测试客户端场景下存在兼容性注意事项
+2. Spark JDBC 运行依赖 MySQL 驱动包
+3. 当前环境对 Docker 容器启动状态依赖明显，MySQL 不启动会导致批处理失败
+
+
+16. 风险与改进建议
+
+16.1 数据风险
+1. 上游表格口径不统一会直接影响对比和预测结果
+2. 未完全年数据会导致趋势预测和异常预警出现偏差
+3. 历史机构表缺少明细名称时，只能做年度汇总分析
+
+16.2 系统风险
+1. 单机部署不适合生产级高并发
+2. 任务执行尚未纳入统一调度和监控
+3. 错误恢复与补数流程依赖人工
+
+16.3 优化建议
+1. 建立统一任务调度器，按日或按周生成结果表
+2. 为关键表补充数据字典和质量校验规则
+3. 增加任务执行日志表和运行状态页
+4. 将人口和机构基础数据逐步标准化
+5. 清理旧接口，统一所有页面读取结果表
+6. 增加自动化测试与接口验收脚本
+
+
+17. 结论
+
+本项目当前已经形成一套完整的卫生健康数据分析系统雏形，其核心特点是:
+1. 以 MySQL 为中心的数据底座
+2. 以 Flask 为中心的页面与接口服务
+3. 以 OCR 结构化指标为核心分析输入
+4. 以结果表驱动的统计分析、预测分析和异常预警
+5. 以管理端页面作为业务使用入口
+
+从工程角度看，系统已经具备“可演示、可迭代、可继续工程化”的基础。
+从下一阶段建设看，建议重点推进三件事:
+1. 统一基础数据口径
+2. 统一前端和 API 的结果表读取路径
+3. 建立任务调度、日志、监控和测试体系
+
+文档完

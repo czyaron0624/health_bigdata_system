@@ -311,6 +311,8 @@ class GuangxiHealthCrawler:
         
         return text
     
+
+
     def crawl_with_ocr(self, enable_ocr=True, min_year=2015, year_filter_source='title'):
         """
         主爬虫函数（支持OCR）
@@ -318,31 +320,32 @@ class GuangxiHealthCrawler:
         """
         conn = None
         try:
-            # 连接数据库
             conn = mysql.connector.connect(
-                host="localhost", user="root", 
-                password="rootpassword", database="health_db"
+                host="localhost",
+                user="root",
+                password="rootpassword",
+                database="health_db",
             )
             cursor = conn.cursor()
             self.ensure_table_columns(cursor)
             conn.commit()
-            
+
             logger.info("🚀 准备开始采集广西卫健委数据...")
-            logger.info(f"📁 采集栏目: {', '.join(self.sections)}")
-            
+            logger.info(f"📧 采集栏目: {', '.join(self.sections)}")
+
             inserted_count = 0
             ocr_count = 0
             skipped_count = 0
             year_filtered_count = 0
             seen_links = set()
-            
+
             for section_key in self.sections:
                 section_cfg = self.section_configs[section_key]
                 page_urls = self._collect_list_page_urls(section_cfg['base_url'], section_cfg['link_hint'])
-                logger.info(f"📄 [{section_key}] 发现列表页 {len(page_urls)} 个")
+                logger.info(f"📫 [{section_key}] 发现列表页 {len(page_urls)} 个")
 
                 for page_idx, page_url in enumerate(page_urls, 1):
-                    logger.info(f"📚 [{section_key}] 正在处理列表页 {page_idx}/{len(page_urls)}: {page_url}")
+                    logger.info(f"📎 [{section_key}] 正在处理列表页 {page_idx}/{len(page_urls)}: {page_url}")
                     try:
                         page_items = self._extract_items_from_page(page_url, section_cfg['link_hint'])
                     except Exception as e:
@@ -365,8 +368,7 @@ class GuangxiHealthCrawler:
                         if filter_year is not None and filter_year < min_year:
                             year_filtered_count += 1
                             continue
-                    
-                        # OCR处理（如果启用）
+
                         detail_context = None
                         ocr_content = ""
                         if enable_ocr:
@@ -374,43 +376,47 @@ class GuangxiHealthCrawler:
                                 detail_context = self.extract_detail_context(full_url)
                                 images = detail_context.get('images', [])
 
-                                # 对每张图片进行OCR（最多处理前5张），使用多线程加快下载和识别速度
                                 image_texts = []
                                 import concurrent.futures
+
                                 with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-                                    future_to_url = {executor.submit(self.process_image_with_ocr, img_url): img_url for img_url in images[:5]}
-                                    for future in concurrent.futures.as_completed(future_to_url):
+                                    futures = [
+                                        executor.submit(self.process_image_with_ocr, img_url)
+                                        for img_url in images[:5]
+                                    ]
+                                    for future in concurrent.futures.as_completed(futures):
                                         try:
                                             text = future.result()
                                             if text:
                                                 image_texts.append(text)
                                         except Exception as exc:
                                             logger.warning(f"   ⚠️ 多线程处理图片异常: {exc}")
-                                
-                                # 将乱序的结果合并（这里顺序不太影响结构化提取）
+
                                 if image_texts:
                                     ocr_content = "\n---\n".join(image_texts)
                                     ocr_count += 1
                             except Exception as e:
                                 logger.warning(f"   ⚠️ OCR处理异常: {e}")
+
                         if detail_context is None:
                             try:
                                 detail_context = self.extract_detail_context(full_url)
                             except Exception as e:
                                 logger.warning(f"   ⚠️ 上下文提取异常: {e}")
-                    
-                        # 保存到数据库
+
+                        detail_context_json = json.dumps(detail_context, ensure_ascii=False) if detail_context else None
+
                         try:
                             sql = """INSERT INTO guangxi_news 
                                     (title, link, publish_date, ocr_content, detail_context) 
                                     VALUES (%s, %s, %s, %s, %s)"""
-                            cursor.execute(sql, (title, full_url, date, ocr_content, json.dumps(detail_context, ensure_ascii=False) if detail_context else None))
+                            cursor.execute(sql, (title, full_url, date, ocr_content, detail_context_json))
                             conn.commit()
 
                             if ocr_content:
-                                logger.info(f"✅ [{section_key}] 已保存（含OCR）: {title}")
+                                logger.info(f"✅[{section_key}] 已保存（含OCR）: {title}")
                             else:
-                                logger.info(f"✅ [{section_key}] 已保存: {title}")
+                                logger.info(f"✅[{section_key}] 已保存: {title}")
 
                             inserted_count += 1
 
@@ -430,37 +436,47 @@ class GuangxiHealthCrawler:
                                         END
                                     WHERE link = %s
                                 """
-                                cursor.execute(update_sql, (title, date, json.dumps(detail_context, ensure_ascii=False) if detail_context else None, json.dumps(detail_context, ensure_ascii=False) if detail_context else None, json.dumps(detail_context, ensure_ascii=False) if detail_context else None, ocr_content, ocr_content, ocr_content, full_url))
+                                cursor.execute(
+                                    update_sql,
+                                    (
+                                        title,
+                                        date,
+                                        detail_context_json,
+                                        detail_context_json,
+                                        detail_context_json,
+                                        ocr_content,
+                                        ocr_content,
+                                        ocr_content,
+                                        full_url,
+                                    ),
+                                )
                                 conn.commit()
 
                                 if ocr_content:
-                                    logger.info(f"✅ [{section_key}] 已更新（含OCR）: {title}")
+                                    logger.info(f"✅[{section_key}] 已更新（含OCR）: {title}")
                                 else:
-                              降低原有较大的 hardcoded delay，提升整体速度
-                        time.sleep(0.2 if enable_ocr else 0.05
+                                    logger.info(f"✅[{section_key}] 已更新: {title}")
+
                                 inserted_count += 1
                             else:
                                 logger.error(f"❌ 数据库错误: {e}")
 
-                        # 减速带：禁用OCR时可加速
-                        time.sleep(1 if enable_ocr else 0.1)
-            
-            # 统计结果
+                        # 降低硬编码延迟，在保持稳定的前提下提升速度
+                        time.sleep(0.2 if enable_ocr else 0.05)
+
             logger.info("\n" + "=" * 50)
-            logger.info(f"🎉 爬取完成！")
-            logger.info(f"   📊 新增数据: {inserted_count} 条")
-            logger.info(f"   🔍 OCR识别: {ocr_count} 条")
+            logger.info("🎀 爬取完成！")
+            logger.info(f"   📳 新增数据: {inserted_count} 条")
+            logger.info(f"   📳 OCR识别: {ocr_count} 条")
             logger.info(f"   ⏭️ 跳过无效: {skipped_count} 条")
-            logger.info(f"   📅 年份过滤(<{min_year}, 来源={year_filter_source}): {year_filtered_count} 条")
+            logger.info(f"   📮 年份过滤(<{min_year}, 来源={year_filter_source}): {year_filtered_count} 条")
             logger.info("=" * 50)
-        
+
         except Exception as e:
             logger.error(f"❌ 运行报错: {e}")
         finally:
             if conn:
                 conn.close()
-
-
 def slow_crawl_to_mysql():
     """向后兼容的入口函数"""
     crawler = GuangxiHealthCrawler()

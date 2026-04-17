@@ -8,6 +8,12 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+
+def configure_output():
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
 # 多个真实User-Agent
 USER_AGENTS = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -142,6 +148,7 @@ def test_nhc_access(url: str, timeout: int, sleep_seconds: float):
 if __name__ == "__main__":
     import urllib3
 
+    configure_output()
     urllib3.disable_warnings()
 
     parser = argparse.ArgumentParser(description="测试国家卫健委页面访问")
