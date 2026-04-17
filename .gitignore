@@ -13,3 +13,6 @@ __pycache__/
 
 # 忽略 VS Code 的本地设置
 .vscode/
+
+# 忽略输出数据文件
+outputs/
